@@ -1071,7 +1071,7 @@
   const downloadBtn   = document.getElementById('downloadBtn');
   const shareBtn      = document.getElementById('shareBtn');
 
-  // Build PDF (shared by Download + Share) – always LETTER (8.5 x 11)
+  // Build PDF – always LETTER (8.5 x 11), full-width, multi-page
   async function buildPdf() {
     const { jsPDF } = window.jspdf;
     const pdf = new jsPDF('p', 'mm', 'letter');
@@ -1080,7 +1080,7 @@
     if (buttonRow) buttonRow.style.display = 'none';
 
     try {
-      // Page 1: main form (scaled to fit consistently)
+      // Render form as canvas
       const canvas = await html2canvas(formContainer, {
         scale: 2,
         useCORS: true
@@ -1090,17 +1090,24 @@
       const pdfWidth  = pdf.internal.pageSize.getWidth();
       const pdfHeight = pdf.internal.pageSize.getHeight();
 
-      let imgWidth  = canvas.width;
-      let imgHeight = canvas.height;
-      const scale   = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight);
+      // Full-width image
+      const imgWidth  = pdfWidth;
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
 
-      imgWidth  *= scale;
-      imgHeight *= scale;
+      let heightLeft = imgHeight;
+      let position   = 0;
 
-      const x = (pdfWidth  - imgWidth)  / 2;
-      const y = (pdfHeight - imgHeight) / 2;
+      // First page
+      pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+      heightLeft -= pdfHeight;
 
-      pdf.addImage(imgData, 'JPEG', x, y, imgWidth, imgHeight);
+      // Additional pages if needed
+      while (heightLeft > 0) {
+        position -= pdfHeight;
+        pdf.addPage();
+        pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+        heightLeft -= pdfHeight;
+      }
 
       // Additional pages – photos, 4 per page
       const photoCards = Array.from(document.querySelectorAll('.photo-card'));
@@ -1211,28 +1218,41 @@
       const blob = pdf.output('blob');
       const file = new File([blob], fileName, { type: 'application/pdf' });
 
-      if (navigator.canShare && navigator.canShare({ files: [file] })) {
-        try {
+      try {
+        // Best case: share with file support
+        if (navigator.canShare && navigator.canShare({ files: [file] })) {
           await navigator.share({
             files: [file],
             title: 'Weekly Vehicle Inspection',
             text: 'Weekly Vehicle Inspection PDF from VistaGeomatics.'
           });
-        } catch (err) {
-          console.error('Share cancelled or failed', err);
         }
-      } else if (navigator.share && !navigator.canShare) {
-        // Some older browsers support navigator.share but not file sharing; fall back to download
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = fileName;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-      } else {
-        // No share support – fallback to normal download
+        // Fallback: share a URL if share is available but file-sharing isn’t
+        else if (navigator.share) {
+          const url = URL.createObjectURL(blob);
+          try {
+            await navigator.share({
+              url,
+              title: 'Weekly Vehicle Inspection',
+              text: 'Weekly Vehicle Inspection PDF from VistaGeomatics.'
+            });
+          } finally {
+            URL.revokeObjectURL(url);
+          }
+        }
+        // Final fallback: just download
+        else {
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = fileName;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+        }
+      } catch (err) {
+        console.error('Share cancelled or failed, falling back to download', err);
         pdf.save(fileName);
       }
     });
