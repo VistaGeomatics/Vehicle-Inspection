@@ -477,7 +477,7 @@
         <h1>VISTAGEOMATICS</h1>
         <p>Weekly Vehicle Inspection Checklist</p>
       </div>
-      <img src="vista-geomatics.png" alt="VistaGeomatics Logo" class="header-logo">
+      <img src="../Evidence Report/vista-geomatics.png" alt="VistaGeomatics Logo" class="header-logo">
     </div>
 
     <div class="page-title-bar">
@@ -623,7 +623,7 @@
           <tr>
             <td>
               Registration – Expiry Date:
-              <input type="text" class="small-input" name="registration_expiry" style="width:120px; margin-left:6px;">
+              <input type="date" class="small-input" name="registration_expiry" style="width:150px; margin-left:6px;">
             </td>
             <td class="status-select">
               <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_registration" value="pass">✔</label>
@@ -634,7 +634,7 @@
           <tr>
             <td>
               Insurance – Expiry Date:
-              <input type="text" class="small-input" name="insurance_expiry" style="width:120px; margin-left:6px;">
+              <input type="date" class="small-input" name="insurance_expiry" style="width:150px; margin-left:6px;">
             </td>
             <td class="status-select">
               <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_insurance" value="pass">✔</label>
@@ -643,19 +643,14 @@
             </td>
           </tr>
           <tr>
-            <td>Original Safety Certificates in Cab</td>
+            <td>Safety Certificate Available and Current</td>
             <td class="status-select">
-              <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_original_certs" value="pass">✔</label>
-              <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_original_certs" value="m">M</label>
-              <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_original_certs" value="r">R</label>
-            </td>
-          </tr>
-          <tr>
-            <td>Copies of Safety Certificates on Person</td>
-            <td class="status-select">
-              <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_copies_certs" value="pass">✔</label>
-              <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_copies_certs" value="m">M</label>
-              <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_copies_certs" value="r">R</label>
+              <label class="status-cell">
+                <input type="checkbox" class="yn-box" data-group="safety_cert" value="yes">Yes
+              </label>
+              <label class="status-cell">
+                <input type="checkbox" class="yn-box" data-group="safety_cert" value="no">No
+              </label>
             </td>
           </tr>
           <tr>
@@ -731,11 +726,17 @@
             </td>
           </tr>
           <tr>
-            <td>Fire Extinguisher – Expiry Date</td>
+            <td>
+              Fire Extinguisher – Expiry Date:
+              <input type="date" class="small-input" name="fire_ext_expiry" style="width:150px; margin-left:6px;">
+            </td>
             <td class="status-select">
-              <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_fire_ext" value="pass">✔</label>
-              <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_fire_ext" value="m">M</label>
-              <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_fire_ext" value="r">R</label>
+              <label class="status-cell">
+                <input type="checkbox" class="yn-box" data-group="fire_extinguisher" value="yes">Yes
+              </label>
+              <label class="status-cell">
+                <input type="checkbox" class="yn-box" data-group="fire_extinguisher" value="no">No
+              </label>
             </td>
           </tr>
           <tr>
@@ -1070,7 +1071,7 @@
   const downloadBtn   = document.getElementById('downloadBtn');
   const shareBtn      = document.getElementById('shareBtn');
 
-  // Build PDF (shared by Download + Share)
+  // Build PDF (shared by Download + Share) – always LETTER (8.5 x 11)
   async function buildPdf() {
     const { jsPDF } = window.jspdf;
     const pdf = new jsPDF('p', 'mm', 'letter');
@@ -1079,7 +1080,7 @@
     if (buttonRow) buttonRow.style.display = 'none';
 
     try {
-      // Page 1: main form (scaled to fit)
+      // Page 1: main form (scaled to fit consistently)
       const canvas = await html2canvas(formContainer, {
         scale: 2,
         useCORS: true
@@ -1168,20 +1169,47 @@
     }
   }
 
+  // Default filename helper: "YYYY-MM-DD Truck Inspection"
+  function getDefaultFileName() {
+    const d = new Date();
+    const yyyy = d.getFullYear();
+    const mm = String(d.getMonth() + 1).padStart(2, '0');
+    const dd = String(d.getDate()).padStart(2, '0');
+    return `${yyyy}-${mm}-${dd} Truck Inspection`;
+  }
+
+  // Prompt user for filename, ensure .pdf extension
+  function promptFileName() {
+    const defaultName = getDefaultFileName();
+    let name = prompt('Enter a file name for this inspection PDF:', defaultName);
+    if (name === null) return null; // user cancelled
+    name = name.trim();
+    if (!name) return null;
+    if (!name.toLowerCase().endsWith('.pdf')) {
+      name += '.pdf';
+    }
+    return name;
+  }
+
   // Download button
   if (downloadBtn) {
     downloadBtn.addEventListener('click', async () => {
+      const fileName = promptFileName();
+      if (!fileName) return;
       const pdf = await buildPdf();
-      pdf.save('WeeklyVehicleInspection.pdf');
+      pdf.save(fileName);
     });
   }
 
   // Share button (for iPad/iOS etc.)
   if (shareBtn) {
     shareBtn.addEventListener('click', async () => {
+      const fileName = promptFileName();
+      if (!fileName) return;
+
       const pdf = await buildPdf();
       const blob = pdf.output('blob');
-      const file = new File([blob], 'WeeklyVehicleInspection.pdf', { type: 'application/pdf' });
+      const file = new File([blob], fileName, { type: 'application/pdf' });
 
       if (navigator.canShare && navigator.canShare({ files: [file] })) {
         try {
@@ -1191,7 +1219,6 @@
             text: 'Weekly Vehicle Inspection PDF from VistaGeomatics.'
           });
         } catch (err) {
-          // User cancelled or share failed; do nothing
           console.error('Share cancelled or failed', err);
         }
       } else if (navigator.share && !navigator.canShare) {
@@ -1199,14 +1226,14 @@
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = 'WeeklyVehicleInspection.pdf';
+        a.download = fileName;
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
         URL.revokeObjectURL(url);
       } else {
         // No share support – fallback to normal download
-        pdf.save('WeeklyVehicleInspection.pdf');
+        pdf.save(fileName);
       }
     });
   }
