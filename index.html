@@ -179,6 +179,7 @@
 
     textarea {
 
+
       min-height: 60px;
       resize: vertical;
     }
@@ -1447,6 +1448,12 @@
                   </label>
                 </td>
               </tr>
+
+              <!-- Spacer row to push Tire Wear onto next PDF page -->
+              <tr style="height: 24px;">
+                <td colspan="2" style="background:#f9fbff; border:none;"></td>
+              </tr>
+
               <tr>
                 <td>Tire Wear</td>
                 <td class="status-select">
@@ -1676,11 +1683,11 @@
                 </div>
                 <div>
                   <div class="signature-label">Date</div>
+                  <!-- DATE SELECTOR -->
                   <input
-                    type="text"
+                    type="date"
                     class="small-input"
                     name="operator_date"
-                    placeholder="YYYY-MM-DD"
                   />
                 </div>
               </div>
@@ -1713,22 +1720,22 @@
                 </div>
                 <div>
                   <div class="signature-label">Date</div>
+                  <!-- DATE SELECTOR -->
                   <input
-                    type="text"
+                    type="date"
                     class="small-input"
                     name="review_date"
-                    placeholder="YYYY-MM-DD"
                   />
                 </div>
               </div>
               <div class="signature-box-row">
                 <div>
-                  <div class="signature-label">Fix Date</div>
+                  <div class="signature-label">Fix Date (if applicable)</div>
+                  <!-- DATE SELECTOR -->
                   <input
-                    type="text"
+                    type="date"
                     class="small-input"
                     name="review_fix_date"
-                    placeholder="YYYY-MM-DD or N/A"
                   />
                 </div>
               </div>
