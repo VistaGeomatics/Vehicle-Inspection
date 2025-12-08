@@ -4,8 +4,10 @@
   <meta charset="UTF-8" />
   <title>VistaGeomatics – Weekly Vehicle Inspection</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
-
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@400;700&display=swap"
+    rel="stylesheet"
+  />
   <style>
     :root {
       --vista-blue: #165f7d;
@@ -18,13 +20,20 @@
       --text-muted: #6b7280;
     }
 
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
     body {
       margin: 0;
       padding: 16px;
       font-family: "Inter", sans-serif;
-      background: radial-gradient(circle at top, #f4f8fc 0, #e4edf6 40%, #dde6f3 100%);
+      background: radial-gradient(
+        circle at top,
+        #f4f8fc 0,
+        #e4edf6 40%,
+        #dde6f3 100%
+      );
       color: var(--text-main);
     }
 
@@ -36,7 +45,8 @@
     .container {
       background: var(--bg-card);
       border-radius: 16px;
-      box-shadow: 0 14px 30px rgba(5, 41, 66, 0.18), 0 0 0 1px rgba(5, 41, 66, 0.04);
+      box-shadow: 0 14px 30px rgba(5, 41, 66, 0.18),
+        0 0 0 1px rgba(5, 41, 66, 0.04);
       overflow: hidden;
       position: relative;
     }
@@ -46,7 +56,11 @@
       position: absolute;
       inset: 0;
       pointer-events: none;
-      background: radial-gradient(circle at top right, rgba(22,95,125,0.16), transparent 55%);
+      background: radial-gradient(
+        circle at top right,
+        rgba(22, 95, 125, 0.16),
+        transparent 55%
+      );
       opacity: 0.9;
     }
 
@@ -58,7 +72,12 @@
       align-items: center;
       justify-content: space-between;
       padding: 12px 20px;
-      background: linear-gradient(120deg, var(--vista-blue-light) 0%, var(--vista-blue) 40%, var(--vista-blue-dark) 100%);
+      background: linear-gradient(
+        120deg,
+        var(--vista-blue-light) 0%,
+        var(--vista-blue) 40%,
+        var(--vista-blue-dark) 100%
+      );
       color: #fff;
     }
 
@@ -78,7 +97,7 @@
 
     .header-logo {
       height: 60px;
-      filter: drop-shadow(0 5px 14px rgba(0,0,0,0.35));
+      filter: drop-shadow(0 5px 14px rgba(0, 0, 0, 0.35));
     }
 
     /* PAGE TITLE */
@@ -87,7 +106,11 @@
       z-index: 1;
       text-align: center;
       padding: 12px 20px 6px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.78), #f7faff);
+      background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.78),
+        #f7faff
+      );
     }
 
     .page-title-main {
@@ -109,8 +132,13 @@
       height: 3px;
       margin: 8px auto 0;
       border-radius: 999px;
-      background: linear-gradient(120deg, var(--vista-blue-light), var(--vista-blue), var(--vista-blue-dark));
-      box-shadow: 0 0 8px rgba(46,167,224,0.65);
+      background: linear-gradient(
+        120deg,
+        var(--vista-blue-light),
+        var(--vista-blue),
+        var(--vista-blue-dark)
+      );
+      box-shadow: 0 0 8px rgba(46, 167, 224, 0.65);
     }
 
     form {
@@ -146,10 +174,11 @@
       outline: none;
       border-color: var(--vista-blue-light);
       background: #fff;
-      box-shadow: 0 0 0 2px rgba(38,132,168,0.18);
+      box-shadow: 0 0 0 2px rgba(38, 132, 168, 0.18);
     }
 
     textarea {
+
       min-height: 60px;
       resize: vertical;
     }
@@ -165,7 +194,12 @@
       padding: 8px 10px 10px;
       border-radius: 12px;
       border: 1px solid var(--border-soft);
-      background: linear-gradient(135deg, #fbfdff 0%, #f4f8fd 60%, #eff5fb 100%);
+      background: linear-gradient(
+        135deg,
+        #fbfdff 0%,
+        #f4f8fd 60%,
+        #eff5fb 100%
+      );
       box-shadow: 0 8px 20px rgba(5, 41, 66, 0.05);
       position: relative;
     }
@@ -173,10 +207,16 @@
     .section-card::before {
       content: "";
       position: absolute;
-      top: 0; left: 0; right: 0;
+      top: 0;
+      left: 0;
+      right: 0;
       height: 3px;
       border-radius: 12px 12px 0 0;
-      background: linear-gradient(90deg, var(--vista-blue-light), var(--vista-blue-dark));
+      background: linear-gradient(
+        90deg,
+        var(--vista-blue-light),
+        var(--vista-blue-dark)
+      );
     }
 
     .section-header {
@@ -231,7 +271,8 @@
       font-size: 0.78rem;
     }
 
-    th, td {
+    th,
+    td {
       padding: 3px 4px;
       border: 1px solid var(--border-soft);
     }
@@ -385,7 +426,7 @@
     .small-input:focus {
       outline: none;
       border-color: var(--vista-blue-light);
-      box-shadow: 0 0 0 2px rgba(38,132,168,0.18);
+      box-shadow: 0 0 0 2px rgba(38, 132, 168, 0.18);
     }
 
     .comments-area textarea {
@@ -439,7 +480,12 @@
     }
 
     .btn-primary {
-      background: linear-gradient(120deg, var(--vista-blue-light), var(--vista-blue), var(--vista-blue-dark));
+      background: linear-gradient(
+        120deg,
+        var(--vista-blue-light),
+        var(--vista-blue),
+        var(--vista-blue-dark)
+      );
       color: #fff;
       box-shadow: 0 8px 20px rgba(5, 41, 66, 0.35);
     }
@@ -470,851 +516,1670 @@
   </style>
 </head>
 <body>
-<div class="page-wrap">
-  <div class="container" id="formContainer">
-    <div class="header-bar">
-      <div class="header-left">
-        <h1>VISTAGEOMATICS</h1>
-        <p>Weekly Vehicle Inspection Checklist</p>
+  <div class="page-wrap">
+    <div class="container" id="formContainer">
+      <div class="header-bar">
+        <div class="header-left">
+          <h1>VISTAGEOMATICS</h1>
+          <p>Weekly Vehicle Inspection Checklist</p>
+        </div>
+        <img
+          src="vista-geomatics.png"
+          alt="VistaGeomatics Logo"
+          class="header-logo"
+        />
       </div>
-      <img src="vista-geomatics.png" alt="VistaGeomatics Logo" class="header-logo">
+
+      <div class="page-title-bar">
+        <div class="page-title-main">Weekly Vehicle Inspection</div>
+        <div class="page-title-sub">
+          To be submitted every Monday before 8:00 a.m.
+        </div>
+        <div class="page-title-accent"></div>
+      </div>
+
+      <form id="vehicleForm">
+        <!-- Top information -->
+        <div class="section-card">
+          <div class="top-info-header">Form must be completed in full</div>
+          <div class="grid-2">
+            <div>
+              <label for="date">Date</label>
+              <input type="date" id="date" name="date" />
+            </div>
+            <div>
+              <label for="license">License Plate #</label>
+              <input type="text" id="license" name="license" />
+            </div>
+            <div>
+              <label for="operator">Operator</label>
+              <input type="text" id="operator" name="operator" />
+            </div>
+            <div>
+              <label for="cell">Cell Phone #</label>
+              <input type="text" id="cell" name="cell" />
+            </div>
+            <div>
+              <label for="ymm">Year / Make / Model</label>
+              <input type="text" id="ymm" name="ymm" />
+            </div>
+            <div>
+              <label for="mileage">Mileage</label>
+              <input type="text" id="mileage" name="mileage" />
+            </div>
+            <div>
+              <label for="colour">Colour</label>
+              <input type="text" id="colour" name="colour" />
+            </div>
+            <div>
+              <label for="nextservice">Next Service Due</label>
+              <input type="text" id="nextservice" name="nextservice" />
+            </div>
+          </div>
+
+          <div class="rating-legend">
+            <div>
+              <span class="code">✔</span> Passed in good working condition
+            </div>
+            <div><span class="code">M</span> Passed but maintenance required</div>
+            <div>
+              <span class="code">R</span> Rejected, repair necessary before use
+            </div>
+          </div>
+        </div>
+
+        <!-- Under the Hood -->
+        <div class="section-card">
+          <div class="section-header">
+            <div class="section-title">Under the Hood</div>
+            <div class="section-note">Tick one option per row.</div>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th class="item-name">Item</th>
+                <th class="status-select">Status (✔ / M / R)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Motor Oil</td>
+                <td class="status-select">
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="hood_motor_oil"
+                      value="pass"
+                    />✔
+                  </label>
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="hood_motor_oil"
+                      value="m"
+                    />M
+                  </label>
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="hood_motor_oil"
+                      value="r"
+                    />R
+                  </label>
+                </td>
+              </tr>
+              <tr>
+                <td>Cooling System</td>
+                <td class="status-select">
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="hood_cooling"
+                      value="pass"
+                    />✔
+                  </label>
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="hood_cooling"
+                      value="m"
+                    />M
+                  </label>
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="hood_cooling"
+                      value="r"
+                    />R
+                  </label>
+                </td>
+              </tr>
+              <tr>
+                <td>Power Steering Fluid</td>
+                <td class="status-select">
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="hood_steering"
+                      value="pass"
+                    />✔
+                  </label>
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="hood_steering"
+                      value="m"
+                    />M
+                  </label>
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="hood_steering"
+                      value="r"
+                    />R
+                  </label>
+                </td>
+              </tr>
+              <tr>
+                <td>Battery</td>
+                <td class="status-select">
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="hood_battery"
+                      value="pass"
+                    />✔
+                  </label>
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="hood_battery"
+                      value="m"
+                    />M
+                  </label>
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="hood_battery"
+                      value="r"
+                    />R
+                  </label>
+                </td>
+              </tr>
+              <tr>
+                <td>Brake Fluid</td>
+                <td class="status-select">
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="hood_brake_fluid"
+                      value="pass"
+                    />✔
+                  </label>
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="hood_brake_fluid"
+                      value="m"
+                    />M
+                  </label>
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="hood_brake_fluid"
+                      value="r"
+                    />R
+                  </label>
+                </td>
+              </tr>
+              <tr>
+                <td>Windshield Washer Fluid</td>
+                <td class="status-select">
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="hood_washer_fluid"
+                      value="pass"
+                    />✔
+                  </label>
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="hood_washer_fluid"
+                      value="m"
+                    />M
+                  </label>
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="hood_washer_fluid"
+                      value="r"
+                    />R
+                  </label>
+                </td>
+              </tr>
+              <tr>
+                <td>Belts</td>
+                <td class="status-select">
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="hood_belts"
+                      value="pass"
+                    />✔
+                  </label>
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="hood_belts"
+                      value="m"
+                    />M
+                  </label>
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="hood_belts"
+                      value="r"
+                    />R
+                  </label>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Driver's Compartment -->
+        <div class="section-card">
+          <div class="section-header">
+            <div class="section-title">Driver’s Compartment</div>
+            <div class="section-note">Documentation and controls.</div>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th class="item-name">Item</th>
+                <th class="status-select">Status / Details</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  Registration – Expiry Date:
+                  <input
+                    type="date"
+                    class="small-input"
+                    name="registration_expiry"
+                    style="width:150px; margin-left:6px;"
+                  />
+                </td>
+                <td class="status-select">
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="comp_registration"
+                      value="pass"
+                    />✔
+                  </label>
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="comp_registration"
+                      value="m"
+                    />M
+                  </label>
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="comp_registration"
+                      value="r"
+                    />R
+                  </label>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Insurance – Expiry Date:
+                  <input
+                    type="date"
+                    class="small-input"
+                    name="insurance_expiry"
+                    style="width:150px; margin-left:6px;"
+                  />
+                </td>
+                <td class="status-select">
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="comp_insurance"
+                      value="pass"
+                    />✔
+                  </label>
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="comp_insurance"
+                      value="m"
+                    />M
+                  </label>
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="comp_insurance"
+                      value="r"
+                    />R
+                  </label>
+                </td>
+              </tr>
+              <tr>
+                <td>Safety Certificate Available and Current</td>
+                <td class="status-select">
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="yn-box"
+                      data-group="safety_cert"
+                      value="yes"
+                    />Yes
+                  </label>
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="yn-box"
+                      data-group="safety_cert"
+                      value="no"
+                    />No
+                  </label>
+                </td>
+              </tr>
+              <tr>
+                <td>Windshield</td>
+                <td class="status-select">
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="comp_windshield"
+                      value="pass"
+                    />✔
+                  </label>
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="comp_windshield"
+                      value="m"
+                    />M
+                  </label>
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="comp_windshield"
+                      value="r"
+                    />R
+                  </label>
+                </td>
+              </tr>
+              <tr>
+                <td>Windshield Wipers</td>
+                <td class="status-select">
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="comp_wipers"
+                      value="pass"
+                    />✔
+                  </label>
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="comp_wipers"
+                      value="m"
+                    />M
+                  </label>
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="comp_wipers"
+                      value="r"
+                    />R
+                  </label>
+                </td>
+              </tr>
+              <tr>
+                <td>Seatbelts</td>
+                <td class="status-select">
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="comp_seatbelts"
+                      value="pass"
+                    />✔
+                  </label>
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="comp_seatbelts"
+                      value="m"
+                    />M
+                  </label>
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="comp_seatbelts"
+                      value="r"
+                    />R
+                  </label>
+                </td>
+              </tr>
+              <tr>
+                <td>Speedometer</td>
+                <td class="status-select">
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="comp_speedometer"
+                      value="pass"
+                    />✔
+                  </label>
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="comp_speedometer"
+                      value="m"
+                    />M
+                  </label>
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="comp_speedometer"
+                      value="r"
+                    />R
+                  </label>
+                </td>
+              </tr>
+              <tr>
+                <td>Heater / A/C / Defroster</td>
+                <td class="status-select">
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="comp_hvac"
+                      value="pass"
+                    />✔
+                  </label>
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="comp_hvac"
+                      value="m"
+                    />M
+                  </label>
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="comp_hvac"
+                      value="r"
+                    />R
+                  </label>
+                </td>
+              </tr>
+              <tr>
+                <td>Dash Lights</td>
+                <td class="status-select">
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="comp_dash_lights"
+                      value="pass"
+                    />✔
+                  </label>
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="comp_dash_lights"
+                      value="m"
+                    />M
+                  </label>
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="comp_dash_lights"
+                      value="r"
+                    />R
+                  </label>
+                </td>
+              </tr>
+              <tr>
+                <td>Horn</td>
+                <td class="status-select">
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="comp_horn"
+                      value="pass"
+                    />✔
+                  </label>
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="comp_horn"
+                      value="m"
+                    />M
+                  </label>
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="comp_horn"
+                      value="r"
+                    />R
+                  </label>
+                </td>
+              </tr>
+              <tr>
+                <td>Beam Indicator</td>
+                <td class="status-select">
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="comp_beam_indicator"
+                      value="pass"
+                    />✔
+                  </label>
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="comp_beam_indicator"
+                      value="m"
+                    />M
+                  </label>
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="comp_beam_indicator"
+                      value="r"
+                    />R
+                  </label>
+                </td>
+              </tr>
+              <tr>
+                <td>Emergency Brake</td>
+                <td class="status-select">
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="comp_emergency_brake"
+                      value="pass"
+                    />✔
+                  </label>
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="comp_emergency_brake"
+                      value="m"
+                    />M
+                  </label>
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="comp_emergency_brake"
+                      value="r"
+                    />R
+                  </label>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Fire Extinguisher – Expiry Date:
+                  <input
+                    type="date"
+                    class="small-input"
+                    name="fire_ext_expiry"
+                    style="width:150px; margin-left:6px;"
+                  />
+                </td>
+                <td class="status-select">
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="yn-box"
+                      data-group="fire_extinguisher"
+                      value="yes"
+                    />Yes
+                  </label>
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="yn-box"
+                      data-group="fire_extinguisher"
+                      value="no"
+                    />No
+                  </label>
+                </td>
+              </tr>
+              <tr>
+                <td>First Aid Kit – Complete</td>
+                <td class="status-select">
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="yn-box"
+                      data-group="first_aid"
+                      value="yes"
+                    />Yes
+                  </label>
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="yn-box"
+                      data-group="first_aid"
+                      value="no"
+                    />No
+                  </label>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Personal protective equipment is available and in good
+                  condition
+                </td>
+                <td class="status-select">
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="yn-box"
+                      data-group="ppe_available"
+                      value="yes"
+                    />Yes
+                  </label>
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="yn-box"
+                      data-group="ppe_available"
+                      value="no"
+                    />No
+                  </label>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Body Exterior -->
+        <div class="section-card">
+          <div class="section-header">
+            <div class="section-title">Body Exterior</div>
+            <div class="section-note">
+              Walk-around inspection – lights, tires and condition.
+            </div>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th class="item-name">Item</th>
+                <th class="status-select">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Head Lights</td>
+                <td class="status-select">
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="body_head_lights"
+                      value="pass"
+                    />✔
+                  </label>
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="body_head_lights"
+                      value="m"
+                    />M
+                  </label>
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="body_head_lights"
+                      value="r"
+                    />R
+                  </label>
+                </td>
+              </tr>
+              <tr>
+                <td>Tail Lights</td>
+                <td class="status-select">
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="body_tail_lights"
+                      value="pass"
+                    />✔
+                  </label>
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="body_tail_lights"
+                      value="m"
+                    />M
+                  </label>
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="body_tail_lights"
+                      value="r"
+                    />R
+                  </label>
+                </td>
+              </tr>
+              <tr>
+                <td>Brake Lights</td>
+                <td class="status-select">
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="body_brake_lights"
+                      value="pass"
+                    />✔
+                  </label>
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="body_brake_lights"
+                      value="m"
+                    />M
+                  </label>
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="body_brake_lights"
+                      value="r"
+                    />R
+                  </label>
+                </td>
+              </tr>
+              <tr>
+                <td>Signal Lights</td>
+                <td class="status-select">
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="body_signal_lights"
+                      value="pass"
+                    />✔
+                  </label>
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="body_signal_lights"
+                      value="m"
+                    />M
+                  </label>
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="body_signal_lights"
+                      value="r"
+                    />R
+                  </label>
+                </td>
+              </tr>
+              <tr>
+                <td>Hazard Lights</td>
+                <td class="status-select">
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="body_hazard_lights"
+                      value="pass"
+                    />✔
+                  </label>
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="body_hazard_lights"
+                      value="m"
+                    />M
+                  </label>
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="body_hazard_lights"
+                      value="r"
+                    />R
+                  </label>
+                </td>
+              </tr>
+              <tr>
+                <td>Tire Pressure</td>
+                <td class="status-select">
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="body_tire_pressure"
+                      value="pass"
+                    />✔
+                  </label>
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="body_tire_pressure"
+                      value="m"
+                    />M
+                  </label>
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="body_tire_pressure"
+                      value="r"
+                    />R
+                  </label>
+                </td>
+              </tr>
+              <tr>
+                <td>Tire Wear</td>
+                <td class="status-select">
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="body_tire_wear"
+                      value="pass"
+                    />✔
+                  </label>
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="body_tire_wear"
+                      value="m"
+                    />M
+                  </label>
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="body_tire_wear"
+                      value="r"
+                    />R
+                  </label>
+                </td>
+              </tr>
+              <tr>
+                <td>Vehicle Body Condition – Clean?</td>
+                <td class="status-select">
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="yn-box"
+                      data-group="body_clean"
+                      value="yes"
+                    />Yes
+                  </label>
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="yn-box"
+                      data-group="body_clean"
+                      value="no"
+                    />No
+                  </label>
+                </td>
+              </tr>
+              <tr>
+                <td>Vehicle Interior Condition – Clean?</td>
+                <td class="status-select">
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="yn-box"
+                      data-group="interior_clean"
+                      value="yes"
+                    />Yes
+                  </label>
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="yn-box"
+                      data-group="interior_clean"
+                      value="no"
+                    />No
+                  </label>
+                </td>
+              </tr>
+              <tr>
+                <td>Spare Tire / Jack &amp; Tools</td>
+                <td class="status-select">
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="body_spare"
+                      value="pass"
+                    />✔
+                  </label>
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="body_spare"
+                      value="m"
+                    />M
+                  </label>
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="body_spare"
+                      value="r"
+                    />R
+                  </label>
+                </td>
+              </tr>
+              <tr>
+                <td>Signage in Place &amp; Visible</td>
+                <td class="status-select">
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="body_signage"
+                      value="pass"
+                    />✔
+                  </label>
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="body_signage"
+                      value="m"
+                    />M
+                  </label>
+                  <label class="status-cell">
+                    <input
+                      type="checkbox"
+                      class="status-box"
+                      data-group="body_signage"
+                      value="r"
+                    />R
+                  </label>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Overall Assessment & Photos -->
+        <div class="section-card">
+          <div class="section-header">
+            <div class="section-title">Overall Assessment</div>
+          </div>
+
+          <div class="check-row">
+            <label>
+              <input
+                type="checkbox"
+                class="overall-check"
+                id="vehicle_passed"
+                name="vehicle_passed"
+              />
+              Vehicle Passed
+            </label>
+            <label>
+              <input
+                type="checkbox"
+                class="overall-check"
+                id="vehicle_not_passed"
+                name="vehicle_not_passed"
+              />
+              Vehicle Not Passed
+            </label>
+          </div>
+
+          <div style="margin-top:4px;">
+            <label>Work required or any deficiencies</label>
+            <textarea
+              name="deficiencies"
+              placeholder="Describe any issues, defects or required maintenance."
+            ></textarea>
+          </div>
+
+          <div class="photo-section">
+            <label>Vehicle Photos (optional)</label>
+            <div class="photo-actions">
+              <button
+                type="button"
+                class="btn-secondary"
+                id="addPhotoBtn"
+              >
+                + Add Photos
+              </button>
+              <input
+                type="file"
+                id="photoInput"
+                accept="image/*"
+                multiple
+                style="display:none;"
+              />
+              <span class="section-note">
+                Photos will be added after the form in the PDF, 4 per page.
+              </span>
+            </div>
+            <div class="photo-grid" id="photoGrid"></div>
+          </div>
+        </div>
+
+        <!-- Sign-off -->
+        <div class="section-card">
+          <div class="section-header">
+            <div class="section-title">Sign-off</div>
+          </div>
+
+          <div class="signature-grid">
+            <!-- Operator -->
+            <div class="signature-box">
+              <div class="signature-label">
+                Operator’s Signature (draw inside the box)
+              </div>
+              <canvas
+                id="operatorSignature"
+                class="signature-canvas"
+              ></canvas>
+              <div class="signature-actions">
+                <button
+                  type="button"
+                  class="btn-secondary"
+                  id="clearOperatorSig"
+                >
+                  Clear
+                </button>
+              </div>
+              <div class="signature-box-row">
+                <div>
+                  <div class="signature-label">Operator Name (printed)</div>
+                  <input
+                    type="text"
+                    class="small-input"
+                    name="operator_name"
+                  />
+                </div>
+                <div>
+                  <div class="signature-label">Date</div>
+                  <input
+                    type="text"
+                    class="small-input"
+                    name="operator_date"
+                    placeholder="YYYY-MM-DD"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <!-- Reviewer -->
+            <div class="signature-box">
+              <div class="signature-label">Reviewed By – Signature</div>
+              <canvas
+                id="reviewerSignature"
+                class="signature-canvas"
+              ></canvas>
+              <div class="signature-actions">
+                <button
+                  type="button"
+                  class="btn-secondary"
+                  id="clearReviewerSig"
+                >
+                  Clear
+                </button>
+              </div>
+              <div class="signature-box-row">
+                <div>
+                  <div class="signature-label">Reviewer Name (printed)</div>
+                  <input
+                    type="text"
+                    class="small-input"
+                    name="reviewed_by"
+                  />
+                </div>
+                <div>
+                  <div class="signature-label">Date</div>
+                  <input
+                    type="text"
+                    class="small-input"
+                    name="review_date"
+                    placeholder="YYYY-MM-DD"
+                  />
+                </div>
+              </div>
+              <div class="signature-box-row">
+                <div>
+                  <div class="signature-label">Fix Date</div>
+                  <input
+                    type="text"
+                    class="small-input"
+                    name="review_fix_date"
+                    placeholder="YYYY-MM-DD or N/A"
+                  />
+                </div>
+              </div>
+              <div class="comments-area">
+                <div class="signature-label">Comments</div>
+                <textarea
+                  class="small-input"
+                  name="review_comments"
+                ></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Buttons -->
+        <div class="btn-row" id="buttonRow">
+          <button type="reset" class="btn-secondary" id="resetBtn">
+            Reset
+          </button>
+          <button type="button" class="btn-primary" id="downloadBtn">
+            Download PDF
+          </button>
+          <button type="button" class="btn-primary" id="shareBtn">
+            Share PDF
+          </button>
+        </div>
+      </form>
     </div>
-
-    <div class="page-title-bar">
-      <div class="page-title-main">Weekly Vehicle Inspection</div>
-      <div class="page-title-sub">To be submitted every Monday before 8:00 a.m.</div>
-      <div class="page-title-accent"></div>
-    </div>
-
-    <form id="vehicleForm">
-      <!-- Top information -->
-      <div class="section-card">
-        <div class="top-info-header">Form must be completed in full</div>
-        <div class="grid-2">
-          <div>
-            <label for="date">Date</label>
-            <input type="date" id="date" name="date">
-          </div>
-          <div>
-            <label for="license">License Plate #</label>
-            <input type="text" id="license" name="license">
-          </div>
-          <div>
-            <label for="operator">Operator</label>
-            <input type="text" id="operator" name="operator">
-          </div>
-          <div>
-            <label for="cell">Cell Phone #</label>
-            <input type="text" id="cell" name="cell">
-          </div>
-          <div>
-            <label for="ymm">Year / Make / Model</label>
-            <input type="text" id="ymm" name="ymm">
-          </div>
-          <div>
-            <label for="mileage">Mileage</label>
-            <input type="text" id="mileage" name="mileage">
-          </div>
-          <div>
-            <label for="colour">Colour</label>
-            <input type="text" id="colour" name="colour">
-          </div>
-          <div>
-            <label for="nextservice">Next Service Due</label>
-            <input type="text" id="nextservice" name="nextservice">
-          </div>
-        </div>
-
-        <div class="rating-legend">
-          <div><span class="code">✔</span> Passed in good working condition</div>
-          <div><span class="code">M</span> Passed but maintenance required</div>
-          <div><span class="code">R</span> Rejected, repair necessary before use</div>
-        </div>
-      </div>
-
-      <!-- Under the Hood -->
-      <div class="section-card">
-        <div class="section-header">
-          <div class="section-title">Under the Hood</div>
-          <div class="section-note">Tick one option per row.</div>
-        </div>
-        <table>
-          <thead>
-          <tr>
-            <th class="item-name">Item</th>
-            <th class="status-select">Status (✔ / M / R)</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr>
-            <td>Motor Oil</td>
-            <td class="status-select">
-              <label class="status-cell"><input type="checkbox" class="status-box" data-group="hood_motor_oil" value="pass">✔</label>
-              <label class="status-cell"><input type="checkbox" class="status-box" data-group="hood_motor_oil" value="m">M</label>
-              <label class="status-cell"><input type="checkbox" class="status-box" data-group="hood_motor_oil" value="r">R</label>
-            </td>
-          </tr>
-          <tr>
-            <td>Cooling System</td>
-            <td class="status-select">
-              <label class="status-cell"><input type="checkbox" class="status-box" data-group="hood_cooling" value="pass">✔</label>
-              <label class="status-cell"><input type="checkbox" class="status-box" data-group="hood_cooling" value="m">M</label>
-              <label class="status-cell"><input type="checkbox" class="status-box" data-group="hood_cooling" value="r">R</label>
-            </td>
-          </tr>
-          <tr>
-            <td>Power Steering Fluid</td>
-            <td class="status-select">
-              <label class="status-cell"><input type="checkbox" class="status-box" data-group="hood_steering" value="pass">✔</label>
-              <label class="status-cell"><input type="checkbox" class="status-box" data-group="hood_steering" value="m">M</label>
-              <label class="status-cell"><input type="checkbox" class="status-box" data-group="hood_steering" value="r">R</label>
-            </td>
-          </tr>
-          <tr>
-            <td>Battery</td>
-            <td class="status-select">
-              <label class="status-cell"><input type="checkbox" class="status-box" data-group="hood_battery" value="pass">✔</label>
-              <label class="status-cell"><input type="checkbox" class="status-box" data-group="hood_battery" value="m">M</label>
-              <label class="status-cell"><input type="checkbox" class="status-box" data-group="hood_battery" value="r">R</label>
-            </td>
-          </tr>
-          <tr>
-            <td>Brake Fluid</td>
-            <td class="status-select">
-              <label class="status-cell"><input type="checkbox" class="status-box" data-group="hood_brake_fluid" value="pass">✔</label>
-              <label class="status-cell"><input type="checkbox" class="status-box" data-group="hood_brake_fluid" value="m">M</label>
-              <label class="status-cell"><input type="checkbox" class="status-box" data-group="hood_brake_fluid" value="r">R</label>
-            </td>
-          </tr>
-          <tr>
-            <td>Windshield Washer Fluid</td>
-            <td class="status-select">
-              <label class="status-cell"><input type="checkbox" class="status-box" data-group="hood_washer_fluid" value="pass">✔</label>
-              <label class="status-cell"><input type="checkbox" class="status-box" data-group="hood_washer_fluid" value="m">M</label>
-              <label class="status-cell"><input type="checkbox" class="status-box" data-group="hood_washer_fluid" value="r">R</label>
-            </td>
-          </tr>
-          <tr>
-            <td>Belts</td>
-            <td class="status-select">
-              <label class="status-cell"><input type="checkbox" class="status-box" data-group="hood_belts" value="pass">✔</label>
-              <label class="status-cell"><input type="checkbox" class="status-box" data-group="hood_belts" value="m">M</label>
-              <label class="status-cell"><input type="checkbox" class="status-box" data-group="hood_belts" value="r">R</label>
-            </td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <!-- Driver's Compartment -->
-      <div class="section-card">
-        <div class="section-header">
-          <div class="section-title">Driver’s Compartment</div>
-          <div class="section-note">Documentation and controls.</div>
-        </div>
-        <table>
-          <thead>
-          <tr>
-            <th class="item-name">Item</th>
-            <th class="status-select">Status / Details</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr>
-            <td>
-              Registration – Expiry Date:
-              <input type="date" class="small-input" name="registration_expiry" style="width:150px; margin-left:6px;">
-            </td>
-            <td class="status-select">
-              <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_registration" value="pass">✔</label>
-              <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_registration" value="m">M</label>
-              <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_registration" value="r">R</label>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              Insurance – Expiry Date:
-              <input type="date" class="small-input" name="insurance_expiry" style="width:150px; margin-left:6px;">
-            </td>
-            <td class="status-select">
-              <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_insurance" value="pass">✔</label>
-              <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_insurance" value="m">M</label>
-              <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_insurance" value="r">R</label>
-            </td>
-          </tr>
-          <tr>
-            <td>Safety Certificate Available and Current</td>
-            <td class="status-select">
-              <label class="status-cell">
-                <input type="checkbox" class="yn-box" data-group="safety_cert" value="yes">Yes
-              </label>
-              <label class="status-cell">
-                <input type="checkbox" class="yn-box" data-group="safety_cert" value="no">No
-              </label>
-            </td>
-          </tr>
-          <tr>
-            <td>Windshield</td>
-            <td class="status-select">
-              <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_windshield" value="pass">✔</label>
-              <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_windshield" value="m">M</label>
-              <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_windshield" value="r">R</label>
-            </td>
-          </tr>
-          <tr>
-            <td>Windshield Wipers</td>
-            <td class="status-select">
-              <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_wipers" value="pass">✔</label>
-              <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_wipers" value="m">M</label>
-              <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_wipers" value="r">R</label>
-            </td>
-          </tr>
-          <tr>
-            <td>Seatbelts</td>
-            <td class="status-select">
-              <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_seatbelts" value="pass">✔</label>
-              <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_seatbelts" value="m">M</label>
-              <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_seatbelts" value="r">R</label>
-            </td>
-          </tr>
-          <tr>
-            <td>Speedometer</td>
-            <td class="status-select">
-              <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_speedometer" value="pass">✔</label>
-              <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_speedometer" value="m">M</label>
-              <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_speedometer" value="r">R</label>
-            </td>
-          </tr>
-          <tr>
-            <td>Heater / A/C / Defroster</td>
-            <td class="status-select">
-              <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_hvac" value="pass">✔</label>
-              <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_hvac" value="m">M</label>
-              <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_hvac" value="r">R</label>
-            </td>
-          </tr>
-          <tr>
-            <td>Dash Lights</td>
-            <td class="status-select">
-              <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_dash_lights" value="pass">✔</label>
-              <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_dash_lights" value="m">M</label>
-              <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_dash_lights" value="r">R</label>
-            </td>
-          </tr>
-          <tr>
-            <td>Horn</td>
-            <td class="status-select">
-              <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_horn" value="pass">✔</label>
-              <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_horn" value="m">M</label>
-              <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_horn" value="r">R</label>
-            </td>
-          </tr>
-          <tr>
-            <td>Beam Indicator</td>
-            <td class="status-select">
-              <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_beam_indicator" value="pass">✔</label>
-              <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_beam_indicator" value="m">M</label>
-              <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_beam_indicator" value="r">R</label>
-            </td>
-          </tr>
-          <tr>
-            <td>Emergency Brake</td>
-            <td class="status-select">
-              <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_emergency_brake" value="pass">✔</label>
-              <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_emergency_brake" value="m">M</label>
-              <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_emergency_brake" value="r">R</label>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              Fire Extinguisher – Expiry Date:
-              <input type="date" class="small-input" name="fire_ext_expiry" style="width:150px; margin-left:6px;">
-            </td>
-            <td class="status-select">
-              <label class="status-cell">
-                <input type="checkbox" class="yn-box" data-group="fire_extinguisher" value="yes">Yes
-              </label>
-              <label class="status-cell">
-                <input type="checkbox" class="yn-box" data-group="fire_extinguisher" value="no">No
-              </label>
-            </td>
-          </tr>
-          <tr>
-            <td>First Aid Kit – Complete</td>
-            <td class="status-select">
-              <label class="status-cell">
-                <input type="checkbox" class="yn-box" data-group="first_aid" value="yes">Yes
-              </label>
-              <label class="status-cell">
-                <input type="checkbox" class="yn-box" data-group="first_aid" value="no">No
-              </label>
-            </td>
-          </tr>
-          <tr>
-            <td>Personal protective equipment is available and in good condition</td>
-            <td class="status-select">
-              <label class="status-cell">
-                <input type="checkbox" class="yn-box" data-group="ppe_available" value="yes">Yes
-              </label>
-              <label class="status-cell">
-                <input type="checkbox" class="yn-box" data-group="ppe_available" value="no">No
-              </label>
-            </td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <!-- Body Exterior -->
-      <div class="section-card">
-        <div class="section-header">
-          <div class="section-title">Body Exterior</div>
-          <div class="section-note">Walk-around inspection – lights, tires and condition.</div>
-        </div>
-        <table>
-          <thead>
-          <tr>
-            <th class="item-name">Item</th>
-            <th class="status-select">Status</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr><td>Head Lights</td><td class="status-select">
-            <label class="status-cell"><input type="checkbox" class="status-box" data-group="body_head_lights" value="pass">✔</label>
-            <label class="status-cell"><input type="checkbox" class="status-box" data-group="body_head_lights" value="m">M</label>
-            <label class="status-cell"><input type="checkbox" class="status-box" data-group="body_head_lights" value="r">R</label>
-          </td></tr>
-          <tr><td>Tail Lights</td><td class="status-select">
-            <label class="status-cell"><input type="checkbox" class="status-box" data-group="body_tail_lights" value="pass">✔</label>
-            <label class="status-cell"><input type="checkbox" class="status-box" data-group="body_tail_lights" value="m">M</label>
-            <label class="status-cell"><input type="checkbox" class="status-box" data-group="body_tail_lights" value="r">R</label>
-          </td></tr>
-          <tr><td>Brake Lights</td><td class="status-select">
-            <label class="status-cell"><input type="checkbox" class="status-box" data-group="body_brake_lights" value="pass">✔</label>
-            <label class="status-cell"><input type="checkbox" class="status-box" data-group="body_brake_lights" value="m">M</label>
-            <label class="status-cell"><input type="checkbox" class="status-box" data-group="body_brake_lights" value="r">R</label>
-          </td></tr>
-          <tr><td>Signal Lights</td><td class="status-select">
-            <label class="status-cell"><input type="checkbox" class="status-box" data-group="body_signal_lights" value="pass">✔</label>
-            <label class="status-cell"><input type="checkbox" class="status-box" data-group="body_signal_lights" value="m">M</label>
-            <label class="status-cell"><input type="checkbox" class="status-box" data-group="body_signal_lights" value="r">R</label>
-          </td></tr>
-          <tr><td>Hazard Lights</td><td class="status-select">
-            <label class="status-cell"><input type="checkbox" class="status-box" data-group="body_hazard_lights" value="pass">✔</label>
-            <label class="status-cell"><input type="checkbox" class="status-box" data-group="body_hazard_lights" value="m">M</label>
-            <label class="status-cell"><input type="checkbox" class="status-box" data-group="body_hazard_lights" value="r">R</label>
-          </td></tr>
-          <tr><td>Tire Pressure</td><td class="status-select">
-            <label class="status-cell"><input type="checkbox" class="status-box" data-group="body_tire_pressure" value="pass">✔</label>
-            <label class="status-cell"><input type="checkbox" class="status-box" data-group="body_tire_pressure" value="m">M</label>
-            <label class="status-cell"><input type="checkbox" class="status-box" data-group="body_tire_pressure" value="r">R</label>
-          </td></tr>
-          <tr><td>Tire Wear</td><td class="status-select">
-            <label class="status-cell"><input type="checkbox" class="status-box" data-group="body_tire_wear" value="pass">✔</label>
-            <label class="status-cell"><input type="checkbox" class="status-box" data-group="body_tire_wear" value="m">M</label>
-            <label class="status-cell"><input type="checkbox" class="status-box" data-group="body_tire_wear" value="r">R</label>
-          </td></tr>
-          <tr>
-            <td>Vehicle Body Condition – Clean?</td>
-            <td class="status-select">
-              <label class="status-cell">
-                <input type="checkbox" class="yn-box" data-group="body_clean" value="yes">Yes
-              </label>
-              <label class="status-cell">
-                <input type="checkbox" class="yn-box" data-group="body_clean" value="no">No
-              </label>
-            </td>
-          </tr>
-          <tr>
-            <td>Vehicle Interior Condition – Clean?</td>
-            <td class="status-select">
-              <label class="status-cell">
-                <input type="checkbox" class="yn-box" data-group="interior_clean" value="yes">Yes
-              </label>
-              <label class="status-cell">
-                <input type="checkbox" class="yn-box" data-group="interior_clean" value="no">No
-              </label>
-            </td>
-          </tr>
-          <tr><td>Spare Tire / Jack &amp; Tools</td><td class="status-select">
-            <label class="status-cell"><input type="checkbox" class="status-box" data-group="body_spare" value="pass">✔</label>
-            <label class="status-cell"><input type="checkbox" class="status-box" data-group="body_spare" value="m">M</label>
-            <label class="status-cell"><input type="checkbox" class="status-box" data-group="body_spare" value="r">R</label>
-          </td></tr>
-          <tr><td>Signage in Place &amp; Visible</td><td class="status-select">
-            <label class="status-cell"><input type="checkbox" class="status-box" data-group="body_signage" value="pass">✔</label>
-            <label class="status-cell"><input type="checkbox" class="status-box" data-group="body_signage" value="m">M</label>
-            <label class="status-cell"><input type="checkbox" class="status-box" data-group="body_signage" value="r">R</label>
-          </td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <!-- Overall Assessment & Photos -->
-      <div class="section-card">
-        <div class="section-header">
-          <div class="section-title">Overall Assessment</div>
-        </div>
-        <div class="check-row">
-          <label><input type="checkbox" class="overall-check" id="vehicle_passed" name="vehicle_passed"> Vehicle Passed</label>
-          <label><input type="checkbox" class="overall-check" id="vehicle_not_passed" name="vehicle_not_passed"> Vehicle Not Passed</label>
-        </div>
-
-        <div style="margin-top:4px;">
-          <label>Work required or any deficiencies</label>
-          <textarea name="deficiencies" placeholder="Describe any issues, defects or required maintenance."></textarea>
-        </div>
-
-        <div class="photo-section">
-          <label>Vehicle Photos (optional)</label>
-          <div class="photo-actions">
-            <button type="button" class="btn-secondary" id="addPhotoBtn">+ Add Photos</button>
-            <input type="file" id="photoInput" accept="image/*" multiple style="display:none;">
-            <span class="section-note">Photos will be added after the form in the PDF, 4 per page.</span>
-          </div>
-          <div class="photo-grid" id="photoGrid"></div>
-        </div>
-      </div>
-
-      <!-- Sign-off -->
-      <div class="section-card">
-        <div class="section-header">
-          <div class="section-title">Sign-off</div>
-        </div>
-
-        <div class="signature-grid">
-          <!-- Operator -->
-          <div class="signature-box">
-            <div class="signature-label">Operator’s Signature (draw inside the box)</div>
-            <canvas id="operatorSignature" class="signature-canvas"></canvas>
-            <div class="signature-actions">
-              <button type="button" class="btn-secondary" id="clearOperatorSig">Clear</button>
-            </div>
-            <div class="signature-box-row">
-              <div>
-                <div class="signature-label">Operator Name (printed)</div>
-                <input type="text" class="small-input" name="operator_name">
-              </div>
-              <div>
-                <div class="signature-label">Date</div>
-                <input type="text" class="small-input" name="operator_date" placeholder="YYYY-MM-DD">
-              </div>
-            </div>
-          </div>
-
-          <!-- Reviewer -->
-          <div class="signature-box">
-            <div class="signature-label">Reviewed By – Signature</div>
-            <canvas id="reviewerSignature" class="signature-canvas"></canvas>
-            <div class="signature-actions">
-              <button type="button" class="btn-secondary" id="clearReviewerSig">Clear</button>
-            </div>
-            <div class="signature-box-row">
-              <div>
-                <div class="signature-label">Reviewer Name (printed)</div>
-                <input type="text" class="small-input" name="reviewed_by">
-              </div>
-              <div>
-                <div class="signature-label">Date</div>
-                <input type="text" class="small-input" name="review_date" placeholder="YYYY-MM-DD">
-              </div>
-            </div>
-            <div class="signature-box-row">
-              <div>
-                <div class="signature-label">Fix Date</div>
-                <input type="text" class="small-input" name="review_fix_date" placeholder="YYYY-MM-DD or N/A">
-              </div>
-            </div>
-            <div class="comments-area">
-              <div class="signature-label">Comments</div>
-              <textarea class="small-input" name="review_comments"></textarea>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Buttons -->
-      <div class="btn-row" id="buttonRow">
-        <button type="reset" class="btn-secondary" id="resetBtn">Reset</button>
-        <button type="button" class="btn-primary" id="downloadBtn">Download PDF</button>
-        <button type="button" class="btn-primary" id="shareBtn">Share PDF</button>
-      </div>
-    </form>
   </div>
-</div>
 
-<!-- jsPDF + html2canvas -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <!-- jsPDF + html2canvas -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
-<script>
-  // PHOTO UPLOAD + PREVIEW
-  const addPhotoBtn = document.getElementById('addPhotoBtn');
-  const photoInput  = document.getElementById('photoInput');
-  const photoGrid   = document.getElementById('photoGrid');
+  <script>
+    // PHOTO UPLOAD + PREVIEW
+    const addPhotoBtn = document.getElementById("addPhotoBtn");
+    const photoInput = document.getElementById("photoInput");
+    const photoGrid = document.getElementById("photoGrid");
 
-  if (addPhotoBtn && photoInput && photoGrid) {
-    addPhotoBtn.addEventListener('click', () => photoInput.click());
+    if (addPhotoBtn && photoInput && photoGrid) {
+      addPhotoBtn.addEventListener("click", () => photoInput.click());
 
-    photoInput.addEventListener('change', () => {
-      const files = Array.from(photoInput.files || []);
-      files.forEach(file => {
-        if (!file.type.startsWith('image/')) return;
+      photoInput.addEventListener("change", () => {
+        const files = Array.from(photoInput.files || []);
+        files.forEach((file) => {
+          if (!file.type.startsWith("image/")) return;
+          const reader = new FileReader();
+          const card = document.createElement("div");
+          card.className = "photo-card";
 
-        const reader = new FileReader();
-        const card   = document.createElement('div');
-        card.className = 'photo-card';
+          const img = document.createElement("img");
+          img.alt = file.name;
 
-        const img = document.createElement('img');
-        img.alt   = file.name;
+          const caption = document.createElement("textarea");
+          caption.placeholder = "Photo description (optional)";
 
-        const caption = document.createElement('textarea');
-        caption.placeholder = 'Photo description (optional)';
+          card.appendChild(img);
+          card.appendChild(caption);
+          photoGrid.appendChild(card);
 
-        card.appendChild(img);
-        card.appendChild(caption);
-        photoGrid.appendChild(card);
+          reader.onload = (e) => {
+            img.src = e.target.result;
+          };
+          reader.readAsDataURL(file);
+        });
 
-        reader.onload = e => { img.src = e.target.result; };
-        reader.readAsDataURL(file);
+        photoInput.value = "";
       });
+    }
 
-      photoInput.value = "";
-    });
-  }
+    // OVERALL PASSED / NOT PASSED – KEEP ONLY ONE
+    const chkPassed = document.getElementById("vehicle_passed");
+    const chkNotPassed = document.getElementById("vehicle_not_passed");
 
-  // OVERALL PASSED / NOT PASSED – KEEP ONLY ONE
-  const chkPassed    = document.getElementById('vehicle_passed');
-  const chkNotPassed = document.getElementById('vehicle_not_passed');
-
-  if (chkPassed && chkNotPassed) {
-    chkPassed.addEventListener('change', () => {
-      if (chkPassed.checked) chkNotPassed.checked = false;
-    });
-    chkNotPassed.addEventListener('change', () => {
-      if (chkNotPassed.checked) chkPassed.checked = false;
-    });
-  }
-
-  // STATUS CHECKBOXES – ONLY ONE PER ROW (group) for ✔/M/R
-  const statusBoxes = document.querySelectorAll('.status-box');
-  statusBoxes.forEach(box => {
-    box.addEventListener('change', () => {
-      const group = box.getAttribute('data-group');
-      if (!group || !box.checked) return;
-      statusBoxes.forEach(other => {
-        if (other !== box && other.getAttribute('data-group') === group) {
-          other.checked = false;
-        }
+    if (chkPassed && chkNotPassed) {
+      chkPassed.addEventListener("change", () => {
+        if (chkPassed.checked) chkNotPassed.checked = false;
       });
-    });
-  });
-
-  // YES/NO CHECKBOXES – ONLY ONE PER GROUP
-  const ynBoxes = document.querySelectorAll('.yn-box');
-  ynBoxes.forEach(box => {
-    box.addEventListener('change', () => {
-      const group = box.getAttribute('data-group');
-      if (!group || !box.checked) return;
-      ynBoxes.forEach(other => {
-        if (other !== box && other.getAttribute('data-group') === group) {
-          other.checked = false;
-        }
+      chkNotPassed.addEventListener("change", () => {
+        if (chkNotPassed.checked) chkPassed.checked = false;
       });
-    });
-  });
+    }
 
-  const formContainer = document.getElementById('formContainer');
-  const buttonRow     = document.getElementById('buttonRow');
-  const downloadBtn   = document.getElementById('downloadBtn');
-  const shareBtn      = document.getElementById('shareBtn');
-
-  // Build PDF – always LETTER (8.5 x 11), full-width, multi-page
-  async function buildPdf() {
-    const { jsPDF } = window.jspdf;
-    const pdf = new jsPDF('p', 'mm', 'letter');
-
-    // Hide buttons for cleaner export
-    if (buttonRow) buttonRow.style.display = 'none';
-
-    try {
-      // Render form as canvas
-      const canvas = await html2canvas(formContainer, {
-        scale: 2,
-        useCORS: true
-      });
-
-      const imgData   = canvas.toDataURL('image/jpeg', 0.95);
-      const pdfWidth  = pdf.internal.pageSize.getWidth();
-      const pdfHeight = pdf.internal.pageSize.getHeight();
-
-      // Full-width image
-      const imgWidth  = pdfWidth;
-      const imgHeight = (canvas.height * imgWidth) / canvas.width;
-
-      let heightLeft = imgHeight;
-      let position   = 0;
-
-      // First page
-      pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
-      heightLeft -= pdfHeight;
-
-      // Additional pages if needed
-      while (heightLeft > 0) {
-        position -= pdfHeight;
-        pdf.addPage();
-        pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
-        heightLeft -= pdfHeight;
-      }
-
-      // Additional pages – photos, 4 per page
-      const photoCards = Array.from(document.querySelectorAll('.photo-card'));
-
-      if (photoCards.length > 0) {
-        const margin = 10;
-        const cols = 2;
-        const rows = 2;
-        const gapX = 6;
-        const gapY = 10;
-
-        const pageWidth  = pdf.internal.pageSize.getWidth();
-        const pageHeight = pdf.internal.pageSize.getHeight();
-
-        const contentWidth  = pageWidth  - margin * 2 - gapX * (cols - 1);
-        const contentHeight = pageHeight - margin * 2 - gapY * (rows - 1);
-
-        const cellWidth  = contentWidth  / cols;
-        const cellHeight = contentHeight / rows;
-
-        let indexOnPage = 0;
-
-        photoCards.forEach(card => {
-          const imgEl = card.querySelector('img');
-          const captionEl = card.querySelector('textarea');
-
-          if (!imgEl || !imgEl.src) return;
-
-          if (indexOnPage === 0) {
-            pdf.addPage();
-          }
-
-          const col = indexOnPage % cols;
-          const row = Math.floor(indexOnPage / cols);
-
-          const cellX = margin + col * (cellWidth  + gapX);
-          const cellY = margin + row * (cellHeight + gapY);
-
-          const imgW = cellWidth;
-          const imgH = cellHeight - 12; // room for caption
-
-          let format = 'JPEG';
-          if (imgEl.src.startsWith('data:image/png')) format = 'PNG';
-
-          pdf.addImage(imgEl.src, format, cellX, cellY, imgW, imgH);
-
-          const caption = captionEl && captionEl.value ? captionEl.value : '';
-          if (caption) {
-            const captionY = cellY + imgH + 4;
-            pdf.setFontSize(8);
-            const lines = pdf.splitTextToSize(caption, imgW);
-            pdf.text(lines, cellX, captionY);
-            pdf.setFontSize(11);
-          }
-
-          indexOnPage++;
-          if (indexOnPage >= cols * rows) {
-            indexOnPage = 0;
+    // STATUS CHECKBOXES – ONLY ONE PER ROW (group) for ✔/M/R
+    const statusBoxes = document.querySelectorAll(".status-box");
+    statusBoxes.forEach((box) => {
+      box.addEventListener("change", () => {
+        const group = box.getAttribute("data-group");
+        if (!group || !box.checked) return;
+        statusBoxes.forEach((other) => {
+          if (
+            other !== box &&
+            other.getAttribute("data-group") === group
+          ) {
+            other.checked = false;
           }
         });
-      }
-
-      return pdf;
-    } finally {
-      if (buttonRow) buttonRow.style.display = 'flex';
-    }
-  }
-
-  // Default filename helper: "YYYY-MM-DD Truck Inspection"
-  function getDefaultFileName() {
-    const d = new Date();
-    const yyyy = d.getFullYear();
-    const mm = String(d.getMonth() + 1).padStart(2, '0');
-    const dd = String(d.getDate()).padStart(2, '0');
-    return `${yyyy}-${mm}-${dd} Truck Inspection`;
-  }
-
-  // Prompt user for filename, ensure .pdf extension
-  function promptFileName() {
-    const defaultName = getDefaultFileName();
-    let name = prompt('Enter a file name for this inspection PDF:', defaultName);
-    if (name === null) return null; // user cancelled
-    name = name.trim();
-    if (!name) return null;
-    if (!name.toLowerCase().endsWith('.pdf')) {
-      name += '.pdf';
-    }
-    return name;
-  }
-
-  // Download button
-  if (downloadBtn) {
-    downloadBtn.addEventListener('click', async () => {
-      const fileName = promptFileName();
-      if (!fileName) return;
-      const pdf = await buildPdf();
-      pdf.save(fileName);
+      });
     });
-  }
 
-  // Share button (for iPad/iOS etc.)
-  if (shareBtn) {
-    shareBtn.addEventListener('click', async () => {
-      const fileName = promptFileName();
-      if (!fileName) return;
+    // YES/NO CHECKBOXES – ONLY ONE PER GROUP
+    const ynBoxes = document.querySelectorAll(".yn-box");
+    ynBoxes.forEach((box) => {
+      box.addEventListener("change", () => {
+        const group = box.getAttribute("data-group");
+        if (!group || !box.checked) return;
+        ynBoxes.forEach((other) => {
+          if (
+            other !== box &&
+            other.getAttribute("data-group") === group
+          ) {
+            other.checked = false;
+          }
+        });
+      });
+    });
 
-      const pdf = await buildPdf();
-      const blob = pdf.output('blob');
-      const file = new File([blob], fileName, { type: 'application/pdf' });
+    const formContainer = document.getElementById("formContainer");
+    const buttonRow = document.getElementById("buttonRow");
+    const downloadBtn = document.getElementById("downloadBtn");
+    const shareBtn = document.getElementById("shareBtn");
+
+    // Build PDF – always LETTER (8.5 x 11), full-width, multi-page
+    async function buildPdf() {
+      const { jsPDF } = window.jspdf;
+      const pdf = new jsPDF("p", "mm", "letter");
+
+      // Hide buttons for cleaner export
+      if (buttonRow) buttonRow.style.display = "none";
 
       try {
-        // Best case: share with file support
-        if (navigator.canShare && navigator.canShare({ files: [file] })) {
-          await navigator.share({
-            files: [file],
-            title: 'Weekly Vehicle Inspection',
-            text: 'Weekly Vehicle Inspection PDF from VistaGeomatics.'
+        // Render form as canvas
+        const canvas = await html2canvas(formContainer, {
+          scale: 2,
+          useCORS: true,
+        });
+
+        const imgData = canvas.toDataURL("image/jpeg", 0.95);
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfHeight = pdf.internal.pageSize.getHeight();
+
+        // Full-width image
+        const imgWidth = pdfWidth;
+        const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+        let heightLeft = imgHeight;
+        let position = 0;
+
+        // First page
+        pdf.addImage(imgData, "JPEG", 0, position, imgWidth, imgHeight);
+        heightLeft -= pdfHeight;
+
+        // Additional pages if needed
+        while (heightLeft > 0) {
+          position -= pdfHeight;
+          pdf.addPage();
+          pdf.addImage(imgData, "JPEG", 0, position, imgWidth, imgHeight);
+          heightLeft -= pdfHeight;
+        }
+
+        // Additional pages – photos, 4 per page
+        const photoCards = Array.from(
+          document.querySelectorAll(".photo-card")
+        );
+        if (photoCards.length > 0) {
+          const margin = 10;
+          const cols = 2;
+          const rows = 2;
+          const gapX = 6;
+          const gapY = 10;
+
+          const pageWidth = pdf.internal.pageSize.getWidth();
+          const pageHeight = pdf.internal.pageSize.getHeight();
+          const contentWidth =
+            pageWidth - margin * 2 - gapX * (cols - 1);
+          const contentHeight =
+            pageHeight - margin * 2 - gapY * (rows - 1);
+          const cellWidth = contentWidth / cols;
+          const cellHeight = contentHeight / rows;
+
+          let indexOnPage = 0;
+
+          photoCards.forEach((card) => {
+            const imgEl = card.querySelector("img");
+            const captionEl = card.querySelector("textarea");
+            if (!imgEl || !imgEl.src) return;
+
+            if (indexOnPage === 0) {
+              pdf.addPage();
+            }
+
+            const col = indexOnPage % cols;
+            const row = Math.floor(indexOnPage / cols);
+
+            const cellX = margin + col * (cellWidth + gapX);
+            const cellY = margin + row * (cellHeight + gapY);
+
+            const imgW = cellWidth;
+            const imgH = cellHeight - 12; // room for caption
+
+            let format = "JPEG";
+            if (imgEl.src.startsWith("data:image/png")) format = "PNG";
+
+            pdf.addImage(imgEl.src, format, cellX, cellY, imgW, imgH);
+
+            const caption =
+              captionEl && captionEl.value ? captionEl.value : "";
+            if (caption) {
+              const captionY = cellY + imgH + 4;
+              pdf.setFontSize(8);
+              const lines = pdf.splitTextToSize(caption, imgW);
+              pdf.text(lines, cellX, captionY);
+              pdf.setFontSize(11);
+            }
+
+            indexOnPage++;
+            if (indexOnPage >= cols * rows) {
+              indexOnPage = 0;
+            }
           });
         }
-        // Fallback: share a URL if share is available but file-sharing isn’t
-        else if (navigator.share) {
-          const url = URL.createObjectURL(blob);
-          try {
+
+        return pdf;
+      } finally {
+        if (buttonRow) buttonRow.style.display = "flex";
+      }
+    }
+
+    // Default filename helper: "YYYY-MM-DD Truck Inspection"
+    function getDefaultFileName() {
+      const d = new Date();
+      const yyyy = d.getFullYear();
+      const mm = String(d.getMonth() + 1).padStart(2, "0");
+      const dd = String(d.getDate()).padStart(2, "0");
+      return `${yyyy}-${mm}-${dd} Truck Inspection`;
+    }
+
+    // Remove characters that can cause share/save to silently fail
+    function sanitizeFileName(name) {
+      // Replace illegal filename characters with a dash
+      return name.replace(/[\/\\:*?"<>|]/g, "-");
+    }
+
+    // Prompt user for filename, ensure .pdf extension
+    function promptFileName() {
+      const defaultName = getDefaultFileName();
+      let name = prompt(
+        "Enter a file name for this inspection PDF:",
+        defaultName
+      );
+
+      // User hit "Cancel"
+      if (name === null) return null;
+
+      name = name.trim();
+
+      // If they deleted everything or only typed spaces, fall back to default
+      if (!name) {
+        name = defaultName;
+      }
+
+      name = sanitizeFileName(name);
+
+      if (!name.toLowerCase().endsWith(".pdf")) {
+        name += ".pdf";
+      }
+
+      return name;
+    }
+
+    // Download button
+    if (downloadBtn) {
+      downloadBtn.addEventListener("click", async () => {
+        const fileName = promptFileName();
+        if (!fileName) return; // user cancelled
+        const pdf = await buildPdf();
+        pdf.save(fileName);
+      });
+    }
+
+    // Share button (for iPad/iOS etc.)
+    if (shareBtn) {
+      shareBtn.addEventListener("click", async () => {
+        const fileName = promptFileName();
+        if (!fileName) return; // user cancelled
+
+        const pdf = await buildPdf();
+        const blob = pdf.output("blob");
+        const file = new File([blob], fileName, { type: "application/pdf" });
+
+        try {
+          // Best case: share with file support
+          if (navigator.canShare && navigator.canShare({ files: [file] })) {
             await navigator.share({
-              url,
-              title: 'Weekly Vehicle Inspection',
-              text: 'Weekly Vehicle Inspection PDF from VistaGeomatics.'
+              files: [file],
+              title: "Weekly Vehicle Inspection",
+              text: "Weekly Vehicle Inspection PDF from VistaGeomatics.",
             });
-          } finally {
+          }
+          // Fallback: share a URL if share is available but file-sharing isn’t
+          else if (navigator.share) {
+            const url = URL.createObjectURL(blob);
+            try {
+              await navigator.share({
+                url,
+                title: "Weekly Vehicle Inspection",
+                text: "Weekly Vehicle Inspection PDF from VistaGeomatics.",
+              });
+            } finally {
+              URL.revokeObjectURL(url);
+            }
+          }
+          // Final fallback: just download
+          else {
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = fileName;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
             URL.revokeObjectURL(url);
           }
+        } catch (err) {
+          console.error(
+            "Share cancelled or failed, falling back to download",
+            err
+          );
+          pdf.save(fileName);
         }
-        // Final fallback: just download
-        else {
-          const url = URL.createObjectURL(blob);
-          const a = document.createElement('a');
-          a.href = url;
-          a.download = fileName;
-          document.body.appendChild(a);
-          a.click();
-          document.body.removeChild(a);
-          URL.revokeObjectURL(url);
-        }
-      } catch (err) {
-        console.error('Share cancelled or failed, falling back to download', err);
-        pdf.save(fileName);
+      });
+    }
+
+    // SIGNATURE PADS (CANVAS)
+    function initSignaturePad(canvasId, clearButtonId) {
+      const canvas = document.getElementById(canvasId);
+      const clearBtn = document.getElementById(clearButtonId);
+      if (!canvas) return;
+
+      const ctx = canvas.getContext("2d");
+      let drawing = false;
+      let lastX = 0,
+        lastY = 0;
+
+      function resizeCanvas() {
+        const rect = canvas.getBoundingClientRect();
+        canvas.width = rect.width;
+        canvas.height = rect.height;
+        ctx.lineWidth = 2;
+        ctx.lineCap = "round";
+        ctx.strokeStyle = "#111827";
       }
-    });
-  }
 
-  // SIGNATURE PADS (CANVAS)
-  function initSignaturePad(canvasId, clearButtonId) {
-    const canvas = document.getElementById(canvasId);
-    const clearBtn = document.getElementById(clearButtonId);
-    if (!canvas) return;
+      resizeCanvas();
+      window.addEventListener("resize", resizeCanvas);
 
-    const ctx = canvas.getContext('2d');
-    let drawing = false;
-    let lastX = 0, lastY = 0;
+      function startDraw(x, y) {
+        drawing = true;
+        lastX = x;
+        lastY = y;
+      }
 
-    function resizeCanvas() {
-      const rect = canvas.getBoundingClientRect();
-      canvas.width = rect.width;
-      canvas.height = rect.height;
-      ctx.lineWidth = 2;
-      ctx.lineCap = 'round';
-      ctx.strokeStyle = '#111827';
+      function drawLine(x, y) {
+        if (!drawing) return;
+        ctx.beginPath();
+        ctx.moveTo(lastX, lastY);
+        ctx.lineTo(x, y);
+        ctx.stroke();
+        lastX = x;
+        lastY = y;
+      }
+
+      function endDraw() {
+        drawing = false;
+      }
+
+      // Mouse events
+      canvas.addEventListener("mousedown", (e) => {
+        const rect = canvas.getBoundingClientRect();
+        startDraw(e.clientX - rect.left, e.clientY - rect.top);
+      });
+
+      canvas.addEventListener("mousemove", (e) => {
+        const rect = canvas.getBoundingClientRect();
+        drawLine(e.clientX - rect.left, e.clientY - rect.top);
+      });
+
+      canvas.addEventListener("mouseup", endDraw);
+      canvas.addEventListener("mouseleave", endDraw);
+
+      // Touch events
+      canvas.addEventListener(
+        "touchstart",
+        (e) => {
+          e.preventDefault();
+          const rect = canvas.getBoundingClientRect();
+          const touch = e.touches[0];
+          startDraw(touch.clientX - rect.left, touch.clientY - rect.top);
+        },
+        { passive: false }
+      );
+
+      canvas.addEventListener(
+        "touchmove",
+        (e) => {
+          e.preventDefault();
+          const rect = canvas.getBoundingClientRect();
+          const touch = e.touches[0];
+          drawLine(touch.clientX - rect.left, touch.clientY - rect.top);
+        },
+        { passive: false }
+      );
+
+      canvas.addEventListener(
+        "touchend",
+        (e) => {
+          e.preventDefault();
+          endDraw();
+        },
+        { passive: false }
+      );
+
+      if (clearBtn) {
+        clearBtn.addEventListener("click", () => {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+        });
+      }
     }
-    resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
 
-    function startDraw(x, y) {
-      drawing = true;
-      lastX = x;
-      lastY = y;
-    }
+    initSignaturePad("operatorSignature", "clearOperatorSig");
+    initSignaturePad("reviewerSignature", "clearReviewerSig");
 
-    function drawLine(x, y) {
-      if (!drawing) return;
-      ctx.beginPath();
-      ctx.moveTo(lastX, lastY);
-      ctx.lineTo(x, y);
-      ctx.stroke();
-      lastX = x;
-      lastY = y;
-    }
+    // RESET: also clear photos + signatures
+    const resetBtn = document.getElementById("resetBtn");
+    if (resetBtn) {
+      resetBtn.addEventListener("click", () => {
+        if (photoGrid) photoGrid.innerHTML = "";
 
-    function endDraw() {
-      drawing = false;
-    }
-
-    // Mouse events
-    canvas.addEventListener('mousedown', e => {
-      const rect = canvas.getBoundingClientRect();
-      startDraw(e.clientX - rect.left, e.clientY - rect.top);
-    });
-
-    canvas.addEventListener('mousemove', e => {
-      const rect = canvas.getBoundingClientRect();
-      drawLine(e.clientX - rect.left, e.clientY - rect.top);
-    });
-
-    canvas.addEventListener('mouseup', endDraw);
-    canvas.addEventListener('mouseleave', endDraw);
-
-    // Touch events
-    canvas.addEventListener('touchstart', e => {
-      e.preventDefault();
-      const rect = canvas.getBoundingClientRect();
-      const touch = e.touches[0];
-      startDraw(touch.clientX - rect.left, touch.clientY - rect.top);
-    }, { passive: false });
-
-    canvas.addEventListener('touchmove', e => {
-      e.preventDefault();
-      const rect = canvas.getBoundingClientRect();
-      const touch = e.touches[0];
-      drawLine(touch.clientX - rect.left, touch.clientY - rect.top);
-    }, { passive: false });
-
-    canvas.addEventListener('touchend', e => {
-      e.preventDefault();
-      endDraw();
-    }, { passive: false });
-
-    if (clearBtn) {
-      clearBtn.addEventListener('click', () => {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        const canvases = [
+          document.getElementById("operatorSignature"),
+          document.getElementById("reviewerSignature"),
+        ];
+        canvases.forEach((canvas) => {
+          if (canvas) {
+            const ctx = canvas.getContext("2d");
+            if (ctx) ctx.clearRect(0, 0, canvas.width, canvas.height);
+          }
+        });
       });
     }
-  }
-
-  initSignaturePad('operatorSignature', 'clearOperatorSig');
-  initSignaturePad('reviewerSignature', 'clearReviewerSig');
-
-  // RESET: also clear photos + signatures
-  const resetBtn = document.getElementById('resetBtn');
-  if (resetBtn) {
-    resetBtn.addEventListener('click', () => {
-      if (photoGrid) photoGrid.innerHTML = '';
-      const canvases = [document.getElementById('operatorSignature'), document.getElementById('reviewerSignature')];
-      canvases.forEach(canvas => {
-        if (canvas) {
-          const ctx = canvas.getContext('2d');
-          ctx && ctx.clearRect(0, 0, canvas.width, canvas.height);
-        }
-      });
-    });
-  }
-</script>
+  </script>
 </body>
 </html>
