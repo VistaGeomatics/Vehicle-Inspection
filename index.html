@@ -1967,9 +1967,8 @@
       return `${yyyy}-${mm}-${dd} Truck Inspection`;
     }
 
-    // Remove characters that can cause share/save to silently fail
+    // Remove characters that can cause issues in filenames
     function sanitizeFileName(name) {
-      // Replace illegal filename characters with a dash
       return name.replace(/[\/\\:*?"<>|]/g, "-");
     }
 
@@ -1986,7 +1985,7 @@
 
       name = name.trim();
 
-      // If they deleted everything or only typed spaces, fall back to default
+      // If empty, fall back to default
       if (!name) {
         name = defaultName;
       }
@@ -2010,7 +2009,7 @@
       });
     }
 
-    // Share button (for iPad/iOS etc.)
+    // Share button (simplified: always use URL-based share, filename used only for fallback)
     if (shareBtn) {
       shareBtn.addEventListener("click", async () => {
         const fileName = promptFileName();
@@ -2018,32 +2017,22 @@
 
         const pdf = await buildPdf();
         const blob = pdf.output("blob");
-        const file = new File([blob], fileName, { type: "application/pdf" });
 
         try {
-          // Best case: share with file support
-          if (navigator.canShare && navigator.canShare({ files: [file] })) {
-            await navigator.share({
-              files: [file],
-              title: "Weekly Vehicle Inspection",
-              text: "Weekly Vehicle Inspection PDF from VistaGeomatics.",
-            });
-          }
-          // Fallback: share a URL if share is available but file-sharing isn’t
-          else if (navigator.share) {
+          if (navigator.share) {
             const url = URL.createObjectURL(blob);
             try {
               await navigator.share({
                 url,
                 title: "Weekly Vehicle Inspection",
-                text: "Weekly Vehicle Inspection PDF from VistaGeomatics.",
+                text:
+                  "Weekly Vehicle Inspection PDF from VistaGeomatics.",
               });
             } finally {
               URL.revokeObjectURL(url);
             }
-          }
-          // Final fallback: just download
-          else {
+          } else {
+            // Fallback: just download
             const url = URL.createObjectURL(blob);
             const a = document.createElement("a");
             a.href = url;
