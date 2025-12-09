@@ -501,6 +501,13 @@
       box-shadow: 0 10px 22px rgba(15, 23, 42, 0.18);
     }
 
+    /* iPad / medium screens – prevent overlapping of Date / License Plate */
+    @media (max-width: 1024px) {
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+    }
+
     @media (max-width: 700px) {
       .header-bar {
         flex-direction: column;
@@ -893,6 +900,7 @@
                       class="status-box"
                       data-group="comp_insurance"
                       value="r"
+
                     />R
                   </label>
                 </td>
@@ -1448,10 +1456,7 @@
                 </td>
               </tr>
 
-              <!-- Spacer row to push Tire Wear onto next PDF page -->
-              <tr style="height: 24px;">
-                <td colspan="2" style="background:#f9fbff; border:none;"></td>
-              </tr>
+              <!-- Spacer row REMOVED so Tire Wear is directly under Tire Pressure -->
 
               <tr>
                 <td>Tire Wear</td>
@@ -1858,42 +1863,83 @@
     const downloadBtn = document.getElementById("downloadBtn");
     const shareBtn = document.getElementById("shareBtn");
 
-    // Build PDF – always LETTER (8.5 x 11), full-width, multi-page
+    // Build PDF – LETTER (8.5 x 11), fixed layout width, ~2 pages, margins
     async function buildPdf() {
+      if (!window.jspdf || !window.jspdf.jsPDF) {
+        alert("PDF library failed to load. Check your internet connection.");
+        throw new Error("jsPDF not available");
+      }
+
       const { jsPDF } = window.jspdf;
       const pdf = new jsPDF("p", "mm", "letter");
 
       // Hide buttons for cleaner export
       if (buttonRow) buttonRow.style.display = "none";
 
+      // Force a fixed width so layout is consistent across devices
+      const originalWidth = formContainer.style.width;
+      formContainer.style.width = "1000px";
+
       try {
-        // Render form as canvas
         const canvas = await html2canvas(formContainer, {
           scale: 2,
           useCORS: true,
+          scrollY: -window.scrollY
         });
 
         const imgData = canvas.toDataURL("image/jpeg", 0.95);
         const pdfWidth = pdf.internal.pageSize.getWidth();
         const pdfHeight = pdf.internal.pageSize.getHeight();
 
-        // Full-width image
-        const imgWidth = pdfWidth;
-        const imgHeight = (canvas.height * imgWidth) / canvas.width;
+        // Base full-width image size
+        let imgWidth = pdfWidth;
+        let imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+        // Page margins so the form isn't jammed at edges
+        const marginTop = 5;
+        const marginBottom = 5;
+        const usableHeight = pdfHeight - marginTop - marginBottom;
+
+        // How many pages would we need at full width?
+        let pagesNeeded = Math.ceil(imgHeight / usableHeight);
+
+        // If more than 2 pages, scale down so main form fits into 2 pages
+        if (pagesNeeded > 2) {
+          const scaleFactor = (2 * usableHeight) / imgHeight;
+          imgWidth = imgWidth * scaleFactor;
+          imgHeight = imgHeight * scaleFactor;
+        }
 
         let heightLeft = imgHeight;
         let position = 0;
 
+        // Center image horizontally if scaled narrower than page
+        const xOffset = (pdfWidth - imgWidth) / 2;
+
         // First page
-        pdf.addImage(imgData, "JPEG", 0, position, imgWidth, imgHeight);
-        heightLeft -= pdfHeight;
+        pdf.addImage(
+          imgData,
+          "JPEG",
+          xOffset,
+          marginTop + position,
+          imgWidth,
+          imgHeight
+        );
+        heightLeft -= usableHeight;
 
         // Additional pages if needed
         while (heightLeft > 0) {
-          position -= pdfHeight;
+          position -= usableHeight;
           pdf.addPage();
-          pdf.addImage(imgData, "JPEG", 0, position, imgWidth, imgHeight);
-          heightLeft -= pdfHeight;
+          pdf.addImage(
+            imgData,
+            "JPEG",
+            xOffset,
+            marginTop + position,
+            imgWidth,
+            imgHeight
+          );
+          heightLeft -= usableHeight;
         }
 
         // Additional pages – photos, 4 per page
@@ -1960,6 +2006,8 @@
 
         return pdf;
       } finally {
+        // Restore layout and buttons
+        formContainer.style.width = originalWidth;
         if (buttonRow) buttonRow.style.display = "flex";
       }
     }
@@ -2008,52 +2056,68 @@
     // Download button
     if (downloadBtn) {
       downloadBtn.addEventListener("click", async () => {
-        const fileName = promptFileName();
-        if (!fileName) return; // user cancelled
-        const pdf = await buildPdf();
-        pdf.save(fileName);
+        try {
+          const fileName = promptFileName();
+          if (!fileName) return; // user cancelled
+          const pdf = await buildPdf();
+          pdf.save(fileName);
+        } catch (e) {
+          console.error(e);
+        }
       });
     }
 
-    // Share button (simplified: always use URL-based share, filename used only for fallback)
+    // Share button
     if (shareBtn) {
       shareBtn.addEventListener("click", async () => {
-        const fileName = promptFileName();
-        if (!fileName) return; // user cancelled
-
-        const pdf = await buildPdf();
-        const blob = pdf.output("blob");
-
         try {
-          if (navigator.share) {
-            const url = URL.createObjectURL(blob);
-            try {
+          const fileName = promptFileName();
+          if (!fileName) return; // user cancelled
+
+          const pdf = await buildPdf();
+          const blob = pdf.output("blob");
+
+          try {
+            if (navigator.share && navigator.canShare && navigator.canShare({ files: [] })) {
+              // Best-effort Web Share with file (supported on some iOS / Android)
+              const file = new File([blob], fileName, { type: "application/pdf" });
               await navigator.share({
-                url,
+                files: [file],
                 title: "Weekly Vehicle Inspection",
-                text:
-                  "Weekly Vehicle Inspection PDF from VistaGeomatics.",
+                text: "Weekly Vehicle Inspection PDF from VistaGeomatics."
               });
-            } finally {
+            } else if (navigator.share) {
+              // Fallback: share via URL
+              const url = URL.createObjectURL(blob);
+              try {
+                await navigator.share({
+                  url,
+                  title: "Weekly Vehicle Inspection",
+                  text: "Weekly Vehicle Inspection PDF from VistaGeomatics."
+                });
+              } finally {
+                URL.revokeObjectURL(url);
+              }
+            } else {
+              // Fallback: just download
+              const url = URL.createObjectURL(blob);
+              const a = document.createElement("a");
+              a.href = url;
+              a.download = fileName;
+              document.body.appendChild(a);
+              a.click();
+              document.body.removeChild(a);
               URL.revokeObjectURL(url);
             }
-          } else {
-            // Fallback: just download
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement("a");
-            a.href = url;
-            a.download = fileName;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
+          } catch (err) {
+            console.error(
+              "Share cancelled or failed, falling back to download",
+              err
+            );
+            pdf.save(fileName);
           }
-        } catch (err) {
-          console.error(
-            "Share cancelled or failed, falling back to download",
-            err
-          );
-          pdf.save(fileName);
+        } catch (e) {
+          console.error(e);
         }
       });
     }
