@@ -4,436 +4,432 @@
   <meta charset="UTF-8" />
   <title>VistaGeomatics – Weekly Vehicle Inspection</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@400;700&display=swap"
-    rel="stylesheet"
-  />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
+
   <style>
-    :root {
-      --vista-blue: #165f7d;
-      --vista-blue-light: #2a7fa3;
-      --vista-blue-dark: #0b3045;
-      --bg-body: #eef3f9;
-      --bg-card: #ffffff;
-      --border-soft: #d6e2f0;
-      --text-main: #101827;
-      --text-muted: #6b7280;
+    :root{
+      --vista-blue:#165f7d;
+      --vista-blue-light:#2a7fa3;
+      --vista-blue-dark:#0b3045;
+      --bg-body:#eef3f9;
+      --bg-card:#ffffff;
+      --border-soft:#d6e2f0;
+      --text-main:#101827;
+      --text-muted:#6b7280;
     }
 
-    * { box-sizing: border-box; }
+    *{ box-sizing:border-box; }
 
-    body {
-      margin: 0;
-      padding: 16px;
-      font-family: "Inter", sans-serif;
-      background: radial-gradient(circle at top, #f4f8fc 0, #e4edf6 40%, #dde6f3 100%);
-      color: var(--text-main);
+    body{
+      margin:0;
+      padding:16px;
+      font-family:"Inter",sans-serif;
+      background:radial-gradient(circle at top,#f4f8fc 0,#e4edf6 40%,#dde6f3 100%);
+      color:var(--text-main);
     }
 
-    .page-wrap { max-width: 1000px; margin: 0 auto; }
+    .page-wrap{ max-width:1000px; margin:0 auto; }
 
-    .container {
-      background: var(--bg-card);
-      border-radius: 16px;
-      box-shadow: 0 14px 30px rgba(5, 41, 66, 0.18), 0 0 0 1px rgba(5, 41, 66, 0.04);
-      overflow: hidden;
-      position: relative;
+    .container{
+      background:var(--bg-card);
+      border-radius:16px;
+      box-shadow:0 14px 30px rgba(5,41,66,.18),0 0 0 1px rgba(5,41,66,.04);
+      overflow:hidden;
+      position:relative;
     }
 
-    .container::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      background: radial-gradient(circle at top right, rgba(22, 95, 125, 0.16), transparent 55%);
-      opacity: 0.9;
+    .container::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      background:radial-gradient(circle at top right,rgba(22,95,125,.16),transparent 55%);
+      opacity:.9;
     }
 
-    /* HEADER BAR */
-    .header-bar {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 12px 20px;
-      background: linear-gradient(120deg, var(--vista-blue-light) 0%, var(--vista-blue) 40%, var(--vista-blue-dark) 100%);
-      color: #fff;
+    .header-bar{
+      position:relative;
+      z-index:1;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:12px 20px;
+      background:linear-gradient(120deg,var(--vista-blue-light) 0%,var(--vista-blue) 40%,var(--vista-blue-dark) 100%);
+      color:#fff;
+      gap:14px;
     }
 
-    .brand-title {
-      margin: 0;
-      font-family: "Montserrat", sans-serif; /* keep Montserrat */
-      font-size: 1.4rem;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      font-weight: 400; /* only VISTA bold */
-      line-height: 1.1;
-      white-space: nowrap;
-    }
-    .brand-title .brand-vista { font-weight: 700; }
-
-    .header-left p { margin: 2px 0 0; font-size: 0.8rem; opacity: 0.9; }
-
-    .header-logo {
-      height: 60px;
-      filter: drop-shadow(0 5px 14px rgba(0, 0, 0, 0.35));
+    .brand-title{
+      margin:0;
+      font-family:"Montserrat",sans-serif;
+      font-size:1.4rem;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+      font-weight:400; /* only VISTA bold */
+      line-height:1.1;
+      white-space:nowrap;
     }
 
-    /* PAGE TITLE */
-    .page-title-bar {
-      position: relative;
-      z-index: 1;
-      text-align: center;
-      padding: 12px 20px 6px;
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.78), #f7faff);
+    .brand-title .brand-vista{ font-weight:700; }
+
+    .header-left p{ margin:2px 0 0; font-size:.8rem; opacity:.9; }
+
+    .header-logo{
+      height:60px;
+      filter:drop-shadow(0 5px 14px rgba(0,0,0,.35));
     }
 
-    .page-title-main {
-      font-family: "Montserrat", sans-serif;
-      font-size: 1.3rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--vista-blue-dark);
+    .page-title-bar{
+      position:relative;
+      z-index:1;
+      text-align:center;
+      padding:12px 20px 6px;
+      background:linear-gradient(180deg,rgba(255,255,255,.78),#f7faff);
     }
 
-    .page-title-sub { margin-top: 3px; font-size: 0.8rem; color: var(--text-muted); }
-
-    .page-title-accent {
-      width: 120px;
-      height: 3px;
-      margin: 8px auto 0;
-      border-radius: 999px;
-      background: linear-gradient(120deg, var(--vista-blue-light), var(--vista-blue), var(--vista-blue-dark));
-      box-shadow: 0 0 8px rgba(46, 167, 224, 0.65);
+    .page-title-main{
+      font-family:"Montserrat",sans-serif;
+      font-size:1.3rem;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      color:var(--vista-blue-dark);
     }
 
-    form { position: relative; z-index: 1; padding: 10px 18px 14px; font-size: 0.86rem; }
+    .page-title-sub{ margin-top:3px; font-size:.8rem; color:var(--text-muted); }
 
-    label {
-      font-size: 0.8rem;
-      font-weight: 600;
-      display: block;
-      margin-bottom: 3px;
-      color: var(--text-main);
+    .page-title-accent{
+      width:120px;
+      height:3px;
+      margin:8px auto 0;
+      border-radius:999px;
+      background:linear-gradient(120deg,var(--vista-blue-light),var(--vista-blue),var(--vista-blue-dark));
+      box-shadow:0 0 8px rgba(46,167,224,.65);
     }
 
-    /* Inputs look great on-screen; export uses replacements (JS) */
-    input[type="text"],
-    input[type="date"],
-    textarea {
-      width: 100%;
-      padding: 7px 8px;
-      border-radius: 8px;
-      border: 1px solid var(--border-soft);
-      background: #f9fbff;
-      font-size: 0.8rem;
-      line-height: 1.25;
-      color: var(--text-main);
-      transition: 0.15s;
+    form{
+      position:relative;
+      z-index:1;
+      padding:10px 18px 14px;
+      font-size:.86rem;
     }
 
-    input[type="text"],
-    input[type="date"] { height: 32px; }
-
-    input:focus,
-    textarea:focus {
-      outline: none;
-      border-color: var(--vista-blue-light);
-      background: #fff;
-      box-shadow: 0 0 0 2px rgba(38, 132, 168, 0.18);
+    label{
+      font-size:.8rem;
+      font-weight:600;
+      display:block;
+      margin-bottom:3px;
+      color:var(--text-main);
     }
 
-    textarea { min-height: 60px; resize: vertical; overflow: auto; }
-
-    .grid-2 {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 8px;
+    input[type="text"], input[type="date"], textarea{
+      width:100%;
+      padding:7px 8px;
+      border-radius:8px;
+      border:1px solid var(--border-soft);
+      background:#f9fbff;
+      font-size:.8rem;
+      line-height:1.25;
+      color:var(--text-main);
+      transition:.15s;
     }
 
-    .section-card {
-      margin-top: 10px;
-      padding: 8px 10px 10px;
-      border-radius: 12px;
-      border: 1px solid var(--border-soft);
-      background: linear-gradient(135deg, #fbfdff 0%, #f4f8fd 60%, #eff5fb 100%);
-      box-shadow: 0 8px 20px rgba(5, 41, 66, 0.05);
-      position: relative;
+    input[type="text"], input[type="date"]{ height:32px; }
+
+    input:focus, textarea:focus{
+      outline:none;
+      border-color:var(--vista-blue-light);
+      background:#fff;
+      box-shadow:0 0 0 2px rgba(38,132,168,.18);
     }
 
-    .section-card::before {
-      content: "";
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 3px;
-      border-radius: 12px 12px 0 0;
-      background: linear-gradient(90deg, var(--vista-blue-light), var(--vista-blue-dark));
+    textarea{ min-height:60px; resize:vertical; overflow:auto; }
+
+    .grid-2{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:8px;
     }
 
-    .section-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      gap: 6px;
-      margin-bottom: 4px;
+    .section-card{
+      margin-top:10px;
+      padding:8px 10px 10px;
+      border-radius:12px;
+      border:1px solid var(--border-soft);
+      background:linear-gradient(135deg,#fbfdff 0%,#f4f8fd 60%,#eff5fb 100%);
+      box-shadow:0 8px 20px rgba(5,41,66,.05);
+      position:relative;
     }
 
-    .section-title {
-      font-weight: 600;
-      font-size: 0.9rem;
-      color: var(--vista-blue-dark);
-      font-family: "Montserrat", sans-serif;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
+    .section-card::before{
+      content:"";
+      position:absolute;
+      top:0; left:0; right:0;
+      height:3px;
+      border-radius:12px 12px 0 0;
+      background:linear-gradient(90deg,var(--vista-blue-light),var(--vista-blue-dark));
     }
 
-    .section-note { font-size: 0.74rem; color: var(--text-muted); }
-
-    .top-info-header {
-      text-align: center;
-      font-weight: 600;
-      font-size: 0.85rem;
-      margin-bottom: 6px;
-      color: var(--vista-blue-dark);
+    .section-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:baseline;
+      gap:6px;
+      margin-bottom:4px;
     }
 
-    .rating-legend {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px 12px;
-      margin-top: 4px;
-      font-size: 0.74rem;
-      color: var(--text-muted);
+    .section-title{
+      font-weight:600;
+      font-size:.9rem;
+      color:var(--vista-blue-dark);
+      font-family:"Montserrat",sans-serif;
+      text-transform:uppercase;
+      letter-spacing:.05em;
     }
 
-    .rating-legend span.code { font-weight: 700; margin-right: 2px; color: var(--vista-blue); }
+    .section-note{ font-size:.74rem; color:var(--text-muted); }
 
-    table { width: 100%; border-collapse: collapse; margin-top: 2px; font-size: 0.78rem; }
-    th, td { padding: 3px 4px; border: 1px solid var(--border-soft); }
-    th { background: #e8f0fb; font-weight: 600; color: var(--vista-blue-dark); text-align: left; }
-    td { background: #f9fbff; }
-
-    .item-name { width: 60%; }
-    .status-select { width: 40%; }
-
-    .status-cell {
-      display: inline-flex;
-      align-items: center;
-      gap: 1px;
-      margin-right: 6px;
-      font-size: 0.7rem;
-      white-space: nowrap;
+    .top-info-header{
+      text-align:center;
+      font-weight:600;
+      font-size:.85rem;
+      margin-bottom:6px;
+      color:var(--vista-blue-dark);
     }
 
-    .status-cell input[type="checkbox"] {
-      width: 12px;
-      height: 12px;
-      accent-color: var(--vista-blue);
-      margin: 0;
+    .rating-legend{
+      display:flex;
+      flex-wrap:wrap;
+      gap:6px 12px;
+      margin-top:4px;
+      font-size:.74rem;
+      color:var(--text-muted);
     }
 
-    .check-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-      align-items: center;
-      margin: 4px 0;
-      font-size: 0.82rem;
-      color: var(--text-main);
+    .rating-legend span.code{ font-weight:700; margin-right:2px; color:var(--vista-blue); }
+
+    table{ width:100%; border-collapse:collapse; margin-top:2px; font-size:.78rem; }
+    th, td{ padding:3px 4px; border:1px solid var(--border-soft); }
+    th{ background:#e8f0fb; font-weight:600; color:var(--vista-blue-dark); text-align:left; }
+    td{ background:#f9fbff; }
+
+    .item-name{ width:60%; }
+    .status-select{ width:40%; }
+
+    .status-cell{
+      display:inline-flex;
+      align-items:center;
+      gap:1px;
+      margin-right:6px;
+      font-size:.7rem;
+      white-space:nowrap;
     }
 
-    .check-row label {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-weight: 500;
-      margin-bottom: 0;
+    .status-cell input[type="checkbox"]{
+      width:12px;
+      height:12px;
+      accent-color:var(--vista-blue);
+      margin:0;
     }
 
-    input[type="checkbox"].overall-check { width: 16px; height: 16px; accent-color: var(--vista-blue); }
-
-    /* PHOTO SECTION */
-    .photo-section { margin-top: 6px; }
-
-    .photo-actions {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 4px;
-      flex-wrap: wrap;
+    .check-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:14px;
+      align-items:center;
+      margin:4px 0;
+      font-size:.82rem;
+      color:var(--text-main);
     }
 
-    .photo-grid { margin-top: 6px; display: flex; flex-wrap: wrap; gap: 6px; }
-
-    .photo-card {
-      width: 130px;
-      border-radius: 8px;
-      border: 1px solid var(--border-soft);
-      background: #f9fbff;
-      padding: 4px;
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-      box-shadow: 0 3px 8px rgba(15, 23, 42, 0.08);
+    .check-row label{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      font-weight:500;
+      margin-bottom:0;
     }
 
-    .photo-card img {
-      width: 100%;
-      height: 80px;
-      object-fit: cover;
-      border-radius: 5px;
-      border: 1px solid #d1d9e6;
-      background: #e5ecf7;
+    input[type="checkbox"].overall-check{
+      width:16px;
+      height:16px;
+      accent-color:var(--vista-blue);
     }
 
-    .photo-card textarea { font-size: 0.7rem; min-height: 34px; line-height: 1.25; }
-
-    .photo-remove {
-      border: 1px solid #d4d7dd;
-      background: #f3f4f6;
-      color: var(--text-main);
-      border-radius: 999px;
-      padding: 4px 8px;
-      font-size: 0.68rem;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      cursor: pointer;
-      align-self: flex-end;
+    .photo-section{ margin-top:6px; }
+    .photo-actions{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      margin-top:4px;
+      flex-wrap:wrap;
     }
 
-    /* SIGNATURES */
-    .signature-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 8px;
-      margin-top: 4px;
+    .photo-grid{ margin-top:6px; display:flex; flex-wrap:wrap; gap:6px; }
+
+    .photo-card{
+      width:130px;
+      border-radius:8px;
+      border:1px solid var(--border-soft);
+      background:#f9fbff;
+      padding:4px;
+      display:flex;
+      flex-direction:column;
+      gap:3px;
+      box-shadow:0 3px 8px rgba(15,23,42,.08);
     }
 
-    .signature-box {
-      border-radius: 10px;
-      border: 1px solid var(--border-soft);
-      background: #f9fbff;
-      padding: 6px;
-      font-size: 0.8rem;
+    .photo-card img{
+      width:100%;
+      height:80px;
+      object-fit:cover;
+      border-radius:5px;
+      border:1px solid #d1d9e6;
+      background:#e5ecf7;
     }
 
-    .signature-box-row { display: flex; gap: 6px; margin-top: 4px; }
-    .signature-box-row > div { flex: 1; }
+    .photo-card textarea{ font-size:.7rem; min-height:34px; line-height:1.25; }
 
-    .signature-label {
-      font-size: 0.74rem;
-      font-weight: 600;
-      color: var(--text-muted);
-      margin-bottom: 2px;
+    .photo-remove{
+      border:1px solid #d4d7dd;
+      background:#f3f4f6;
+      color:var(--text-main);
+      border-radius:999px;
+      padding:4px 8px;
+      font-size:.68rem;
+      font-weight:700;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+      cursor:pointer;
+      align-self:flex-end;
     }
 
-    .small-input {
-      width: 100%;
-      padding: 5px 6px;
-      border-radius: 7px;
-      border: 1px solid var(--border-soft);
-      background: #ffffff;
-      font-size: 0.76rem;
-      line-height: 1.25;
-      color: var(--text-main);
-      height: 30px;
+    .signature-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:8px;
+      margin-top:4px;
     }
 
-    .small-input:focus {
-      outline: none;
-      border-color: var(--vista-blue-light);
-      box-shadow: 0 0 0 2px rgba(38, 132, 168, 0.18);
+    .signature-box{
+      border-radius:10px;
+      border:1px solid var(--border-soft);
+      background:#f9fbff;
+      padding:6px;
+      font-size:.8rem;
     }
 
-    .comments-area textarea { min-height: 40px; }
+    .signature-box-row{ display:flex; gap:6px; margin-top:4px; }
+    .signature-box-row > div{ flex:1; }
 
-    .signature-canvas {
-      width: 100%;
-      height: 90px;
-      border-radius: 8px;
-      border: 1px solid var(--border-soft);
-      background: #ffffff;
-      box-shadow: inset 0 1px 2px rgba(15, 23, 42, 0.08);
-      display: block;
-      cursor: crosshair;
+    .signature-label{
+      font-size:.74rem;
+      font-weight:600;
+      color:var(--text-muted);
+      margin-bottom:2px;
     }
 
-    .signature-actions { display: flex; justify-content: flex-end; margin-top: 4px; }
-    .signature-actions button { padding: 3px 10px; font-size: 0.7rem; letter-spacing: 0.05em; }
-
-    /* BUTTONS */
-    .btn-row {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-      gap: 8px;
-      margin-top: 10px;
+    .small-input{
+      width:100%;
+      padding:5px 6px;
+      border-radius:7px;
+      border:1px solid var(--border-soft);
+      background:#ffffff;
+      font-size:.76rem;
+      line-height:1.25;
+      color:var(--text-main);
+      height:30px;
     }
 
-    button {
-      border: none;
-      border-radius: 999px;
-      padding: 7px 16px;
-      font-size: 0.8rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
+    .small-input:focus{
+      outline:none;
+      border-color:var(--vista-blue-light);
+      box-shadow:0 0 0 2px rgba(38,132,168,.18);
     }
 
-    .btn-primary {
-      background: linear-gradient(120deg, var(--vista-blue-light), var(--vista-blue), var(--vista-blue-dark));
-      color: #fff;
-      box-shadow: 0 8px 20px rgba(5, 41, 66, 0.35);
+    .comments-area textarea{ min-height:40px; }
+
+    .signature-canvas{
+      width:100%;
+      height:90px;
+      border-radius:8px;
+      border:1px solid var(--border-soft);
+      background:#ffffff;
+      box-shadow:inset 0 1px 2px rgba(15,23,42,.08);
+      display:block;
+      cursor:crosshair;
     }
 
-    .btn-secondary {
-      background: #f3f4f6;
-      color: var(--text-main);
-      border: 1px solid #d4d7dd;
+    .signature-actions{ display:flex; justify-content:flex-end; margin-top:4px; }
+    .signature-actions button{ padding:3px 10px; font-size:.7rem; letter-spacing:.05em; }
+
+    .btn-row{
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+      gap:8px;
+      margin-top:10px;
     }
 
-    button:hover { transform: translateY(-1px); box-shadow: 0 10px 22px rgba(15, 23, 42, 0.18); }
-
-    .autosave-note {
-      margin-top: 8px;
-      font-size: 0.74rem;
-      color: var(--text-muted);
-      display: flex;
-      justify-content: space-between;
-      gap: 8px;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-    .autosave-note b { color: var(--vista-blue-dark); }
-
-    .form-footer {
-      margin-top: 10px;
-      display: flex;
-      justify-content: flex-end;
-      font-size: 0.72rem;
-      color: var(--text-muted);
-    }
-    .form-footer .ver {
-      padding: 4px 10px;
-      border-radius: 999px;
-      border: 1px solid var(--border-soft);
-      background: #f9fbff;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      font-weight: 700;
+    button{
+      border:none;
+      border-radius:999px;
+      padding:7px 16px;
+      font-size:.8rem;
+      font-weight:600;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
     }
 
-    @media (max-width: 1024px) { .grid-2 { grid-template-columns: 1fr; } }
-    @media (max-width: 700px) {
-      .header-bar { flex-direction: column; align-items: flex-start; gap: 8px; }
-      .page-title-main { font-size: 1.1rem; letter-spacing: 0.12em; }
-      .form-footer { justify-content: center; }
+    .btn-primary{
+      background:linear-gradient(120deg,var(--vista-blue-light),var(--vista-blue),var(--vista-blue-dark));
+      color:#fff;
+      box-shadow:0 8px 20px rgba(5,41,66,.35);
+    }
+
+    .btn-secondary{
+      background:#f3f4f6;
+      color:var(--text-main);
+      border:1px solid #d4d7dd;
+    }
+
+    button:hover{ transform:translateY(-1px); box-shadow:0 10px 22px rgba(15,23,42,.18); }
+
+    .autosave-bar{
+      margin-top:8px;
+      display:flex;
+      justify-content:flex-end;
+      gap:8px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+
+    .form-footer{
+      margin-top:10px;
+      display:flex;
+      justify-content:flex-end;
+      font-size:.72rem;
+      color:var(--text-muted);
+    }
+
+    .form-footer .ver{
+      padding:4px 10px;
+      border-radius:999px;
+      border:1px solid var(--border-soft);
+      background:#f9fbff;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+      font-weight:700;
+    }
+
+    @media (max-width:1024px){ .grid-2{ grid-template-columns:1fr; } }
+    @media (max-width:700px){
+      .header-bar{ flex-direction:column; align-items:flex-start; gap:8px; }
+      .page-title-main{ font-size:1.1rem; letter-spacing:.12em; }
+      .form-footer{ justify-content:center; }
     }
   </style>
 </head>
@@ -502,20 +498,13 @@
             <div><span class="code">R</span> Rejected, repair necessary before use</div>
           </div>
 
-          <div class="autosave-note">
-            <div><b>Auto-save:</b> on (this device only)</div>
-            <button
-              type="button"
-              class="btn-secondary"
-              id="clearSavedBtn"
-              style="padding:4px 10px; font-size:0.7rem; letter-spacing:0.06em;"
-            >
+          <div class="autosave-bar">
+            <button type="button" class="btn-secondary" id="clearSavedBtn" style="padding:4px 10px; font-size:0.7rem; letter-spacing:0.06em;">
               Clear saved draft
             </button>
           </div>
         </div>
 
-        <!-- Under the Hood -->
         <div class="section-card">
           <div class="section-header">
             <div class="section-title">Under the Hood</div>
@@ -590,7 +579,6 @@
           </table>
         </div>
 
-        <!-- Driver's Compartment -->
         <div class="section-card">
           <div class="section-header">
             <div class="section-title">Driver’s Compartment</div>
@@ -748,7 +736,6 @@
           </table>
         </div>
 
-        <!-- Body Exterior -->
         <div class="section-card">
           <div class="section-header">
             <div class="section-title">Body Exterior</div>
@@ -853,7 +840,6 @@
           </table>
         </div>
 
-        <!-- Overall Assessment & Photos -->
         <div class="section-card">
           <div class="section-header">
             <div class="section-title">Overall Assessment</div>
@@ -880,7 +866,6 @@
           </div>
         </div>
 
-        <!-- Sign-off -->
         <div class="section-card">
           <div class="section-header">
             <div class="section-title">Sign-off</div>
@@ -948,15 +933,12 @@
     </div>
   </div>
 
-  <!-- jsPDF + html2canvas -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
   <script>
-    /* ===== FORM VERSION ===== */
-    const FORM_VERSION = "v1.2";
-
-    const AUTOSAVE_KEY = "vista_vehicle_inspection_autosave_v1_1";
+    const FORM_VERSION = "v1.3";
+    const AUTOSAVE_KEY = "vista_vehicle_inspection_autosave_v1_3";
     const DB_NAME = "VistaVehicleInspectionDB";
     const DB_VERSION = 1;
     const STORE_NAME = "photos";
@@ -968,7 +950,6 @@
     const shareBtn = document.getElementById("shareBtn");
     const resetBtn = document.getElementById("resetBtn");
     const clearSavedBtn = document.getElementById("clearSavedBtn");
-
     const addPhotoBtn = document.getElementById("addPhotoBtn");
     const photoInput = document.getElementById("photoInput");
     const photoGrid = document.getElementById("photoGrid");
@@ -983,7 +964,6 @@
       return `${yyyy}-${mm}-${dd}`;
     }
 
-    // Default today
     const dateField = document.getElementById("date");
     if (dateField && !dateField.value) dateField.value = toISODate(new Date());
 
@@ -1001,7 +981,6 @@
       return raw ? raw : "OPERATOR";
     }
 
-    // ✅ License - Operator - Current Date
     function getDefaultFileName() {
       const plate = getLicenseForFileName();
       const op = getOperatorForFileName();
@@ -1019,17 +998,12 @@
       return name;
     }
 
-    /***********************
-     * IndexedDB helpers (photos)
-     ***********************/
     function openDb() {
       return new Promise((resolve, reject) => {
         const req = indexedDB.open(DB_NAME, DB_VERSION);
         req.onupgradeneeded = () => {
           const db = req.result;
-          if (!db.objectStoreNames.contains(STORE_NAME)) {
-            db.createObjectStore(STORE_NAME, { keyPath: "id" });
-          }
+          if (!db.objectStoreNames.contains(STORE_NAME)) db.createObjectStore(STORE_NAME, { keyPath: "id" });
         };
         req.onsuccess = () => resolve(req.result);
         req.onerror = () => reject(req.error);
@@ -1076,9 +1050,6 @@
       });
     }
 
-    /***********************
-     * Checkbox exclusivity
-     ***********************/
     const chkPassed = document.getElementById("vehicle_passed");
     const chkNotPassed = document.getElementById("vehicle_not_passed");
     if (chkPassed && chkNotPassed) {
@@ -1110,9 +1081,6 @@
       });
     });
 
-    /***********************
-     * Photos UI
-     ***********************/
     function createPhotoCard({ id, dataUrl, caption }) {
       const card = document.createElement("div");
       card.className = "photo-card";
@@ -1184,9 +1152,6 @@
       });
     }
 
-    /***********************
-     * Signature pads
-     ***********************/
     function initSignaturePad(canvasId, clearButtonId, onChange) {
       const canvas = document.getElementById(canvasId);
       const clearBtn = document.getElementById(clearButtonId);
@@ -1256,6 +1221,7 @@
 
       canvas.addEventListener("touchend", (e) => { e.preventDefault(); endDraw(); }, { passive: false });
 
+
       if (clearBtn) {
         clearBtn.addEventListener("click", () => {
           ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -1290,9 +1256,6 @@
     const operatorSigPad = initSignaturePad("operatorSignature", "clearOperatorSig", saveDraftSoon);
     const reviewerSigPad = initSignaturePad("reviewerSignature", "clearReviewerSig", saveDraftSoon);
 
-    /***********************
-     * Autosave (localStorage)
-     ***********************/
     function collectFormState() {
       const state = { version: FORM_VERSION, savedAt: Date.now(), fields: {}, checks: {}, signatures: { operator: "", reviewer: "" } };
 
@@ -1322,9 +1285,7 @@
       inputs.forEach((el) => {
         const name = el.name || el.id;
         if (!name) return;
-        if (Object.prototype.hasOwnProperty.call(state.fields || {}, name)) {
-          el.value = state.fields[name] ?? "";
-        }
+        if (Object.prototype.hasOwnProperty.call(state.fields || {}, name)) el.value = state.fields[name] ?? "";
       });
 
       const cbs = vehicleForm.querySelectorAll("input[type='checkbox']");
@@ -1333,9 +1294,7 @@
         const uniqueKey = (cb.getAttribute("data-group")
           ? `g:${cb.getAttribute("data-group")}:${cb.value}`
           : `k:${key}:${cb.value || ""}`);
-        if (Object.prototype.hasOwnProperty.call(state.checks || {}, uniqueKey)) {
-          cb.checked = !!state.checks[uniqueKey];
-        }
+        if (Object.prototype.hasOwnProperty.call(state.checks || {}, uniqueKey)) cb.checked = !!state.checks[uniqueKey];
       });
     }
 
@@ -1363,8 +1322,8 @@
     }
 
     if (vehicleForm) {
-      vehicleForm.addEventListener("input", () => saveDraftSoon());
-      vehicleForm.addEventListener("change", () => saveDraftSoon());
+      vehicleForm.addEventListener("input", saveDraftSoon);
+      vehicleForm.addEventListener("change", saveDraftSoon);
     }
 
     if (clearSavedBtn) {
@@ -1390,6 +1349,7 @@
       resetBtn.addEventListener("click", async () => {
         if (photoGrid) photoGrid.innerHTML = "";
         await dbClearPhotos();
+        localStorage.removeItem(AUTOSAVE_KEY);
 
         [operatorSigPad.canvas, reviewerSigPad.canvas].forEach((c) => {
           if (c) {
@@ -1398,17 +1358,10 @@
           }
         });
 
-        localStorage.removeItem(AUTOSAVE_KEY);
         setTimeout(() => { if (dateField) dateField.value = toISODate(new Date()); }, 0);
       });
     }
 
-    /***********************
-     * ✅ EXPORT FIXES:
-     * - prevent squish by cloning at fixed width (1000px)
-     * - prevent clipped input/textarea by replacing them in the CLONE
-     * - ensure deficiencies shows ALL text (pre-wrap + auto height)
-     ***********************/
     function replaceFieldForExport(doc, el) {
       const win = doc.defaultView;
       const cs = win.getComputedStyle(el);
@@ -1417,7 +1370,6 @@
       div.className = "export-field";
       div.textContent = (el.value || "").toString();
 
-      // Copy the important “box” styles so it looks the same
       div.style.boxSizing = "border-box";
       div.style.width = cs.width;
       div.style.border = cs.border;
@@ -1431,18 +1383,15 @@
       div.style.lineHeight = "1.25";
       div.style.padding = cs.padding;
       div.style.boxShadow = cs.boxShadow;
-
-      // Make it render text cleanly, no clipping
       div.style.overflow = "visible";
       div.style.wordBreak = "break-word";
 
       if (el.tagName === "TEXTAREA") {
         div.style.whiteSpace = "pre-wrap";
-        div.style.minHeight = cs.height;     // keep at least the same size
-        div.style.height = "auto";           // grow for ALL text
+        div.style.minHeight = cs.height;
+        div.style.height = "auto";
         div.style.display = "block";
       } else {
-        // input/date: vertically center
         div.style.whiteSpace = "nowrap";
         div.style.height = cs.height;
         div.style.display = "flex";
@@ -1454,17 +1403,15 @@
 
     async function buildPdf() {
       if (!window.jspdf || !window.jspdf.jsPDF) {
-        alert("PDF library failed to load. Check your internet connection.");
+        alert("PDF library failed to load.");
         throw new Error("jsPDF not available");
       }
 
       const { jsPDF } = window.jspdf;
       const pdf = new jsPDF("p", "mm", "letter");
 
-      // Hide buttons for cleaner export
       if (buttonRow) buttonRow.style.display = "none";
 
-      // Do NOT force width on the live DOM (can cause reflow differences)
       try {
         const canvas = await html2canvas(formContainer, {
           scale: 2,
@@ -1472,14 +1419,13 @@
           backgroundColor: "#ffffff",
           scrollY: -window.scrollY,
 
-          // ✅ Critical: lock capture layout so it never reflows/squishes
-          windowWidth: 1000,
+          windowWidth: 1400,
+          windowHeight: 900,
           width: 1000,
 
           onclone: (doc) => {
-            // lock the cloned doc to desktop width
-            doc.documentElement.style.width = "1000px";
-            doc.body.style.width = "1000px";
+            doc.documentElement.style.width = "1400px";
+            doc.body.style.width = "1400px";
             doc.body.style.margin = "0";
             doc.body.style.padding = "0";
 
@@ -1487,9 +1433,22 @@
             if (fc) {
               fc.style.width = "1000px";
               fc.style.maxWidth = "1000px";
+              fc.style.margin = "0 auto";
             }
 
-            // Replace ALL inputs/textareas with styled text blocks
+            const style = doc.createElement("style");
+            style.textContent = `
+              .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+              .signature-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+              .page-wrap { max-width: 1000px !important; margin: 0 auto !important; }
+              textarea, .export-field {
+                white-space: pre-wrap !important;
+                word-break: break-word !important;
+                overflow-wrap: anywhere !important;
+              }
+            `;
+            doc.head.appendChild(style);
+
             const fields = doc.querySelectorAll("input[type='text'], input[type='date'], textarea");
             fields.forEach((el) => replaceFieldForExport(doc, el));
           }
@@ -1499,7 +1458,6 @@
         const pdfWidth = pdf.internal.pageSize.getWidth();
         const pdfHeight = pdf.internal.pageSize.getHeight();
 
-        // Fill width, keep aspect
         const marginTop = 5;
         const marginBottom = 5;
         const usableHeight = pdfHeight - marginTop - marginBottom;
@@ -1507,7 +1465,6 @@
         let imgWidth = pdfWidth;
         let imgHeight = (canvas.height * imgWidth) / canvas.width;
 
-        // If it would exceed 2 pages, scale down to fit 2 pages
         let pagesNeeded = Math.ceil(imgHeight / usableHeight);
         if (pagesNeeded > 2) {
           const scaleFactor = (2 * usableHeight) / imgHeight;
@@ -1530,7 +1487,6 @@
           heightLeft -= usableHeight;
         }
 
-        // Photos: 4 per page
         const photoCards = Array.from(document.querySelectorAll(".photo-card"));
         if (photoCards.length > 0) {
           const margin = 10;
@@ -1564,9 +1520,7 @@
             const imgW = cellWidth;
             const imgH = cellHeight - 12;
 
-            let format = "JPEG";
-            if (imgEl.src.startsWith("data:image/png")) format = "PNG";
-
+            const format = imgEl.src.startsWith("data:image/png") ? "PNG" : "JPEG";
             pdf.addImage(imgEl.src, format, cellX, cellY, imgW, imgH);
 
             const caption = captionEl && captionEl.value ? captionEl.value : "";
@@ -1614,19 +1568,11 @@
           try {
             if (navigator.share && navigator.canShare && navigator.canShare({ files: [] })) {
               const file = new File([blob], fileName, { type: "application/pdf" });
-              await navigator.share({
-                files: [file],
-                title: "Weekly Vehicle Inspection",
-                text: "Weekly Vehicle Inspection PDF from VistaGeomatics."
-              });
+              await navigator.share({ files: [file], title: "Weekly Vehicle Inspection" });
             } else if (navigator.share) {
               const url = URL.createObjectURL(blob);
               try {
-                await navigator.share({
-                  url,
-                  title: "Weekly Vehicle Inspection",
-                  text: "Weekly Vehicle Inspection PDF from VistaGeomatics."
-                });
+                await navigator.share({ url, title: "Weekly Vehicle Inspection" });
               } finally {
                 URL.revokeObjectURL(url);
               }
@@ -1641,7 +1587,7 @@
               URL.revokeObjectURL(url);
             }
           } catch (err) {
-            console.error("Share cancelled or failed, falling back to download", err);
+            console.error(err);
             pdf.save(fileName);
           }
         } catch (e) {
@@ -1650,15 +1596,12 @@
       });
     }
 
-    /***********************
-     * Load saved state on startup
-     ***********************/
     (async () => {
       try {
         await loadPhotosFromDb();
         await loadDraft();
       } catch (e) {
-        console.error("Autosave load failed:", e);
+        console.error(e);
       }
     })();
   </script>
