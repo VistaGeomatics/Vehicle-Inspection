@@ -61,27 +61,19 @@
       color: #fff;
     }
 
-    /* ✅ Montserrat guaranteed on the brand title */
     .brand-title {
       margin: 0;
       font-family: "Montserrat", sans-serif;
       font-size: 1.4rem;
       letter-spacing: 0.16em;
       text-transform: uppercase;
-      font-weight: 400; /* default (Geomatics Regular look) */
+      font-weight: 400;
       line-height: 1.1;
+      white-space: nowrap;
     }
+    .brand-title .brand-vista { font-weight: 700; }
 
-    /* ✅ Only "VISTA" bold */
-    .brand-title .brand-vista {
-      font-weight: 700;
-    }
-
-    .header-left p {
-      margin: 2px 0 0;
-      font-size: 0.8rem;
-      opacity: 0.9;
-    }
+    .header-left p { margin: 2px 0 0; font-size: 0.8rem; opacity: 0.9; }
 
     .header-logo {
       height: 60px;
@@ -126,25 +118,35 @@
       color: var(--text-main);
     }
 
-    input[type="text"], input[type="date"], textarea {
+    /* ✅ Fix for html2canvas text clipping in inputs/textarea */
+    input[type="text"],
+    input[type="date"],
+    textarea {
       width: 100%;
-      padding: 6px 8px;
+      padding: 7px 8px;                 /* slightly more bottom padding */
       border-radius: 8px;
       border: 1px solid var(--border-soft);
       background: #f9fbff;
       font-size: 0.8rem;
+      line-height: 1.25;                /* prevents descenders clipping */
       color: var(--text-main);
       transition: 0.15s;
     }
 
-    input:focus, textarea:focus {
+    input[type="text"],
+    input[type="date"] {
+      height: 32px;                     /* stable height for capture */
+    }
+
+    input:focus,
+    textarea:focus {
       outline: none;
       border-color: var(--vista-blue-light);
       background: #fff;
       box-shadow: 0 0 0 2px rgba(38, 132, 168, 0.18);
     }
 
-    textarea { min-height: 60px; resize: vertical; }
+    textarea { min-height: 60px; resize: vertical; overflow: auto; }
 
     .grid-2 {
       display: grid;
@@ -299,7 +301,7 @@
       background: #e5ecf7;
     }
 
-    .photo-card textarea { font-size: 0.7rem; min-height: 34px; }
+    .photo-card textarea { font-size: 0.7rem; min-height: 34px; line-height: 1.25; }
 
     .photo-remove {
       border: 1px solid #d4d7dd;
@@ -343,12 +345,14 @@
 
     .small-input {
       width: 100%;
-      padding: 4px 6px;
+      padding: 5px 6px;
       border-radius: 7px;
       border: 1px solid var(--border-soft);
       background: #ffffff;
       font-size: 0.76rem;
+      line-height: 1.25;
       color: var(--text-main);
+      height: 30px;
     }
 
     .small-input:focus {
@@ -420,16 +424,31 @@
       flex-wrap: wrap;
       align-items: center;
     }
-
     .autosave-note b { color: var(--vista-blue-dark); }
 
-    @media (max-width: 1024px) {
-      .grid-2 { grid-template-columns: 1fr; }
+    .form-footer {
+      margin-top: 10px;
+      display: flex;
+      justify-content: flex-end;
+      font-size: 0.72rem;
+      color: var(--text-muted);
     }
+    .form-footer .ver {
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border-soft);
+      background: #f9fbff;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    @media (max-width: 1024px) { .grid-2 { grid-template-columns: 1fr; } }
 
     @media (max-width: 700px) {
       .header-bar { flex-direction: column; align-items: flex-start; gap: 8px; }
       .page-title-main { font-size: 1.1rem; letter-spacing: 0.12em; }
+      .form-footer { justify-content: center; }
     }
   </style>
 </head>
@@ -439,7 +458,6 @@
     <div class="container" id="formContainer">
       <div class="header-bar">
         <div class="header-left">
-          <!-- ✅ Only VISTA bold, Montserrat preserved -->
           <h1 class="brand-title">
             <span class="brand-vista">VISTA</span><span class="brand-geomatics">GEOMATICS</span>
           </h1>
@@ -455,7 +473,6 @@
       </div>
 
       <form id="vehicleForm">
-        <!-- Top information -->
         <div class="section-card">
           <div class="top-info-header">Form must be completed in full</div>
 
@@ -878,7 +895,11 @@
 
           <div style="margin-top:4px;">
             <label>Work required or any deficiencies</label>
-            <textarea name="deficiencies" placeholder="Describe any issues, defects or required maintenance."></textarea>
+            <textarea
+              id="deficienciesText"
+              name="deficiencies"
+              placeholder="Describe any issues, defects or required maintenance."
+            ></textarea>
           </div>
 
           <div class="photo-section">
@@ -899,7 +920,6 @@
           </div>
 
           <div class="signature-grid">
-            <!-- Operator -->
             <div class="signature-box">
               <div class="signature-label">Operator’s Signature (draw inside the box)</div>
               <canvas id="operatorSignature" class="signature-canvas"></canvas>
@@ -918,7 +938,6 @@
               </div>
             </div>
 
-            <!-- Reviewer -->
             <div class="signature-box">
               <div class="signature-label">Reviewed By – Signature</div>
               <canvas id="reviewerSignature" class="signature-canvas"></canvas>
@@ -949,7 +968,10 @@
           </div>
         </div>
 
-        <!-- Buttons -->
+        <div class="form-footer">
+          <span class="ver" id="formVersion"></span>
+        </div>
+
         <div class="btn-row" id="buttonRow">
           <button type="reset" class="btn-secondary" id="resetBtn">Reset</button>
           <button type="button" class="btn-primary" id="downloadBtn">Download PDF</button>
@@ -964,10 +986,17 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
   <script>
+    /* ===== FORM VERSION ===== */
+    const FORM_VERSION = "v1.1";
+
+    // Show version at bottom
+    const verEl = document.getElementById("formVersion");
+    if (verEl) verEl.textContent = FORM_VERSION;
+
     /***********************
      * AUTO-SAVE (localStorage + IndexedDB for photos)
      ***********************/
-    const AUTOSAVE_KEY = "vista_vehicle_inspection_autosave_v2";
+    const AUTOSAVE_KEY = "vista_vehicle_inspection_autosave_v1_1";
     const DB_NAME = "VistaVehicleInspectionDB";
     const DB_VERSION = 1;
     const STORE_NAME = "photos";
@@ -1096,6 +1125,7 @@
     function createPhotoCard({ id, dataUrl, caption }) {
       const card = document.createElement("div");
       card.className = "photo-card";
+
       card.dataset.photoId = id;
 
       const img = document.createElement("img");
@@ -1270,7 +1300,7 @@
 
     function collectFormState() {
       const state = {
-        version: 2,
+        version: FORM_VERSION,
         savedAt: Date.now(),
         fields: {},
         checks: {},
@@ -1388,19 +1418,21 @@
       });
     }
 
-    // ===== FILE NAMING: "OPERATORS NUMBER - CURRENT DATE.pdf" =====
-    // operator's number = Cell Phone # field (id="cell")
-    function getOperatorNumberForFileName() {
-      const raw = (document.getElementById("cell")?.value || "").trim();
-      return raw.replace(/\s+/g, "").replace(/[^\d+]/g, "") || "OPERATOR";
+    /* ✅ Default filename: License Plate - Operator Name - Current Date */
+    function getLicenseForFileName() {
+      const raw = (document.getElementById("license")?.value || "").trim();
+      return raw ? raw : "LICENSE";
     }
-
+    function getOperatorNameForFileName() {
+      const raw = (document.getElementById("operator")?.value || "").trim();
+      return raw ? raw : "OPERATOR";
+    }
     function getDefaultFileName() {
-      const opNum = getOperatorNumberForFileName();
+      const plate = getLicenseForFileName();
+      const op = getOperatorNameForFileName();
       const dateStr = toISODate(new Date());
-      return sanitizeFileName(`${opNum}-${dateStr}.pdf`);
+      return sanitizeFileName(`${plate}-${op}-${dateStr}.pdf`);
     }
-
     function promptFileName() {
       const defaultName = getDefaultFileName();
       let name = prompt("Enter a file name for this inspection PDF:", defaultName);
@@ -1411,9 +1443,25 @@
       return name;
     }
 
-    /***********************
-     * PDF BUILD (LETTER, fit into <=2 pages for form) + photos (4 per page)
-     ***********************/
+    /* ✅ Expand ALL textareas to show full content before export */
+    function expandTextareasForExport(rootEl) {
+      const textareas = rootEl.querySelectorAll("textarea");
+      const originals = [];
+      textareas.forEach((ta) => {
+        originals.push({ el: ta, height: ta.style.height, overflow: ta.style.overflow });
+        ta.style.overflow = "visible";
+        ta.style.height = "auto";
+        // Add a couple pixels so last line doesn’t clip
+        ta.style.height = (ta.scrollHeight + 4) + "px";
+      });
+      return () => {
+        originals.forEach(({ el, height, overflow }) => {
+          el.style.height = height;
+          el.style.overflow = overflow;
+        });
+      };
+    }
+
     async function buildPdf() {
       if (!window.jspdf || !window.jspdf.jsPDF) {
         alert("PDF library failed to load. Check your internet connection.");
@@ -1423,17 +1471,30 @@
       const { jsPDF } = window.jspdf;
       const pdf = new jsPDF("p", "mm", "letter");
 
+      pdf.setProperties({
+        title: `Weekly Vehicle Inspection ${FORM_VERSION}`,
+        subject: "Vehicle Safety Inspection",
+        author: "Vista Geomatics",
+        creator: `Vista Vehicle Inspection Form ${FORM_VERSION}`
+      });
+
+      // Hide buttons for export
       if (buttonRow) buttonRow.style.display = "none";
 
+      // Force fixed width for consistent layout
       const originalWidth = formContainer.style.width;
       formContainer.style.width = "1000px";
+
+      // ✅ Make textareas fully visible for capture
+      const restoreTextareas = expandTextareasForExport(formContainer);
 
       try {
         const canvas = await html2canvas(formContainer, {
           scale: 2,
           useCORS: true,
           scrollY: -window.scrollY,
-          backgroundColor: "#ffffff"
+          backgroundColor: "#ffffff",
+          windowWidth: 1000
         });
 
         const imgData = canvas.toDataURL("image/jpeg", 0.95);
@@ -1449,6 +1510,7 @@
 
         let pagesNeeded = Math.ceil(imgHeight / usableHeight);
 
+        // Keep main form <= 2 pages (as before)
         if (pagesNeeded > 2) {
           const scaleFactor = (2 * usableHeight) / imgHeight;
           imgWidth *= scaleFactor;
@@ -1525,16 +1587,16 @@
 
         return pdf;
       } finally {
+        restoreTextareas();
         formContainer.style.width = originalWidth;
         if (buttonRow) buttonRow.style.display = "flex";
       }
     }
 
-    // Download
     if (downloadBtn) {
       downloadBtn.addEventListener("click", async () => {
         try {
-          const fileName = promptFileName();
+          const fileName = promptFileName(); // ✅ default is now Plate-Operator-Date
           if (!fileName) return;
           const pdf = await buildPdf();
           pdf.save(fileName);
@@ -1544,11 +1606,10 @@
       });
     }
 
-    // Share
     if (shareBtn) {
       shareBtn.addEventListener("click", async () => {
         try {
-          const fileName = promptFileName();
+          const fileName = promptFileName(); // ✅ default is now Plate-Operator-Date
           if (!fileName) return;
 
           const pdf = await buildPdf();
@@ -1593,7 +1654,6 @@
       });
     }
 
-    // startup
     (async () => {
       try {
         await loadPhotosFromDb();
