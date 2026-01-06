@@ -63,11 +63,11 @@
 
     .brand-title {
       margin: 0;
-      font-family: "Montserrat", sans-serif;
+      font-family: "Montserrat", sans-serif; /* keep Montserrat */
       font-size: 1.4rem;
       letter-spacing: 0.16em;
       text-transform: uppercase;
-      font-weight: 400;
+      font-weight: 400; /* only VISTA bold */
       line-height: 1.1;
       white-space: nowrap;
     }
@@ -118,25 +118,23 @@
       color: var(--text-main);
     }
 
-    /* ✅ Fix for html2canvas text clipping in inputs/textarea */
+    /* Inputs look great on-screen; export uses replacements (JS) */
     input[type="text"],
     input[type="date"],
     textarea {
       width: 100%;
-      padding: 7px 8px;                 /* slightly more bottom padding */
+      padding: 7px 8px;
       border-radius: 8px;
       border: 1px solid var(--border-soft);
       background: #f9fbff;
       font-size: 0.8rem;
-      line-height: 1.25;                /* prevents descenders clipping */
+      line-height: 1.25;
       color: var(--text-main);
       transition: 0.15s;
     }
 
     input[type="text"],
-    input[type="date"] {
-      height: 32px;                     /* stable height for capture */
-    }
+    input[type="date"] { height: 32px; }
 
     input:focus,
     textarea:focus {
@@ -211,13 +209,7 @@
 
     .rating-legend span.code { font-weight: 700; margin-right: 2px; color: var(--vista-blue); }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 2px;
-      font-size: 0.78rem;
-    }
-
+    table { width: 100%; border-collapse: collapse; margin-top: 2px; font-size: 0.78rem; }
     th, td { padding: 3px 4px; border: 1px solid var(--border-soft); }
     th { background: #e8f0fb; font-weight: 600; color: var(--vista-blue-dark); text-align: left; }
     td { background: #f9fbff; }
@@ -272,12 +264,7 @@
       flex-wrap: wrap;
     }
 
-    .photo-grid {
-      margin-top: 6px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
+    .photo-grid { margin-top: 6px; display: flex; flex-wrap: wrap; gap: 6px; }
 
     .photo-card {
       width: 130px;
@@ -289,7 +276,6 @@
       flex-direction: column;
       gap: 3px;
       box-shadow: 0 3px 8px rgba(15, 23, 42, 0.08);
-      position: relative;
     }
 
     .photo-card img {
@@ -444,7 +430,6 @@
     }
 
     @media (max-width: 1024px) { .grid-2 { grid-template-columns: 1fr; } }
-
     @media (max-width: 700px) {
       .header-bar { flex-direction: column; align-items: flex-start; gap: 8px; }
       .page-title-main { font-size: 1.1rem; letter-spacing: 0.12em; }
@@ -519,7 +504,12 @@
 
           <div class="autosave-note">
             <div><b>Auto-save:</b> on (this device only)</div>
-            <button type="button" class="btn-secondary" id="clearSavedBtn" style="padding:4px 10px; font-size:0.7rem; letter-spacing:0.06em;">
+            <button
+              type="button"
+              class="btn-secondary"
+              id="clearSavedBtn"
+              style="padding:4px 10px; font-size:0.7rem; letter-spacing:0.06em;"
+            >
               Clear saved draft
             </button>
           </div>
@@ -539,7 +529,6 @@
                 <th class="status-select">Status (✔ / M / R)</th>
               </tr>
             </thead>
-
             <tbody>
               <tr>
                 <td>Motor Oil</td>
@@ -549,7 +538,6 @@
                   <label class="status-cell"><input type="checkbox" class="status-box" data-group="hood_motor_oil" value="r" />R</label>
                 </td>
               </tr>
-
               <tr>
                 <td>Cooling System</td>
                 <td class="status-select">
@@ -558,7 +546,6 @@
                   <label class="status-cell"><input type="checkbox" class="status-box" data-group="hood_cooling" value="r" />R</label>
                 </td>
               </tr>
-
               <tr>
                 <td>Power Steering Fluid</td>
                 <td class="status-select">
@@ -567,7 +554,6 @@
                   <label class="status-cell"><input type="checkbox" class="status-box" data-group="hood_steering" value="r" />R</label>
                 </td>
               </tr>
-
               <tr>
                 <td>Battery</td>
                 <td class="status-select">
@@ -576,7 +562,6 @@
                   <label class="status-cell"><input type="checkbox" class="status-box" data-group="hood_battery" value="r" />R</label>
                 </td>
               </tr>
-
               <tr>
                 <td>Brake Fluid</td>
                 <td class="status-select">
@@ -585,7 +570,6 @@
                   <label class="status-cell"><input type="checkbox" class="status-box" data-group="hood_brake_fluid" value="r" />R</label>
                 </td>
               </tr>
-
               <tr>
                 <td>Windshield Washer Fluid</td>
                 <td class="status-select">
@@ -594,7 +578,6 @@
                   <label class="status-cell"><input type="checkbox" class="status-box" data-group="hood_washer_fluid" value="r" />R</label>
                 </td>
               </tr>
-
               <tr>
                 <td>Belts</td>
                 <td class="status-select">
@@ -621,7 +604,6 @@
                 <th class="status-select">Status / Details</th>
               </tr>
             </thead>
-
             <tbody>
               <tr>
                 <td>
@@ -780,7 +762,6 @@
                 <th class="status-select">Status</th>
               </tr>
             </thead>
-
             <tbody>
               <tr>
                 <td>Head Lights</td>
@@ -790,7 +771,6 @@
                   <label class="status-cell"><input type="checkbox" class="status-box" data-group="body_head_lights" value="r" />R</label>
                 </td>
               </tr>
-
               <tr>
                 <td>Tail Lights</td>
                 <td class="status-select">
@@ -799,7 +779,6 @@
                   <label class="status-cell"><input type="checkbox" class="status-box" data-group="body_tail_lights" value="r" />R</label>
                 </td>
               </tr>
-
               <tr>
                 <td>Brake Lights</td>
                 <td class="status-select">
@@ -808,7 +787,6 @@
                   <label class="status-cell"><input type="checkbox" class="status-box" data-group="body_brake_lights" value="r" />R</label>
                 </td>
               </tr>
-
               <tr>
                 <td>Signal Lights</td>
                 <td class="status-select">
@@ -817,7 +795,6 @@
                   <label class="status-cell"><input type="checkbox" class="status-box" data-group="body_signal_lights" value="r" />R</label>
                 </td>
               </tr>
-
               <tr>
                 <td>Hazard Lights</td>
                 <td class="status-select">
@@ -826,7 +803,6 @@
                   <label class="status-cell"><input type="checkbox" class="status-box" data-group="body_hazard_lights" value="r" />R</label>
                 </td>
               </tr>
-
               <tr>
                 <td>Tire Pressure</td>
                 <td class="status-select">
@@ -835,7 +811,6 @@
                   <label class="status-cell"><input type="checkbox" class="status-box" data-group="body_tire_pressure" value="r" />R</label>
                 </td>
               </tr>
-
               <tr>
                 <td>Tire Wear</td>
                 <td class="status-select">
@@ -844,7 +819,6 @@
                   <label class="status-cell"><input type="checkbox" class="status-box" data-group="body_tire_wear" value="r" />R</label>
                 </td>
               </tr>
-
               <tr>
                 <td>Vehicle Body Condition – Clean?</td>
                 <td class="status-select">
@@ -852,7 +826,6 @@
                   <label class="status-cell"><input type="checkbox" class="yn-box" data-group="body_clean" value="no" />No</label>
                 </td>
               </tr>
-
               <tr>
                 <td>Vehicle Interior Condition – Clean?</td>
                 <td class="status-select">
@@ -860,7 +833,6 @@
                   <label class="status-cell"><input type="checkbox" class="yn-box" data-group="interior_clean" value="no" />No</label>
                 </td>
               </tr>
-
               <tr>
                 <td>Spare Tire / Jack &amp; Tools</td>
                 <td class="status-select">
@@ -869,7 +841,6 @@
                   <label class="status-cell"><input type="checkbox" class="status-box" data-group="body_spare" value="r" />R</label>
                 </td>
               </tr>
-
               <tr>
                 <td>Signage in Place &amp; Visible</td>
                 <td class="status-select">
@@ -895,11 +866,7 @@
 
           <div style="margin-top:4px;">
             <label>Work required or any deficiencies</label>
-            <textarea
-              id="deficienciesText"
-              name="deficiencies"
-              placeholder="Describe any issues, defects or required maintenance."
-            ></textarea>
+            <textarea id="deficienciesText" name="deficiencies" placeholder="Describe any issues, defects or required maintenance."></textarea>
           </div>
 
           <div class="photo-section">
@@ -987,19 +954,27 @@
 
   <script>
     /* ===== FORM VERSION ===== */
-    const FORM_VERSION = "v1.1";
+    const FORM_VERSION = "v1.2";
 
-    // Show version at bottom
-    const verEl = document.getElementById("formVersion");
-    if (verEl) verEl.textContent = FORM_VERSION;
-
-    /***********************
-     * AUTO-SAVE (localStorage + IndexedDB for photos)
-     ***********************/
     const AUTOSAVE_KEY = "vista_vehicle_inspection_autosave_v1_1";
     const DB_NAME = "VistaVehicleInspectionDB";
     const DB_VERSION = 1;
     const STORE_NAME = "photos";
+
+    const vehicleForm = document.getElementById("vehicleForm");
+    const formContainer = document.getElementById("formContainer");
+    const buttonRow = document.getElementById("buttonRow");
+    const downloadBtn = document.getElementById("downloadBtn");
+    const shareBtn = document.getElementById("shareBtn");
+    const resetBtn = document.getElementById("resetBtn");
+    const clearSavedBtn = document.getElementById("clearSavedBtn");
+
+    const addPhotoBtn = document.getElementById("addPhotoBtn");
+    const photoInput = document.getElementById("photoInput");
+    const photoGrid = document.getElementById("photoGrid");
+
+    const verEl = document.getElementById("formVersion");
+    if (verEl) verEl.textContent = FORM_VERSION;
 
     function toISODate(d) {
       const yyyy = d.getFullYear();
@@ -1008,10 +983,45 @@
       return `${yyyy}-${mm}-${dd}`;
     }
 
+    // Default today
+    const dateField = document.getElementById("date");
+    if (dateField && !dateField.value) dateField.value = toISODate(new Date());
+
     function sanitizeFileName(name) {
       return name.replace(/[\/\\:*?"<>|]/g, "-");
     }
 
+    function getLicenseForFileName() {
+      const raw = (document.getElementById("license")?.value || "").trim();
+      return raw ? raw : "LICENSE";
+    }
+
+    function getOperatorForFileName() {
+      const raw = (document.getElementById("operator")?.value || "").trim();
+      return raw ? raw : "OPERATOR";
+    }
+
+    // ✅ License - Operator - Current Date
+    function getDefaultFileName() {
+      const plate = getLicenseForFileName();
+      const op = getOperatorForFileName();
+      const dateStr = toISODate(new Date());
+      return sanitizeFileName(`${plate}-${op}-${dateStr}.pdf`);
+    }
+
+    function promptFileName() {
+      const defaultName = getDefaultFileName();
+      let name = prompt("Enter a file name for this inspection PDF:", defaultName);
+      if (name === null) return null;
+      name = (name.trim() || defaultName);
+      name = sanitizeFileName(name);
+      if (!name.toLowerCase().endsWith(".pdf")) name += ".pdf";
+      return name;
+    }
+
+    /***********************
+     * IndexedDB helpers (photos)
+     ***********************/
     function openDb() {
       return new Promise((resolve, reject) => {
         const req = indexedDB.open(DB_NAME, DB_VERSION);
@@ -1066,36 +1076,16 @@
       });
     }
 
-    const vehicleForm = document.getElementById("vehicleForm");
-    const formContainer = document.getElementById("formContainer");
-    const buttonRow = document.getElementById("buttonRow");
-    const downloadBtn = document.getElementById("downloadBtn");
-    const shareBtn = document.getElementById("shareBtn");
-    const resetBtn = document.getElementById("resetBtn");
-    const clearSavedBtn = document.getElementById("clearSavedBtn");
-
-    const addPhotoBtn = document.getElementById("addPhotoBtn");
-    const photoInput = document.getElementById("photoInput");
-    const photoGrid = document.getElementById("photoGrid");
-
-    const dateField = document.getElementById("date");
-    if (dateField && !dateField.value) dateField.value = toISODate(new Date());
-
-    // overall passed / not passed
+    /***********************
+     * Checkbox exclusivity
+     ***********************/
     const chkPassed = document.getElementById("vehicle_passed");
     const chkNotPassed = document.getElementById("vehicle_not_passed");
     if (chkPassed && chkNotPassed) {
-      chkPassed.addEventListener("change", () => {
-        if (chkPassed.checked) chkNotPassed.checked = false;
-        saveDraftSoon();
-      });
-      chkNotPassed.addEventListener("change", () => {
-        if (chkNotPassed.checked) chkPassed.checked = false;
-        saveDraftSoon();
-      });
+      chkPassed.addEventListener("change", () => { if (chkPassed.checked) chkNotPassed.checked = false; saveDraftSoon(); });
+      chkNotPassed.addEventListener("change", () => { if (chkNotPassed.checked) chkPassed.checked = false; saveDraftSoon(); });
     }
 
-    // one checkbox per group (status)
     const statusBoxes = document.querySelectorAll(".status-box");
     statusBoxes.forEach((box) => {
       box.addEventListener("change", () => {
@@ -1108,7 +1098,6 @@
       });
     });
 
-    // one checkbox per group (yes/no)
     const ynBoxes = document.querySelectorAll(".yn-box");
     ynBoxes.forEach((box) => {
       box.addEventListener("change", () => {
@@ -1121,11 +1110,12 @@
       });
     });
 
-    // photos UI
+    /***********************
+     * Photos UI
+     ***********************/
     function createPhotoCard({ id, dataUrl, caption }) {
       const card = document.createElement("div");
       card.className = "photo-card";
-
       card.dataset.photoId = id;
 
       const img = document.createElement("img");
@@ -1194,7 +1184,9 @@
       });
     }
 
-    // signature pads
+    /***********************
+     * Signature pads
+     ***********************/
     function initSignaturePad(canvasId, clearButtonId, onChange) {
       const canvas = document.getElementById(canvasId);
       const clearBtn = document.getElementById(clearButtonId);
@@ -1298,14 +1290,11 @@
     const operatorSigPad = initSignaturePad("operatorSignature", "clearOperatorSig", saveDraftSoon);
     const reviewerSigPad = initSignaturePad("reviewerSignature", "clearReviewerSig", saveDraftSoon);
 
+    /***********************
+     * Autosave (localStorage)
+     ***********************/
     function collectFormState() {
-      const state = {
-        version: FORM_VERSION,
-        savedAt: Date.now(),
-        fields: {},
-        checks: {},
-        signatures: { operator: "", reviewer: "" }
-      };
+      const state = { version: FORM_VERSION, savedAt: Date.now(), fields: {}, checks: {}, signatures: { operator: "", reviewer: "" } };
 
       const inputs = vehicleForm.querySelectorAll("input[type='text'], input[type='date'], textarea");
       inputs.forEach((el) => {
@@ -1381,7 +1370,6 @@
     if (clearSavedBtn) {
       clearSavedBtn.addEventListener("click", async () => {
         if (!confirm("Clear the saved draft on this device?")) return;
-
         localStorage.removeItem(AUTOSAVE_KEY);
         await dbClearPhotos();
         if (photoGrid) photoGrid.innerHTML = "";
@@ -1411,55 +1399,57 @@
         });
 
         localStorage.removeItem(AUTOSAVE_KEY);
-
-        setTimeout(() => {
-          if (dateField) dateField.value = toISODate(new Date());
-        }, 0);
+        setTimeout(() => { if (dateField) dateField.value = toISODate(new Date()); }, 0);
       });
     }
 
-    /* ✅ Default filename: License Plate - Operator Name - Current Date */
-    function getLicenseForFileName() {
-      const raw = (document.getElementById("license")?.value || "").trim();
-      return raw ? raw : "LICENSE";
-    }
-    function getOperatorNameForFileName() {
-      const raw = (document.getElementById("operator")?.value || "").trim();
-      return raw ? raw : "OPERATOR";
-    }
-    function getDefaultFileName() {
-      const plate = getLicenseForFileName();
-      const op = getOperatorNameForFileName();
-      const dateStr = toISODate(new Date());
-      return sanitizeFileName(`${plate}-${op}-${dateStr}.pdf`);
-    }
-    function promptFileName() {
-      const defaultName = getDefaultFileName();
-      let name = prompt("Enter a file name for this inspection PDF:", defaultName);
-      if (name === null) return null;
-      name = name.trim() || defaultName;
-      name = sanitizeFileName(name);
-      if (!name.toLowerCase().endsWith(".pdf")) name += ".pdf";
-      return name;
-    }
+    /***********************
+     * ✅ EXPORT FIXES:
+     * - prevent squish by cloning at fixed width (1000px)
+     * - prevent clipped input/textarea by replacing them in the CLONE
+     * - ensure deficiencies shows ALL text (pre-wrap + auto height)
+     ***********************/
+    function replaceFieldForExport(doc, el) {
+      const win = doc.defaultView;
+      const cs = win.getComputedStyle(el);
 
-    /* ✅ Expand ALL textareas to show full content before export */
-    function expandTextareasForExport(rootEl) {
-      const textareas = rootEl.querySelectorAll("textarea");
-      const originals = [];
-      textareas.forEach((ta) => {
-        originals.push({ el: ta, height: ta.style.height, overflow: ta.style.overflow });
-        ta.style.overflow = "visible";
-        ta.style.height = "auto";
-        // Add a couple pixels so last line doesn’t clip
-        ta.style.height = (ta.scrollHeight + 4) + "px";
-      });
-      return () => {
-        originals.forEach(({ el, height, overflow }) => {
-          el.style.height = height;
-          el.style.overflow = overflow;
-        });
-      };
+      const div = doc.createElement("div");
+      div.className = "export-field";
+      div.textContent = (el.value || "").toString();
+
+      // Copy the important “box” styles so it looks the same
+      div.style.boxSizing = "border-box";
+      div.style.width = cs.width;
+      div.style.border = cs.border;
+      div.style.borderRadius = cs.borderRadius;
+      div.style.background = cs.backgroundColor;
+      div.style.color = cs.color;
+      div.style.fontFamily = cs.fontFamily;
+      div.style.fontSize = cs.fontSize;
+      div.style.fontWeight = cs.fontWeight;
+      div.style.letterSpacing = cs.letterSpacing;
+      div.style.lineHeight = "1.25";
+      div.style.padding = cs.padding;
+      div.style.boxShadow = cs.boxShadow;
+
+      // Make it render text cleanly, no clipping
+      div.style.overflow = "visible";
+      div.style.wordBreak = "break-word";
+
+      if (el.tagName === "TEXTAREA") {
+        div.style.whiteSpace = "pre-wrap";
+        div.style.minHeight = cs.height;     // keep at least the same size
+        div.style.height = "auto";           // grow for ALL text
+        div.style.display = "block";
+      } else {
+        // input/date: vertically center
+        div.style.whiteSpace = "nowrap";
+        div.style.height = cs.height;
+        div.style.display = "flex";
+        div.style.alignItems = "center";
+      }
+
+      el.parentNode.replaceChild(div, el);
     }
 
     async function buildPdf() {
@@ -1471,56 +1461,64 @@
       const { jsPDF } = window.jspdf;
       const pdf = new jsPDF("p", "mm", "letter");
 
-      pdf.setProperties({
-        title: `Weekly Vehicle Inspection ${FORM_VERSION}`,
-        subject: "Vehicle Safety Inspection",
-        author: "Vista Geomatics",
-        creator: `Vista Vehicle Inspection Form ${FORM_VERSION}`
-      });
-
-      // Hide buttons for export
+      // Hide buttons for cleaner export
       if (buttonRow) buttonRow.style.display = "none";
 
-      // Force fixed width for consistent layout
-      const originalWidth = formContainer.style.width;
-      formContainer.style.width = "1000px";
-
-      // ✅ Make textareas fully visible for capture
-      const restoreTextareas = expandTextareasForExport(formContainer);
-
+      // Do NOT force width on the live DOM (can cause reflow differences)
       try {
         const canvas = await html2canvas(formContainer, {
           scale: 2,
           useCORS: true,
-          scrollY: -window.scrollY,
           backgroundColor: "#ffffff",
-          windowWidth: 1000
+          scrollY: -window.scrollY,
+
+          // ✅ Critical: lock capture layout so it never reflows/squishes
+          windowWidth: 1000,
+          width: 1000,
+
+          onclone: (doc) => {
+            // lock the cloned doc to desktop width
+            doc.documentElement.style.width = "1000px";
+            doc.body.style.width = "1000px";
+            doc.body.style.margin = "0";
+            doc.body.style.padding = "0";
+
+            const fc = doc.getElementById("formContainer");
+            if (fc) {
+              fc.style.width = "1000px";
+              fc.style.maxWidth = "1000px";
+            }
+
+            // Replace ALL inputs/textareas with styled text blocks
+            const fields = doc.querySelectorAll("input[type='text'], input[type='date'], textarea");
+            fields.forEach((el) => replaceFieldForExport(doc, el));
+          }
         });
 
         const imgData = canvas.toDataURL("image/jpeg", 0.95);
         const pdfWidth = pdf.internal.pageSize.getWidth();
         const pdfHeight = pdf.internal.pageSize.getHeight();
 
-        let imgWidth = pdfWidth;
-        let imgHeight = (canvas.height * imgWidth) / canvas.width;
-
+        // Fill width, keep aspect
         const marginTop = 5;
         const marginBottom = 5;
         const usableHeight = pdfHeight - marginTop - marginBottom;
 
-        let pagesNeeded = Math.ceil(imgHeight / usableHeight);
+        let imgWidth = pdfWidth;
+        let imgHeight = (canvas.height * imgWidth) / canvas.width;
 
-        // Keep main form <= 2 pages (as before)
+        // If it would exceed 2 pages, scale down to fit 2 pages
+        let pagesNeeded = Math.ceil(imgHeight / usableHeight);
         if (pagesNeeded > 2) {
           const scaleFactor = (2 * usableHeight) / imgHeight;
           imgWidth *= scaleFactor;
           imgHeight *= scaleFactor;
         }
 
+        const xOffset = (pdfWidth - imgWidth) / 2;
+
         let heightLeft = imgHeight;
         let position = 0;
-
-        const xOffset = (pdfWidth - imgWidth) / 2;
 
         pdf.addImage(imgData, "JPEG", xOffset, marginTop + position, imgWidth, imgHeight);
         heightLeft -= usableHeight;
@@ -1587,8 +1585,6 @@
 
         return pdf;
       } finally {
-        restoreTextareas();
-        formContainer.style.width = originalWidth;
         if (buttonRow) buttonRow.style.display = "flex";
       }
     }
@@ -1596,7 +1592,7 @@
     if (downloadBtn) {
       downloadBtn.addEventListener("click", async () => {
         try {
-          const fileName = promptFileName(); // ✅ default is now Plate-Operator-Date
+          const fileName = promptFileName();
           if (!fileName) return;
           const pdf = await buildPdf();
           pdf.save(fileName);
@@ -1609,7 +1605,7 @@
     if (shareBtn) {
       shareBtn.addEventListener("click", async () => {
         try {
-          const fileName = promptFileName(); // ✅ default is now Plate-Operator-Date
+          const fileName = promptFileName();
           if (!fileName) return;
 
           const pdf = await buildPdf();
@@ -1654,6 +1650,9 @@
       });
     }
 
+    /***********************
+     * Load saved state on startup
+     ***********************/
     (async () => {
       try {
         await loadPhotosFromDb();
