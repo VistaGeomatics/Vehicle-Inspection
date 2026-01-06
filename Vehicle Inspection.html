@@ -4,7 +4,10 @@
   <meta charset="UTF-8" />
   <title>VistaGeomatics – Weekly Vehicle Inspection</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@400;700&display=swap"
+    rel="stylesheet"
+  />
 
   <style>
     :root{
@@ -53,11 +56,13 @@
       display:flex;
       align-items:center;
       justify-content:space-between;
+      gap:12px;
       padding:12px 20px;
       background:linear-gradient(120deg,var(--vista-blue-light) 0%,var(--vista-blue) 40%,var(--vista-blue-dark) 100%);
       color:#fff;
-      gap:14px;
     }
+
+    .header-left p{ margin:2px 0 0; font-size:.8rem; opacity:.9; }
 
     .brand-title{
       margin:0;
@@ -65,14 +70,11 @@
       font-size:1.4rem;
       letter-spacing:.16em;
       text-transform:uppercase;
-      font-weight:400; /* only VISTA bold */
+      font-weight:400;
       line-height:1.1;
       white-space:nowrap;
     }
-
     .brand-title .brand-vista{ font-weight:700; }
-
-    .header-left p{ margin:2px 0 0; font-size:.8rem; opacity:.9; }
 
     .header-logo{
       height:60px;
@@ -121,7 +123,7 @@
       color:var(--text-main);
     }
 
-    input[type="text"], input[type="date"], textarea{
+    input[type="text"],input[type="date"],textarea{
       width:100%;
       padding:7px 8px;
       border-radius:8px;
@@ -133,9 +135,9 @@
       transition:.15s;
     }
 
-    input[type="text"], input[type="date"]{ height:32px; }
+    input[type="text"],input[type="date"]{ height:32px; }
 
-    input:focus, textarea:focus{
+    input:focus,textarea:focus{
       outline:none;
       border-color:var(--vista-blue-light);
       background:#fff;
@@ -204,12 +206,29 @@
       font-size:.74rem;
       color:var(--text-muted);
     }
-
     .rating-legend span.code{ font-weight:700; margin-right:2px; color:var(--vista-blue); }
 
-    table{ width:100%; border-collapse:collapse; margin-top:2px; font-size:.78rem; }
-    th, td{ padding:3px 4px; border:1px solid var(--border-soft); }
-    th{ background:#e8f0fb; font-weight:600; color:var(--vista-blue-dark); text-align:left; }
+    table{
+      width:100%;
+      border-collapse:collapse;
+      margin-top:2px;
+      font-size:.78rem;
+      table-layout:fixed;
+    }
+
+    th,td{
+      padding:3px 4px;
+      border:1px solid var(--border-soft);
+      vertical-align:top;
+    }
+
+    th{
+      background:#e8f0fb;
+      font-weight:600;
+      color:var(--vista-blue-dark);
+      text-align:left;
+    }
+
     td{ background:#f9fbff; }
 
     .item-name{ width:60%; }
@@ -256,6 +275,7 @@
     }
 
     .photo-section{ margin-top:6px; }
+
     .photo-actions{
       display:flex;
       align-items:center;
@@ -264,7 +284,12 @@
       flex-wrap:wrap;
     }
 
-    .photo-grid{ margin-top:6px; display:flex; flex-wrap:wrap; gap:6px; }
+    .photo-grid{
+      margin-top:6px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:6px;
+    }
 
     .photo-card{
       width:130px;
@@ -287,7 +312,11 @@
       background:#e5ecf7;
     }
 
-    .photo-card textarea{ font-size:.7rem; min-height:34px; line-height:1.25; }
+    .photo-card textarea{
+      font-size:.7rem;
+      min-height:34px;
+      line-height:1.25;
+    }
 
     .photo-remove{
       border:1px solid #d4d7dd;
@@ -398,14 +427,17 @@
 
     button:hover{ transform:translateY(-1px); box-shadow:0 10px 22px rgba(15,23,42,.18); }
 
-    .autosave-bar{
+    .autosave-note{
       margin-top:8px;
+      font-size:.74rem;
+      color:var(--text-muted);
       display:flex;
-      justify-content:flex-end;
+      justify-content:space-between;
       gap:8px;
       flex-wrap:wrap;
       align-items:center;
     }
+    .autosave-note b{ color:var(--vista-blue-dark); }
 
     .form-footer{
       margin-top:10px;
@@ -425,7 +457,10 @@
       font-weight:700;
     }
 
-    @media (max-width:1024px){ .grid-2{ grid-template-columns:1fr; } }
+    @media (max-width:1024px){
+      .grid-2{ grid-template-columns:1fr; }
+    }
+
     @media (max-width:700px){
       .header-bar{ flex-direction:column; align-items:flex-start; gap:8px; }
       .page-title-main{ font-size:1.1rem; letter-spacing:.12em; }
@@ -498,13 +533,20 @@
             <div><span class="code">R</span> Rejected, repair necessary before use</div>
           </div>
 
-          <div class="autosave-bar">
-            <button type="button" class="btn-secondary" id="clearSavedBtn" style="padding:4px 10px; font-size:0.7rem; letter-spacing:0.06em;">
+          <div class="autosave-note">
+            <div><b>Auto-save:</b> on (this device only)</div>
+            <button
+              type="button"
+              class="btn-secondary"
+              id="clearSavedBtn"
+              style="padding:4px 10px; font-size:0.7rem; letter-spacing:0.06em;"
+            >
               Clear saved draft
             </button>
           </div>
         </div>
 
+        <!-- Under the Hood -->
         <div class="section-card">
           <div class="section-header">
             <div class="section-title">Under the Hood</div>
@@ -579,6 +621,7 @@
           </table>
         </div>
 
+        <!-- Driver's Compartment -->
         <div class="section-card">
           <div class="section-header">
             <div class="section-title">Driver’s Compartment</div>
@@ -596,7 +639,7 @@
               <tr>
                 <td>
                   Registration – Expiry Date:
-                  <input type="date" class="small-input" name="registration_expiry" style="width:150px; margin-left:6px;" />
+                  <input type="date" class="small-input inline-date" name="registration_expiry" style="width:150px; margin-left:6px;" />
                 </td>
                 <td class="status-select">
                   <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_registration" value="pass" />✔</label>
@@ -608,7 +651,7 @@
               <tr>
                 <td>
                   Insurance – Expiry Date:
-                  <input type="date" class="small-input" name="insurance_expiry" style="width:150px; margin-left:6px;" />
+                  <input type="date" class="small-input inline-date" name="insurance_expiry" style="width:150px; margin-left:6px;" />
                 </td>
                 <td class="status-select">
                   <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_insurance" value="pass" />✔</label>
@@ -709,7 +752,7 @@
               <tr>
                 <td>
                   Fire Extinguisher – Expiry Date:
-                  <input type="date" class="small-input" name="fire_ext_expiry" style="width:150px; margin-left:6px;" />
+                  <input type="date" class="small-input inline-date" name="fire_ext_expiry" style="width:150px; margin-left:6px;" />
                 </td>
                 <td class="status-select">
                   <label class="status-cell"><input type="checkbox" class="yn-box" data-group="fire_extinguisher" value="yes" />Yes</label>
@@ -736,6 +779,7 @@
           </table>
         </div>
 
+        <!-- Body Exterior -->
         <div class="section-card">
           <div class="section-header">
             <div class="section-title">Body Exterior</div>
@@ -840,6 +884,7 @@
           </table>
         </div>
 
+        <!-- Overall Assessment & Photos -->
         <div class="section-card">
           <div class="section-header">
             <div class="section-title">Overall Assessment</div>
@@ -866,6 +911,7 @@
           </div>
         </div>
 
+        <!-- Sign-off -->
         <div class="section-card">
           <div class="section-header">
             <div class="section-title">Sign-off</div>
@@ -937,7 +983,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
   <script>
-    const FORM_VERSION = "v1.3";
+    const FORM_VERSION = "v1.4";
+
     const AUTOSAVE_KEY = "vista_vehicle_inspection_autosave_v1_3";
     const DB_NAME = "VistaVehicleInspectionDB";
     const DB_VERSION = 1;
@@ -950,6 +997,7 @@
     const shareBtn = document.getElementById("shareBtn");
     const resetBtn = document.getElementById("resetBtn");
     const clearSavedBtn = document.getElementById("clearSavedBtn");
+
     const addPhotoBtn = document.getElementById("addPhotoBtn");
     const photoInput = document.getElementById("photoInput");
     const photoGrid = document.getElementById("photoGrid");
@@ -957,38 +1005,36 @@
     const verEl = document.getElementById("formVersion");
     if (verEl) verEl.textContent = FORM_VERSION;
 
-    function toISODate(d) {
+    function toISODate(d){
       const yyyy = d.getFullYear();
-      const mm = String(d.getMonth() + 1).padStart(2, "0");
-      const dd = String(d.getDate()).padStart(2, "0");
+      const mm = String(d.getMonth()+1).padStart(2,"0");
+      const dd = String(d.getDate()).padStart(2,"0");
       return `${yyyy}-${mm}-${dd}`;
     }
 
     const dateField = document.getElementById("date");
     if (dateField && !dateField.value) dateField.value = toISODate(new Date());
 
-    function sanitizeFileName(name) {
-      return name.replace(/[\/\\:*?"<>|]/g, "-");
-    }
+    function sanitizeFileName(name){ return name.replace(/[\/\\:*?"<>|]/g,"-"); }
 
-    function getLicenseForFileName() {
+    function getLicenseForFileName(){
       const raw = (document.getElementById("license")?.value || "").trim();
       return raw ? raw : "LICENSE";
     }
 
-    function getOperatorForFileName() {
+    function getOperatorForFileName(){
       const raw = (document.getElementById("operator")?.value || "").trim();
       return raw ? raw : "OPERATOR";
     }
 
-    function getDefaultFileName() {
+    function getDefaultFileName(){
       const plate = getLicenseForFileName();
       const op = getOperatorForFileName();
       const dateStr = toISODate(new Date());
       return sanitizeFileName(`${plate}-${op}-${dateStr}.pdf`);
     }
 
-    function promptFileName() {
+    function promptFileName(){
       const defaultName = getDefaultFileName();
       let name = prompt("Enter a file name for this inspection PDF:", defaultName);
       if (name === null) return null;
@@ -998,52 +1044,54 @@
       return name;
     }
 
-    function openDb() {
-      return new Promise((resolve, reject) => {
+    function openDb(){
+      return new Promise((resolve,reject)=>{
         const req = indexedDB.open(DB_NAME, DB_VERSION);
         req.onupgradeneeded = () => {
           const db = req.result;
-          if (!db.objectStoreNames.contains(STORE_NAME)) db.createObjectStore(STORE_NAME, { keyPath: "id" });
+          if (!db.objectStoreNames.contains(STORE_NAME)) {
+            db.createObjectStore(STORE_NAME, { keyPath: "id" });
+          }
         };
         req.onsuccess = () => resolve(req.result);
         req.onerror = () => reject(req.error);
       });
     }
 
-    async function dbPutPhoto(record) {
+    async function dbPutPhoto(record){
       const db = await openDb();
-      return new Promise((resolve, reject) => {
-        const tx = db.transaction(STORE_NAME, "readwrite");
+      return new Promise((resolve,reject)=>{
+        const tx = db.transaction(STORE_NAME,"readwrite");
         tx.objectStore(STORE_NAME).put(record);
         tx.oncomplete = () => resolve(true);
         tx.onerror = () => reject(tx.error);
       });
     }
 
-    async function dbGetAllPhotos() {
+    async function dbGetAllPhotos(){
       const db = await openDb();
-      return new Promise((resolve, reject) => {
-        const tx = db.transaction(STORE_NAME, "readonly");
+      return new Promise((resolve,reject)=>{
+        const tx = db.transaction(STORE_NAME,"readonly");
         const req = tx.objectStore(STORE_NAME).getAll();
         req.onsuccess = () => resolve(req.result || []);
         req.onerror = () => reject(req.error);
       });
     }
 
-    async function dbClearPhotos() {
+    async function dbClearPhotos(){
       const db = await openDb();
-      return new Promise((resolve, reject) => {
-        const tx = db.transaction(STORE_NAME, "readwrite");
+      return new Promise((resolve,reject)=>{
+        const tx = db.transaction(STORE_NAME,"readwrite");
         const req = tx.objectStore(STORE_NAME).clear();
         req.onsuccess = () => resolve(true);
         req.onerror = () => reject(req.error);
       });
     }
 
-    async function dbDeletePhoto(id) {
+    async function dbDeletePhoto(id){
       const db = await openDb();
-      return new Promise((resolve, reject) => {
-        const tx = db.transaction(STORE_NAME, "readwrite");
+      return new Promise((resolve,reject)=>{
+        const tx = db.transaction(STORE_NAME,"readwrite");
         const req = tx.objectStore(STORE_NAME).delete(id);
         req.onsuccess = () => resolve(true);
         req.onerror = () => reject(req.error);
@@ -1052,17 +1100,24 @@
 
     const chkPassed = document.getElementById("vehicle_passed");
     const chkNotPassed = document.getElementById("vehicle_not_passed");
-    if (chkPassed && chkNotPassed) {
-      chkPassed.addEventListener("change", () => { if (chkPassed.checked) chkNotPassed.checked = false; saveDraftSoon(); });
-      chkNotPassed.addEventListener("change", () => { if (chkNotPassed.checked) chkPassed.checked = false; saveDraftSoon(); });
+
+    let saveTimer = null;
+    function saveDraftSoon(){
+      if (saveTimer) clearTimeout(saveTimer);
+      saveTimer = setTimeout(()=>saveDraft().catch(console.error), 250);
+    }
+
+    if (chkPassed && chkNotPassed){
+      chkPassed.addEventListener("change", ()=>{ if (chkPassed.checked) chkNotPassed.checked = false; saveDraftSoon(); });
+      chkNotPassed.addEventListener("change", ()=>{ if (chkNotPassed.checked) chkPassed.checked = false; saveDraftSoon(); });
     }
 
     const statusBoxes = document.querySelectorAll(".status-box");
-    statusBoxes.forEach((box) => {
-      box.addEventListener("change", () => {
+    statusBoxes.forEach((box)=>{
+      box.addEventListener("change", ()=>{
         const group = box.getAttribute("data-group");
-        if (!group || !box.checked) { saveDraftSoon(); return; }
-        statusBoxes.forEach((other) => {
+        if (!group || !box.checked){ saveDraftSoon(); return; }
+        statusBoxes.forEach((other)=>{
           if (other !== box && other.getAttribute("data-group") === group) other.checked = false;
         });
         saveDraftSoon();
@@ -1070,18 +1125,18 @@
     });
 
     const ynBoxes = document.querySelectorAll(".yn-box");
-    ynBoxes.forEach((box) => {
-      box.addEventListener("change", () => {
+    ynBoxes.forEach((box)=>{
+      box.addEventListener("change", ()=>{
         const group = box.getAttribute("data-group");
-        if (!group || !box.checked) { saveDraftSoon(); return; }
-        ynBoxes.forEach((other) => {
+        if (!group || !box.checked){ saveDraftSoon(); return; }
+        ynBoxes.forEach((other)=>{
           if (other !== box && other.getAttribute("data-group") === group) other.checked = false;
         });
         saveDraftSoon();
       });
     });
 
-    function createPhotoCard({ id, dataUrl, caption }) {
+    function createPhotoCard({ id, dataUrl, caption }){
       const card = document.createElement("div");
       card.className = "photo-card";
       card.dataset.photoId = id;
@@ -1099,7 +1154,7 @@
       removeBtn.className = "photo-remove";
       removeBtn.textContent = "Remove";
 
-      cap.addEventListener("input", async () => {
+      cap.addEventListener("input", async ()=>{
         const all = await dbGetAllPhotos();
         const rec = all.find(p => p.id === id);
         if (!rec) return;
@@ -1108,7 +1163,7 @@
         saveDraftSoon();
       });
 
-      removeBtn.addEventListener("click", async () => {
+      removeBtn.addEventListener("click", async ()=>{
         await dbDeletePhoto(id);
         card.remove();
         saveDraftSoon();
@@ -1120,30 +1175,30 @@
       return card;
     }
 
-    async function loadPhotosFromDb() {
+    async function loadPhotosFromDb(){
       if (!photoGrid) return;
       photoGrid.innerHTML = "";
       const photos = await dbGetAllPhotos();
-      photos.sort((a,b) => (a.createdAt||0) - (b.createdAt||0));
+      photos.sort((a,b)=>(a.createdAt||0)-(b.createdAt||0));
       photos.forEach(p => photoGrid.appendChild(createPhotoCard(p)));
     }
 
-    if (addPhotoBtn && photoInput && photoGrid) {
-      addPhotoBtn.addEventListener("click", () => photoInput.click());
+    if (addPhotoBtn && photoInput && photoGrid){
+      addPhotoBtn.addEventListener("click", ()=>photoInput.click());
 
-      photoInput.addEventListener("change", async () => {
+      photoInput.addEventListener("change", async ()=>{
         const files = Array.from(photoInput.files || []);
-        for (const file of files) {
+        for (const file of files){
           if (!file.type.startsWith("image/")) continue;
 
-          const dataUrl = await new Promise((resolve) => {
+          const dataUrl = await new Promise((resolve)=>{
             const reader = new FileReader();
-            reader.onload = (e) => resolve(e.target.result);
+            reader.onload = (e)=>resolve(e.target.result);
             reader.readAsDataURL(file);
           });
 
           const id = (crypto && crypto.randomUUID) ? crypto.randomUUID() : String(Date.now()) + "_" + Math.random().toString(16).slice(2);
-          const record = { id, dataUrl, caption: "", createdAt: Date.now() };
+          const record = { id, dataUrl, caption:"", createdAt: Date.now() };
           await dbPutPhoto(record);
           photoGrid.appendChild(createPhotoCard(record));
         }
@@ -1152,22 +1207,22 @@
       });
     }
 
-    function initSignaturePad(canvasId, clearButtonId, onChange) {
+    function initSignaturePad(canvasId, clearButtonId, onChange){
       const canvas = document.getElementById(canvasId);
       const clearBtn = document.getElementById(clearButtonId);
-      if (!canvas) return { canvas: null, getDataUrl: () => "", setFromDataUrl: async () => {} };
+      if (!canvas) return { canvas:null, getDataUrl:()=>"", setFromDataUrl: async()=>{} };
 
       const ctx = canvas.getContext("2d");
       let drawing = false;
       let lastX = 0, lastY = 0;
 
-      function setupStroke() {
+      function setupStroke(){
         ctx.lineWidth = 2;
         ctx.lineCap = "round";
         ctx.strokeStyle = "#111827";
       }
 
-      function resizeCanvas() {
+      function resizeCanvas(){
         const rect = canvas.getBoundingClientRect();
         const old = canvas.toDataURL("image/png");
         canvas.width = Math.max(1, Math.floor(rect.width));
@@ -1175,7 +1230,7 @@
         setupStroke();
 
         const img = new Image();
-        img.onload = () => ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        img.onload = ()=>ctx.drawImage(img,0,0,canvas.width,canvas.height);
         img.src = old;
       }
 
@@ -1183,62 +1238,64 @@
       resizeCanvas();
       window.addEventListener("resize", resizeCanvas);
 
-      function startDraw(x, y) { drawing = true; lastX = x; lastY = y; }
-      function drawLine(x, y) {
+      function startDraw(x,y){ drawing=true; lastX=x; lastY=y; }
+      function drawLine(x,y){
         if (!drawing) return;
         ctx.beginPath();
-        ctx.moveTo(lastX, lastY);
-        ctx.lineTo(x, y);
+        ctx.moveTo(lastX,lastY);
+        ctx.lineTo(x,y);
         ctx.stroke();
-        lastX = x; lastY = y;
+        lastX=x; lastY=y;
       }
-      function endDraw() { if (drawing) { drawing = false; onChange?.(); } }
+      function endDraw(){ if (drawing){ drawing=false; onChange?.(); } }
 
-      canvas.addEventListener("mousedown", (e) => {
+      canvas.addEventListener("mousedown",(e)=>{
         const rect = canvas.getBoundingClientRect();
-        startDraw(e.clientX - rect.left, e.clientY - rect.top);
+        startDraw(e.clientX-rect.left, e.clientY-rect.top);
       });
-      canvas.addEventListener("mousemove", (e) => {
+      canvas.addEventListener("mousemove",(e)=>{
         const rect = canvas.getBoundingClientRect();
-        drawLine(e.clientX - rect.left, e.clientY - rect.top);
+        drawLine(e.clientX-rect.left, e.clientY-rect.top);
       });
       canvas.addEventListener("mouseup", endDraw);
       canvas.addEventListener("mouseleave", endDraw);
 
-      canvas.addEventListener("touchstart", (e) => {
+      canvas.addEventListener("touchstart",(e)=>{
         e.preventDefault();
         const rect = canvas.getBoundingClientRect();
-        const touch = e.touches[0];
-        startDraw(touch.clientX - rect.left, touch.clientY - rect.top);
-      }, { passive: false });
+        const t = e.touches[0];
+        startDraw(t.clientX-rect.left, t.clientY-rect.top);
+      }, { passive:false });
 
-      canvas.addEventListener("touchmove", (e) => {
+      canvas.addEventListener("touchmove",(e)=>{
         e.preventDefault();
         const rect = canvas.getBoundingClientRect();
-        const touch = e.touches[0];
-        drawLine(touch.clientX - rect.left, touch.clientY - rect.top);
-      }, { passive: false });
+        const t = e.touches[0];
+        drawLine(t.clientX-rect.left, t.clientY-rect.top);
+      }, { passive:false });
 
-      canvas.addEventListener("touchend", (e) => { e.preventDefault(); endDraw(); }, { passive: false });
+      canvas.addEventListener("touchend",(e)=>{
+        e.preventDefault();
+        endDraw();
+      }, { passive:false });
 
-
-      if (clearBtn) {
-        clearBtn.addEventListener("click", () => {
-          ctx.clearRect(0, 0, canvas.width, canvas.height);
+      if (clearBtn){
+        clearBtn.addEventListener("click", ()=>{
+          ctx.clearRect(0,0,canvas.width,canvas.height);
           onChange?.();
         });
       }
 
       return {
         canvas,
-        getDataUrl: () => canvas.toDataURL("image/png"),
-        setFromDataUrl: async (dataUrl) => {
+        getDataUrl: ()=>canvas.toDataURL("image/png"),
+        setFromDataUrl: async (dataUrl)=>{
           if (!dataUrl) return;
-          await new Promise((resolve) => {
+          await new Promise((resolve)=>{
             const img = new Image();
-            img.onload = () => {
-              ctx.clearRect(0, 0, canvas.width, canvas.height);
-              ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+            img.onload = ()=>{
+              ctx.clearRect(0,0,canvas.width,canvas.height);
+              ctx.drawImage(img,0,0,canvas.width,canvas.height);
               resolve(true);
             };
             img.src = dataUrl;
@@ -1247,28 +1304,22 @@
       };
     }
 
-    let saveTimer = null;
-    function saveDraftSoon() {
-      if (saveTimer) clearTimeout(saveTimer);
-      saveTimer = setTimeout(() => saveDraft().catch(console.error), 250);
-    }
-
     const operatorSigPad = initSignaturePad("operatorSignature", "clearOperatorSig", saveDraftSoon);
     const reviewerSigPad = initSignaturePad("reviewerSignature", "clearReviewerSig", saveDraftSoon);
 
-    function collectFormState() {
-      const state = { version: FORM_VERSION, savedAt: Date.now(), fields: {}, checks: {}, signatures: { operator: "", reviewer: "" } };
+    function collectFormState(){
+      const state = { version: FORM_VERSION, savedAt: Date.now(), fields:{}, checks:{}, signatures:{ operator:"", reviewer:"" } };
 
       const inputs = vehicleForm.querySelectorAll("input[type='text'], input[type='date'], textarea");
-      inputs.forEach((el) => {
+      inputs.forEach((el)=>{
         const name = el.name || el.id;
         if (!name) return;
         state.fields[name] = el.value ?? "";
       });
 
       const cbs = vehicleForm.querySelectorAll("input[type='checkbox']");
-      cbs.forEach((cb, idx) => {
-        const key = cb.name || cb.id || cb.getAttribute("data-group") || ("cb_" + idx);
+      cbs.forEach((cb, idx)=>{
+        const key = cb.name || cb.id || cb.getAttribute("data-group") || ("cb_"+idx);
         const uniqueKey = (cb.getAttribute("data-group")
           ? `g:${cb.getAttribute("data-group")}:${cb.value}`
           : `k:${key}:${cb.value || ""}`);
@@ -1278,27 +1329,31 @@
       return state;
     }
 
-    function applyFormState(state) {
+    function applyFormState(state){
       if (!state) return;
 
       const inputs = vehicleForm.querySelectorAll("input[type='text'], input[type='date'], textarea");
-      inputs.forEach((el) => {
+      inputs.forEach((el)=>{
         const name = el.name || el.id;
         if (!name) return;
-        if (Object.prototype.hasOwnProperty.call(state.fields || {}, name)) el.value = state.fields[name] ?? "";
+        if (Object.prototype.hasOwnProperty.call(state.fields || {}, name)){
+          el.value = state.fields[name] ?? "";
+        }
       });
 
       const cbs = vehicleForm.querySelectorAll("input[type='checkbox']");
-      cbs.forEach((cb, idx) => {
-        const key = cb.name || cb.id || cb.getAttribute("data-group") || ("cb_" + idx);
+      cbs.forEach((cb, idx)=>{
+        const key = cb.name || cb.id || cb.getAttribute("data-group") || ("cb_"+idx);
         const uniqueKey = (cb.getAttribute("data-group")
           ? `g:${cb.getAttribute("data-group")}:${cb.value}`
           : `k:${key}:${cb.value || ""}`);
-        if (Object.prototype.hasOwnProperty.call(state.checks || {}, uniqueKey)) cb.checked = !!state.checks[uniqueKey];
+        if (Object.prototype.hasOwnProperty.call(state.checks || {}, uniqueKey)){
+          cb.checked = !!state.checks[uniqueKey];
+        }
       });
     }
 
-    async function saveDraft() {
+    async function saveDraft(){
       if (!vehicleForm) return;
       const state = collectFormState();
       state.signatures.operator = operatorSigPad.getDataUrl ? operatorSigPad.getDataUrl() : "";
@@ -1306,12 +1361,12 @@
       localStorage.setItem(AUTOSAVE_KEY, JSON.stringify(state));
     }
 
-    async function loadDraft() {
+    async function loadDraft(){
       const raw = localStorage.getItem(AUTOSAVE_KEY);
       if (!raw) return;
 
       let state = null;
-      try { state = JSON.parse(raw); } catch { return; }
+      try{ state = JSON.parse(raw); } catch { return; }
       if (!state) return;
 
       applyFormState(state);
@@ -1321,22 +1376,22 @@
       if (state.signatures?.reviewer) await reviewerSigPad.setFromDataUrl(state.signatures.reviewer);
     }
 
-    if (vehicleForm) {
-      vehicleForm.addEventListener("input", saveDraftSoon);
-      vehicleForm.addEventListener("change", saveDraftSoon);
+    if (vehicleForm){
+      vehicleForm.addEventListener("input", ()=>saveDraftSoon());
+      vehicleForm.addEventListener("change", ()=>saveDraftSoon());
     }
 
-    if (clearSavedBtn) {
-      clearSavedBtn.addEventListener("click", async () => {
+    if (clearSavedBtn){
+      clearSavedBtn.addEventListener("click", async ()=>{
         if (!confirm("Clear the saved draft on this device?")) return;
         localStorage.removeItem(AUTOSAVE_KEY);
         await dbClearPhotos();
         if (photoGrid) photoGrid.innerHTML = "";
 
-        [operatorSigPad.canvas, reviewerSigPad.canvas].forEach((c) => {
-          if (c) {
+        [operatorSigPad.canvas, reviewerSigPad.canvas].forEach((c)=>{
+          if (c){
             const ctx = c.getContext("2d");
-            ctx && ctx.clearRect(0, 0, c.width, c.height);
+            ctx && ctx.clearRect(0,0,c.width,c.height);
           }
         });
 
@@ -1345,24 +1400,22 @@
       });
     }
 
-    if (resetBtn) {
-      resetBtn.addEventListener("click", async () => {
+    if (resetBtn){
+      resetBtn.addEventListener("click", async ()=>{
         if (photoGrid) photoGrid.innerHTML = "";
         await dbClearPhotos();
-        localStorage.removeItem(AUTOSAVE_KEY);
-
-        [operatorSigPad.canvas, reviewerSigPad.canvas].forEach((c) => {
-          if (c) {
+        [operatorSigPad.canvas, reviewerSigPad.canvas].forEach((c)=>{
+          if (c){
             const ctx = c.getContext("2d");
-            ctx && ctx.clearRect(0, 0, c.width, c.height);
+            ctx && ctx.clearRect(0,0,c.width,c.height);
           }
         });
-
-        setTimeout(() => { if (dateField) dateField.value = toISODate(new Date()); }, 0);
+        localStorage.removeItem(AUTOSAVE_KEY);
+        setTimeout(()=>{ if (dateField) dateField.value = toISODate(new Date()); }, 0);
       });
     }
 
-    function replaceFieldForExport(doc, el) {
+    function replaceFieldForExport(doc, el){
       const win = doc.defaultView;
       const cs = win.getComputedStyle(el);
 
@@ -1371,7 +1424,6 @@
       div.textContent = (el.value || "").toString();
 
       div.style.boxSizing = "border-box";
-      div.style.width = cs.width;
       div.style.border = cs.border;
       div.style.borderRadius = cs.borderRadius;
       div.style.background = cs.backgroundColor;
@@ -1383,46 +1435,60 @@
       div.style.lineHeight = "1.25";
       div.style.padding = cs.padding;
       div.style.boxShadow = cs.boxShadow;
+
       div.style.overflow = "visible";
       div.style.wordBreak = "break-word";
 
-      if (el.tagName === "TEXTAREA") {
+      const isInlineSmall = el.classList && el.classList.contains("small-input");
+
+      if (isInlineSmall){
+        div.style.display = "inline-block";
+        div.style.verticalAlign = "middle";
+        div.style.whiteSpace = "nowrap";
+        div.style.height = cs.height;
+
+        const w = el.style.width || cs.width || "150px";
+        div.style.width = w;
+        div.style.minWidth = w;
+        div.style.maxWidth = w;
+
+        div.style.marginLeft = cs.marginLeft;
+      } else if (el.tagName === "TEXTAREA"){
+        div.style.display = "block";
+        div.style.width = cs.width;
         div.style.whiteSpace = "pre-wrap";
         div.style.minHeight = cs.height;
         div.style.height = "auto";
-        div.style.display = "block";
       } else {
-        div.style.whiteSpace = "nowrap";
-        div.style.height = cs.height;
         div.style.display = "flex";
         div.style.alignItems = "center";
+        div.style.width = cs.width;
+        div.style.whiteSpace = "nowrap";
+        div.style.height = cs.height;
       }
 
       el.parentNode.replaceChild(div, el);
     }
 
-    async function buildPdf() {
-      if (!window.jspdf || !window.jspdf.jsPDF) {
-        alert("PDF library failed to load.");
+    async function buildPdf(){
+      if (!window.jspdf || !window.jspdf.jsPDF){
+        alert("PDF library failed to load. Check your internet connection.");
         throw new Error("jsPDF not available");
       }
 
       const { jsPDF } = window.jspdf;
-      const pdf = new jsPDF("p", "mm", "letter");
+      const pdf = new jsPDF("p","mm","letter");
 
       if (buttonRow) buttonRow.style.display = "none";
 
-      try {
+      try{
         const canvas = await html2canvas(formContainer, {
           scale: 2,
           useCORS: true,
           backgroundColor: "#ffffff",
           scrollY: -window.scrollY,
-
-          windowWidth: 1400,
-          windowHeight: 900,
+          windowWidth: 1000,
           width: 1000,
-
           onclone: (doc) => {
             doc.documentElement.style.width = "1400px";
             doc.body.style.width = "1400px";
@@ -1430,7 +1496,7 @@
             doc.body.style.padding = "0";
 
             const fc = doc.getElementById("formContainer");
-            if (fc) {
+            if (fc){
               fc.style.width = "1000px";
               fc.style.maxWidth = "1000px";
               fc.style.margin = "0 auto";
@@ -1438,19 +1504,21 @@
 
             const style = doc.createElement("style");
             style.textContent = `
-              .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
-              .signature-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
-              .page-wrap { max-width: 1000px !important; margin: 0 auto !important; }
-              textarea, .export-field {
+              .grid-2{ grid-template-columns: repeat(2, minmax(0,1fr)) !important; }
+              .signature-grid{ grid-template-columns: repeat(2, minmax(0,1fr)) !important; }
+              .page-wrap{ max-width: 1000px !important; margin: 0 auto !important; }
+              textarea, .export-field{
                 white-space: pre-wrap !important;
                 word-break: break-word !important;
                 overflow-wrap: anywhere !important;
               }
+              td{ white-space: normal !important; }
+              td .export-field{ max-width: 100% !important; }
             `;
             doc.head.appendChild(style);
 
             const fields = doc.querySelectorAll("input[type='text'], input[type='date'], textarea");
-            fields.forEach((el) => replaceFieldForExport(doc, el));
+            fields.forEach((el)=>replaceFieldForExport(doc, el));
           }
         });
 
@@ -1466,7 +1534,7 @@
         let imgHeight = (canvas.height * imgWidth) / canvas.width;
 
         let pagesNeeded = Math.ceil(imgHeight / usableHeight);
-        if (pagesNeeded > 2) {
+        if (pagesNeeded > 2){
           const scaleFactor = (2 * usableHeight) / imgHeight;
           imgWidth *= scaleFactor;
           imgHeight *= scaleFactor;
@@ -1480,7 +1548,7 @@
         pdf.addImage(imgData, "JPEG", xOffset, marginTop + position, imgWidth, imgHeight);
         heightLeft -= usableHeight;
 
-        while (heightLeft > 0) {
+        while (heightLeft > 0){
           position -= usableHeight;
           pdf.addPage();
           pdf.addImage(imgData, "JPEG", xOffset, marginTop + position, imgWidth, imgHeight);
@@ -1488,7 +1556,7 @@
         }
 
         const photoCards = Array.from(document.querySelectorAll(".photo-card"));
-        if (photoCards.length > 0) {
+        if (photoCards.length > 0){
           const margin = 10;
           const cols = 2;
           const rows = 2;
@@ -1504,7 +1572,7 @@
 
           let indexOnPage = 0;
 
-          photoCards.forEach((card) => {
+          photoCards.forEach((card)=>{
             const imgEl = card.querySelector("img");
             const captionEl = card.querySelector("textarea");
             if (!imgEl || !imgEl.src) return;
@@ -1520,11 +1588,13 @@
             const imgW = cellWidth;
             const imgH = cellHeight - 12;
 
-            const format = imgEl.src.startsWith("data:image/png") ? "PNG" : "JPEG";
+            let format = "JPEG";
+            if (imgEl.src.startsWith("data:image/png")) format = "PNG";
+
             pdf.addImage(imgEl.src, format, cellX, cellY, imgW, imgH);
 
             const caption = captionEl && captionEl.value ? captionEl.value : "";
-            if (caption) {
+            if (caption){
               const captionY = cellY + imgH + 4;
               pdf.setFontSize(8);
               const lines = pdf.splitTextToSize(caption, imgW);
@@ -1543,36 +1613,44 @@
       }
     }
 
-    if (downloadBtn) {
-      downloadBtn.addEventListener("click", async () => {
-        try {
+    if (downloadBtn){
+      downloadBtn.addEventListener("click", async ()=>{
+        try{
           const fileName = promptFileName();
           if (!fileName) return;
           const pdf = await buildPdf();
           pdf.save(fileName);
-        } catch (e) {
+        } catch (e){
           console.error(e);
         }
       });
     }
 
-    if (shareBtn) {
-      shareBtn.addEventListener("click", async () => {
-        try {
+    if (shareBtn){
+      shareBtn.addEventListener("click", async ()=>{
+        try{
           const fileName = promptFileName();
           if (!fileName) return;
 
           const pdf = await buildPdf();
           const blob = pdf.output("blob");
 
-          try {
-            if (navigator.share && navigator.canShare && navigator.canShare({ files: [] })) {
+          try{
+            if (navigator.share && navigator.canShare && navigator.canShare({ files: [] })){
               const file = new File([blob], fileName, { type: "application/pdf" });
-              await navigator.share({ files: [file], title: "Weekly Vehicle Inspection" });
-            } else if (navigator.share) {
+              await navigator.share({
+                files: [file],
+                title: "Weekly Vehicle Inspection",
+                text: "Weekly Vehicle Inspection PDF from VistaGeomatics."
+              });
+            } else if (navigator.share){
               const url = URL.createObjectURL(blob);
-              try {
-                await navigator.share({ url, title: "Weekly Vehicle Inspection" });
+              try{
+                await navigator.share({
+                  url,
+                  title: "Weekly Vehicle Inspection",
+                  text: "Weekly Vehicle Inspection PDF from VistaGeomatics."
+                });
               } finally {
                 URL.revokeObjectURL(url);
               }
@@ -1586,22 +1664,22 @@
               document.body.removeChild(a);
               URL.revokeObjectURL(url);
             }
-          } catch (err) {
-            console.error(err);
+          } catch (err){
+            console.error("Share cancelled or failed, falling back to download", err);
             pdf.save(fileName);
           }
-        } catch (e) {
+        } catch (e){
           console.error(e);
         }
       });
     }
 
-    (async () => {
-      try {
+    (async ()=>{
+      try{
         await loadPhotosFromDb();
         await loadDraft();
-      } catch (e) {
-        console.error(e);
+      } catch (e){
+        console.error("Autosave load failed:", e);
       }
     })();
   </script>
