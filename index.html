@@ -1,748 +1,1532 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Vista Geomatics – Worksite Inspection</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <title>VistaGeomatics – Weekly Vehicle Inspection</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
 
   <style>
     :root{
       --vista-blue:#165f7d;
       --vista-blue-light:#2a7fa3;
       --vista-blue-dark:#0b3045;
-
+      --bg-body:#eef3f9;
       --bg-card:#ffffff;
       --border-soft:#d6e2f0;
       --text-main:#101827;
       --text-muted:#6b7280;
-
-      /* Export-only spacer (dynamic JS sets this) */
-      --export-spacer: 0px;
     }
 
-    *{ box-sizing:border-box; }
+    *{box-sizing:border-box}
 
     body{
-      font-family:"Inter",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
       margin:0;
-      padding:24px;
-      background: radial-gradient(circle at top, #f4f8fc 0, #e4edf6 40%, #dde6f3 100%);
+      padding:16px;
+      font-family:"Inter",sans-serif;
+      background:radial-gradient(circle at top,#f4f8fc 0,#e4edf6 40%,#dde6f3 100%);
       color:var(--text-main);
     }
 
-    .page-wrap{ max-width:1200px; margin:0 auto; }
-
+    .page-wrap{max-width:1000px;margin:0 auto}
     .container{
       background:var(--bg-card);
-      border-radius:18px;
-      box-shadow:0 18px 40px rgba(5,41,66,.18), 0 0 0 1px rgba(5,41,66,.04);
+      border-radius:16px;
+      box-shadow:0 14px 30px rgba(5,41,66,.18),0 0 0 1px rgba(5,41,66,.04);
       overflow:hidden;
       position:relative;
     }
     .container::before{
       content:"";
-      position:absolute;
-      inset:0;
+      position:absolute;inset:0;
       pointer-events:none;
-      background: radial-gradient(circle at top right, rgba(22,95,125,0.18), transparent 55%);
+      background:radial-gradient(circle at top right,rgba(22,95,125,.16),transparent 55%);
       opacity:.9;
     }
 
     .header-bar{
-      position:relative;
-      z-index:1;
+      position:relative;z-index:1;
       display:flex;
       align-items:center;
       justify-content:space-between;
-      padding:18px 28px;
-      background: linear-gradient(120deg, var(--vista-blue-light) 0%, var(--vista-blue) 40%, var(--vista-blue-dark) 100%);
+      padding:12px 20px;
+      background:linear-gradient(120deg,var(--vista-blue-light) 0%,var(--vista-blue) 40%,var(--vista-blue-dark) 100%);
       color:#fff;
-      overflow:hidden;
-    }
-    .header-bar::after{
-      content:"";
-      position:absolute;
-      inset:-40%;
-      background-image: linear-gradient(135deg, rgba(255,255,255,0.07) 0, transparent 40%);
-      opacity:.45;
-      pointer-events:none;
     }
 
-    .header-left{
-      position:relative;
-      z-index:1;
-      display:flex;
-      flex-direction:column;
-      gap:4px;
-    }
-    .header-left h1{
-      font-size:1.7rem;
-      letter-spacing:.12em;
-      text-transform:uppercase;
+    .brand-title{
       margin:0;
       font-family:"Montserrat",sans-serif;
+      font-size:1.4rem;
+      letter-spacing:.16em;
+      text-transform:uppercase;
       font-weight:400;
       line-height:1.1;
+      white-space:nowrap;
     }
-    .vista-bold{ font-weight:700; }
-    .geomatics-regular{ font-weight:400; }
-    .header-left p{ margin:0; font-size:.96rem; opacity:.92; }
+    .brand-title .brand-vista{font-weight:700}
 
-    .header-logo{
-      position:relative;
-      z-index:1;
-      height:90px;
-      width:auto;
-      filter: drop-shadow(0 6px 16px rgba(0,0,0,.35));
-    }
+    .header-left p{margin:2px 0 0;font-size:.8rem;opacity:.9}
+    .header-logo{height:60px;filter:drop-shadow(0 5px 14px rgba(0,0,0,.35))}
 
-    form{
-      position:relative;
-      z-index:2;
-      padding:24px 28px 18px;
-      background: radial-gradient(circle at top left, rgba(226,240,246,0.55), transparent 55%) #fff;
+    .page-title-bar{
+      position:relative;z-index:1;
+      text-align:center;
+      padding:12px 20px 6px;
+      background:linear-gradient(180deg,rgba(255,255,255,.78),#f7faff);
     }
-
-    .section{
-      margin-bottom:24px;
-      padding:18px 18px 20px;
-      border-radius:14px;
-      border:1px solid var(--border-soft);
-      background: linear-gradient(135deg, #fbfdff 0%, #f4f8fd 60%, #eff5fb 100%);
-      box-shadow:0 10px 24px rgba(5,41,66,.05);
-      position:relative;
-      overflow:hidden;
-    }
-    .section::before{
-      content:"";
-      position:absolute;
-      top:0; left:0; right:0;
-      height:5px;
-      background: linear-gradient(90deg, var(--vista-blue-light), var(--vista-blue-dark));
-    }
-
-    .section-title{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      font-weight:600;
-      margin-bottom:8px;
-      font-size:1.02rem;
+    .page-title-main{
+      font-family:"Montserrat",sans-serif;
+      font-size:1.3rem;
+      letter-spacing:.14em;
+      text-transform:uppercase;
       color:var(--vista-blue-dark);
-      padding:4px 10px;
-      border-radius:999px;
-      background: linear-gradient(90deg, rgba(22,95,125,0.09), rgba(11,48,69,0.05));
-      box-shadow:0 0 0 1px rgba(22,95,125,0.12);
-      position:relative;
     }
-    .section-title::before{
-      content:"";
-      display:inline-block;
-      width:8px; height:8px;
+    .page-title-sub{margin-top:3px;font-size:.8rem;color:var(--text-muted)}
+    .page-title-accent{
+      width:120px;height:3px;margin:8px auto 0;
       border-radius:999px;
-      background: radial-gradient(circle, #fff 0, var(--vista-blue-light) 50%, var(--vista-blue-dark) 100%);
-      box-shadow:0 0 0 4px rgba(22,95,125,0.25);
+      background:linear-gradient(120deg,var(--vista-blue-light),var(--vista-blue),var(--vista-blue-dark));
+      box-shadow:0 0 8px rgba(46,167,224,.65);
     }
 
-    .section-subtext{
-      font-size:.82rem;
-      color:var(--text-muted);
-      margin-bottom:10px;
-    }
-
-    .grid-3{
-      display:grid;
-      grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
-      gap:14px;
-    }
+    form{position:relative;z-index:1;padding:10px 18px 14px;font-size:.86rem}
 
     label{
-      font-size:.86rem;
+      font-size:.8rem;
       font-weight:600;
       display:block;
-      margin-bottom:4px;
+      margin-bottom:3px;
       color:var(--text-main);
     }
 
-    input[type="text"], input[type="date"], textarea, select{
+    input[type="text"],
+    input[type="date"],
+    textarea{
       width:100%;
-      padding:7px 10px;
-      font-size:.9rem;
+      padding:7px 8px;
+      border-radius:8px;
       border:1px solid var(--border-soft);
-      border-radius:9px;
       background:#f9fbff;
-      transition:border-color .15s ease, box-shadow .15s ease, background .15s ease, transform .08s ease;
+      font-size:.8rem;
+      line-height:1.25;
+      color:var(--text-main);
+      transition:.15s;
     }
-
-    input[type="text"]:focus, input[type="date"]:focus, textarea:focus, select:focus{
+    input[type="text"],input[type="date"]{height:32px}
+    input:focus,textarea:focus{
       outline:none;
       border-color:var(--vista-blue-light);
       background:#fff;
-      box-shadow:0 0 0 3px rgba(38,132,168,0.22);
-      transform: translateY(-1px);
+      box-shadow:0 0 0 2px rgba(38,132,168,.18);
+    }
+    textarea{min-height:60px;resize:vertical;overflow:auto}
+
+    .grid-2{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:8px;
     }
 
-    textarea{ min-height:80px; resize:vertical; }
+    .section-card{
+      margin-top:10px;
+      padding:8px 10px 10px;
+      border-radius:12px;
+      border:1px solid var(--border-soft);
+      background:linear-gradient(135deg,#fbfdff 0%,#f4f8fd 60%,#eff5fb 100%);
+      box-shadow:0 8px 20px rgba(5,41,66,.05);
+      position:relative;
+    }
+    .section-card::before{
+      content:"";
+      position:absolute;top:0;left:0;right:0;
+      height:3px;border-radius:12px 12px 0 0;
+      background:linear-gradient(90deg,var(--vista-blue-light),var(--vista-blue-dark));
+    }
 
-    .fix-by{
+    .section-header{
       display:flex;
+      justify-content:space-between;
+      align-items:baseline;
       gap:6px;
-      flex-wrap:wrap;
+      margin-bottom:4px;
     }
-    .fix-by input[type="date"]{ flex:0 0 130px; }
-    .fix-by input[type="text"]{ flex:1; }
-
-    table{
-      width:100%;
-      border-collapse:collapse;
-      margin-top:6px;
-      font-size:.85rem;
-      border-radius:10px;
-      overflow:hidden;
-    }
-    th, td{
-      border:1px solid #d7e2f1;
-      padding:8px 10px;
-      vertical-align:top;
-    }
-    th{
-      background: linear-gradient(90deg, #e6f1fb, #dde9f7);
-      text-align:left;
-      font-size:.83rem;
+    .section-title{
+      font-weight:600;
+      font-size:.9rem;
+      color:var(--vista-blue-dark);
+      font-family:"Montserrat",sans-serif;
       text-transform:uppercase;
-      letter-spacing:.04em;
-      color:#4b5563;
-    }
-    tbody tr:nth-child(even){ background:#f7faff; }
-    tbody tr:hover{ background:#edf4ff; transition:background .15s ease; }
-
-    .ynna-select{ width:100%; }
-
-    /* Export-only spacer row (dynamic, usually small) */
-    .export-spacer-row{ display:none; }
-    body.exporting .export-spacer-row{ display:table-row; }
-    body.exporting .export-spacer-row td{
-      padding: var(--export-spacer) 0 !important;
-      border:none !important;
-      background:transparent !important;
+      letter-spacing:.05em;
     }
 
-    .photos-preview{
+    .top-info-header{
+      text-align:center;
+      font-weight:600;
+      font-size:.85rem;
+      margin-bottom:6px;
+      color:var(--vista-blue-dark);
+    }
+
+    .rating-legend{
       display:flex;
       flex-wrap:wrap;
+      gap:6px 12px;
+      margin-top:4px;
+      font-size:.74rem;
+      color:var(--text-muted);
+    }
+    .rating-legend span.code{font-weight:700;margin-right:2px;color:var(--vista-blue)}
+
+    table{width:100%;border-collapse:collapse;margin-top:2px;font-size:.78rem}
+    th,td{padding:3px 4px;border:1px solid var(--border-soft)}
+    th{background:#e8f0fb;font-weight:600;color:var(--vista-blue-dark);text-align:left}
+    td{background:#f9fbff}
+
+    .item-name{width:60%}
+    .status-select{width:40%}
+
+    .status-cell{
+      display:inline-flex;
+      align-items:center;
+      gap:1px;
+      margin-right:6px;
+      font-size:.7rem;
+      white-space:nowrap;
+    }
+    .status-cell input[type="checkbox"]{
+      width:12px;height:12px;
+      accent-color:var(--vista-blue);
+      margin:0;
+    }
+
+    .check-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:14px;
+      align-items:center;
+      margin:4px 0;
+      font-size:.82rem;
+    }
+    .check-row label{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      font-weight:500;
+      margin-bottom:0;
+    }
+    input[type="checkbox"].overall-check{width:16px;height:16px;accent-color:var(--vista-blue)}
+
+    .photo-actions{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      margin-top:4px;
+      flex-wrap:wrap;
+    }
+    .photo-grid{margin-top:6px;display:flex;flex-wrap:wrap;gap:6px}
+    .photo-card{
+      width:130px;
+      border-radius:8px;
+      border:1px solid var(--border-soft);
+      background:#f9fbff;
+      padding:4px;
+      display:flex;
+      flex-direction:column;
+      gap:3px;
+      box-shadow:0 3px 8px rgba(15,23,42,.08);
+    }
+    .photo-card img{
+      width:100%;
+      height:80px;
+      object-fit:cover;
+      border-radius:5px;
+      border:1px solid #d1d9e6;
+      background:#e5ecf7;
+    }
+    .photo-card textarea{font-size:.7rem;min-height:34px;line-height:1.25}
+    .photo-remove{
+      border:1px solid #d4d7dd;
+      background:#f3f4f6;
+      color:var(--text-main);
+      border-radius:999px;
+      padding:4px 8px;
+      font-size:.68rem;
+      font-weight:700;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+      cursor:pointer;
+      align-self:flex-end;
+    }
+
+    .signature-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:8px;
+      margin-top:4px;
+    }
+    .signature-box{
+      border-radius:10px;
+      border:1px solid var(--border-soft);
+      background:#f9fbff;
+      padding:6px;
+      font-size:.8rem;
+    }
+    .signature-box-row{display:flex;gap:6px;margin-top:4px}
+    .signature-box-row>div{flex:1}
+    .signature-label{font-size:.74rem;font-weight:600;color:var(--text-muted);margin-bottom:2px}
+
+    .small-input{
+      width:100%;
+      padding:5px 6px;
+      border-radius:7px;
+      border:1px solid var(--border-soft);
+      background:#fff;
+      font-size:.76rem;
+      line-height:1.25;
+      color:var(--text-main);
+      height:30px;
+    }
+
+    .signature-canvas{
+      width:100%;
+      height:90px;
+      border-radius:8px;
+      border:1px solid var(--border-soft);
+      background:#fff;
+      box-shadow:inset 0 1px 2px rgba(15,23,42,.08);
+      display:block;
+      cursor:crosshair;
+    }
+    .signature-actions{display:flex;justify-content:flex-end;margin-top:4px}
+    .signature-actions button{padding:3px 10px;font-size:.7rem;letter-spacing:.05em}
+
+    .btn-row{
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:flex-end;
       gap:8px;
       margin-top:10px;
     }
-    .photos-preview img{
-      max-width:140px;
-      max-height:140px;
-      object-fit:cover;
-      border-radius:10px;
-      border:1px solid #d1e0f0;
-      box-shadow:0 6px 14px rgba(5,41,66,.18);
-    }
-    .photos-preview a{ text-decoration:none; }
-
-    .btn-row{
-      margin-top:26px;
-      display:flex;
-      gap:10px;
-      justify-content:flex-end;
-      flex-wrap:wrap;
-    }
     button{
-      padding:9px 20px;
-      font-size:.9rem;
-      border-radius:999px;
       border:none;
-      cursor:pointer;
+      border-radius:999px;
+      padding:7px 16px;
+      font-size:.8rem;
       font-weight:600;
-      letter-spacing:.05em;
+      letter-spacing:.08em;
       text-transform:uppercase;
-      transition:transform .12s ease, box-shadow .12s ease, background .12s ease;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
     }
     .btn-primary{
-      background: linear-gradient(120deg, var(--vista-blue-light) 0%, var(--vista-blue) 40%, var(--vista-blue-dark) 100%);
+      background:linear-gradient(120deg,var(--vista-blue-light),var(--vista-blue),var(--vista-blue-dark));
       color:#fff;
-      box-shadow:0 10px 24px rgba(5,41,66,.45);
-    }
-    .btn-primary:hover{
-      transform:translateY(-1px);
-      box-shadow:0 14px 32px rgba(5,41,66,.55);
+      box-shadow:0 8px 20px rgba(5,41,66,.35);
     }
     .btn-secondary{
       background:#f3f4f6;
       color:var(--text-main);
       border:1px solid #d4d7dd;
     }
-    .btn-secondary:hover{
-      background:#e5e7eb;
-      transform:translateY(-1px);
-    }
+    button:hover{transform:translateY(-1px);box-shadow:0 10px 22px rgba(15,23,42,.18)}
 
-    .hint{
-      font-size:.78rem;
-      color:var(--text-muted);
-      margin-top:2px;
-    }
-
-    .version-footer{
-      margin-top:16px;
-      padding-top:10px;
-      border-top:1px solid rgba(214,226,240,0.9);
-      font-size:.78rem;
-      color:var(--text-muted);
+    .autosave-row{
+      margin-top:6px;
       display:flex;
       justify-content:space-between;
-      gap:10px;
+      align-items:center;
+      gap:8px;
+      flex-wrap:wrap;
+      font-size:.74rem;
+      color:var(--text-muted);
     }
-    .version-footer .right{
-      font-weight:600;
-      color:rgba(11,48,69,0.8);
+    .autosave-row b{color:var(--vista-blue-dark)}
+
+    .form-footer{
+      margin-top:10px;
+      display:flex;
+      justify-content:flex-end;
+      font-size:.72rem;
+      color:var(--text-muted);
+    }
+    .form-footer .ver{
+      padding:4px 10px;
+      border-radius:999px;
+      border:1px solid var(--border-soft);
+      background:#f9fbff;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+      font-weight:700;
     }
 
-    @media (max-width:720px){
-      body{ padding:12px; }
-      form{ padding:18px 16px 20px; }
-      .header-bar{ flex-direction:column; align-items:flex-start; gap:10px; }
-      .header-logo{ align-self:flex-end; height:56px; }
-      .version-footer{ flex-direction:column; align-items:flex-start; }
+    @media (max-width:1024px){.grid-2{grid-template-columns:1fr}}
+    @media (max-width:700px){
+      .header-bar{flex-direction:column;align-items:flex-start;gap:8px}
+      .page-title-main{font-size:1.1rem;letter-spacing:.12em}
+      .form-footer{justify-content:center}
     }
   </style>
 </head>
 
 <body>
   <div class="page-wrap">
-    <div class="container">
+    <div class="container" id="formContainer">
       <div class="header-bar">
         <div class="header-left">
-          <h1><span class="vista-bold">VISTA</span><span class="geomatics-regular">GEOMATICS</span></h1>
-          <p>Worksite Inspection Form</p>
+          <h1 class="brand-title">
+            <span class="brand-vista">VISTA</span><span class="brand-geomatics">GEOMATICS</span>
+          </h1>
+          <p>Weekly Vehicle Inspection Checklist</p>
         </div>
-        <img src="vista-geomatics.png" alt="Vista Geomatics Logo" class="header-logo">
+        <img src="vista-geomatics.png" alt="VistaGeomatics Logo" class="header-logo" />
       </div>
 
-      <form action="#" method="post" enctype="multipart/form-data">
-        <div class="section">
-          <div class="section-title">General Information</div>
-          <p class="section-subtext">Basic project and site details for this inspection.</p>
-          <div class="grid-3">
-            <div><label for="client">Client</label><input type="text" id="client" name="client" required></div>
-            <div><label for="location">Location</label><input type="text" id="location" name="location" required></div>
-            <div><label for="date">Date</label><input type="date" id="date" name="date" required></div>
+      <div class="page-title-bar">
+        <div class="page-title-main">Weekly Vehicle Inspection</div>
+        <div class="page-title-sub">To be submitted every Monday before 8:00 a.m.</div>
+        <div class="page-title-accent"></div>
+      </div>
+
+      <form id="vehicleForm">
+        <div class="section-card" id="secTopInfo">
+          <div class="top-info-header">Form must be completed in full</div>
+
+          <div class="grid-2">
+            <div>
+              <label for="date">Date</label>
+              <input type="date" id="date" name="date" />
+            </div>
+            <div>
+              <label for="license">License Plate #</label>
+              <input type="text" id="license" name="license" autocomplete="off" />
+            </div>
+            <div>
+              <label for="operator">Operator</label>
+              <input type="text" id="operator" name="operator" autocomplete="off" />
+            </div>
+            <div>
+              <label for="cell">Cell Phone #</label>
+              <input type="text" id="cell" name="cell" autocomplete="off" />
+            </div>
+            <div>
+              <label for="ymm">Year, Make, Model</label>
+              <input type="text" id="ymm" name="ymm" autocomplete="off" />
+            </div>
+            <div>
+              <label for="mileage">Mileage</label>
+              <input type="text" id="mileage" name="mileage" autocomplete="off" />
+            </div>
+            <div>
+              <label for="colour">Colour</label>
+              <input type="text" id="colour" name="colour" autocomplete="off" />
+            </div>
+            <div>
+              <label for="nextservice">Next Service Due</label>
+              <input type="text" id="nextservice" name="nextservice" autocomplete="off" />
+            </div>
+          </div>
+
+          <div class="rating-legend" aria-label="status legend">
+            <div><span class="code">✔</span> Passed</div>
+            <div><span class="code">M</span> Maintenance required</div>
+            <div><span class="code">R</span> Rejected</div>
+          </div>
+
+          <div class="autosave-row">
+            <div><b>Auto-save:</b> on (this device only)</div>
+            <button type="button" class="btn-secondary" id="clearSavedBtn" style="padding:4px 10px;font-size:.7rem;letter-spacing:.06em;">Clear saved draft</button>
           </div>
         </div>
 
-        <div class="section">
-          <div class="section-title">Worksite Inspection – Site Conditions / Administration</div>
-          <p class="section-subtext">Administrative controls, documentation, and general housekeeping.</p>
+        <div class="section-card" id="secUnderHood">
+          <div class="section-header">
+            <div class="section-title">Under the Hood</div>
+          </div>
+
           <table>
             <thead>
               <tr>
-                <th style="width:40%;">Inspection Item</th>
-                <th style="width:15%;">Yes / No / N/A</th>
-                <th style="width:30%;">Corrective Actions Required</th>
-                <th style="width:15%;">Fix By (Date / Name)</th>
+                <th class="item-name">Item</th>
+                <th class="status-select">Status (✔ / M / R)</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>Hazard assessment completed prior to starting work?</td>
-                <td><select name="ha_completed" class="ynna-select"><option value="">--</option><option>Yes</option><option>No</option><option>N/A</option></select></td>
-                <td><textarea name="ha_completed_ca"></textarea></td>
-                <td><div class="fix-by"><input type="date" name="ha_completed_fix_date"><input type="text" name="ha_completed_fix_name"></div></td>
+                <td>Motor Oil</td>
+                <td class="status-select">
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="hood_motor_oil" value="pass" />✔</label>
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="hood_motor_oil" value="m" />M</label>
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="hood_motor_oil" value="r" />R</label>
+                </td>
               </tr>
               <tr>
-                <td>Hazard assessment reviewed and signed by all workers on site?</td>
-                <td><select name="ha_reviewed" class="ynna-select"><option value="">--</option><option>Yes</option><option>No</option><option>N/A</option></select></td>
-                <td><textarea name="ha_reviewed_ca"></textarea></td>
-                <td><div class="fix-by"><input type="date" name="ha_reviewed_fix_date"><input type="text" name="ha_reviewed_fix_name"></div></td>
+                <td>Cooling System</td>
+                <td class="status-select">
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="hood_cooling" value="pass" />✔</label>
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="hood_cooling" value="m" />M</label>
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="hood_cooling" value="r" />R</label>
+                </td>
               </tr>
               <tr>
-                <td>Effective Emergency Response Plan developed with emergency numbers?</td>
-                <td><select name="erp_effective" class="ynna-select"><option value="">--</option><option>Yes</option><option>No</option><option>N/A</option></select></td>
-                <td><textarea name="erp_effective_ca"></textarea></td>
-                <td><div class="fix-by"><input type="date" name="erp_effective_fix_date"><input type="text" name="erp_effective_fix_name"></div></td>
+                <td>Power Steering Fluid</td>
+                <td class="status-select">
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="hood_steering" value="pass" />✔</label>
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="hood_steering" value="m" />M</label>
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="hood_steering" value="r" />R</label>
+                </td>
               </tr>
               <tr>
-                <td>Safe work practices and safe job procedures being used?</td>
-                <td><select name="swp_used" class="ynna-select"><option value="">--</option><option>Yes</option><option>No</option><option>N/A</option></select></td>
-                <td><textarea name="swp_used_ca"></textarea></td>
-                <td><div class="fix-by"><input type="date" name="swp_used_fix_date"><input type="text" name="swp_used_fix_name"></div></td>
+                <td>Battery</td>
+                <td class="status-select">
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="hood_battery" value="pass" />✔</label>
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="hood_battery" value="m" />M</label>
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="hood_battery" value="r" />R</label>
+                </td>
               </tr>
               <tr>
-                <td>Road signs, pylons available and used as required?</td>
-                <td><select name="road_signs" class="ynna-select"><option value="">--</option><option>Yes</option><option>No</option><option>N/A</option></select></td>
-                <td><textarea name="road_signs_ca"></textarea></td>
-                <td><div class="fix-by"><input type="date" name="road_signs_fix_date"><input type="text" name="road_signs_fix_name"></div></td>
+                <td>Brake Fluid</td>
+                <td class="status-select">
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="hood_brake_fluid" value="pass" />✔</label>
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="hood_brake_fluid" value="m" />M</label>
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="hood_brake_fluid" value="r" />R</label>
+                </td>
               </tr>
               <tr>
-                <td>Work vehicle reasonably clean?</td>
-                <td><select name="vehicle_clean" class="ynna-select"><option value="">--</option><option>Yes</option><option>No</option><option>N/A</option></select></td>
-                <td><textarea name="vehicle_clean_ca"></textarea></td>
-                <td><div class="fix-by"><input type="date" name="vehicle_clean_fix_date"><input type="text" name="vehicle_clean_fix_name"></div></td>
+                <td>Windshield Washer Fluid</td>
+                <td class="status-select">
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="hood_washer_fluid" value="pass" />✔</label>
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="hood_washer_fluid" value="m" />M</label>
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="hood_washer_fluid" value="r" />R</label>
+                </td>
               </tr>
               <tr>
-                <td>Vista sign displayed on the truck? (ALS regulation)</td>
-                <td><select name="vista_sign" class="ynna-select"><option value="">--</option><option>Yes</option><option>No</option><option>N/A</option></select></td>
-                <td><textarea name="vista_sign_ca"></textarea></td>
-                <td><div class="fix-by"><input type="date" name="vista_sign_fix_date"><input type="text" name="vista_sign_fix_name"></div></td>
-              </tr>
-              <tr>
-                <td>Clean and tidy work site?</td>
-                <td><select name="clean_site" class="ynna-select"><option value="">--</option><option>Yes</option><option>No</option><option>N/A</option></select></td>
-                <td><textarea name="clean_site_ca"></textarea></td>
-                <td><div class="fix-by"><input type="date" name="clean_site_fix_date"><input type="text" name="clean_site_fix_name"></div></td>
+                <td>Belts</td>
+                <td class="status-select">
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="hood_belts" value="pass" />✔</label>
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="hood_belts" value="m" />M</label>
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="hood_belts" value="r" />R</label>
+                </td>
               </tr>
             </tbody>
           </table>
         </div>
 
-        <div class="section">
-          <div class="section-title">Personal Protective Equipment (PPE)</div>
-          <p class="section-subtext">Confirm required PPE is available and being used appropriately.</p>
-          <table id="ppeTable">
-            <thead>
-              <tr>
-                <th style="width:40%;">Inspection Item</th>
-                <th style="width:15%;">Yes / No / N/A</th>
-                <th style="width:30%;">Corrective Actions Required</th>
-                <th style="width:15%;">Fix By (Date / Name)</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Hard hat worn when required?</td>
-                <td><select name="ppe_hard_hat" class="ynna-select"><option value="">--</option><option>Yes</option><option>No</option><option>N/A</option></select></td>
-                <td><textarea name="ppe_hard_hat_ca"></textarea></td>
-                <td><div class="fix-by"><input type="date" name="ppe_hard_hat_fix_date"><input type="text" name="ppe_hard_hat_fix_name"></div></td>
-              </tr>
-              <tr>
-                <td>Safety glasses or eye protection worn when required?</td>
-                <td><select name="ppe_eye" class="ynna-select"><option value="">--</option><option>Yes</option><option>No</option><option>N/A</option></select></td>
-                <td><textarea name="ppe_eye_ca"></textarea></td>
-                <td><div class="fix-by"><input type="date" name="ppe_eye_fix_date"><input type="text" name="ppe_eye_fix_name"></div></td>
-              </tr>
+        <div class="section-card" id="secDriverCompartment">
+          <div class="section-header">
+            <div class="section-title">Driver’s Compartment</div>
+          </div>
 
-              <!-- dynamic spacer (only appears during export) -->
-              <tr class="export-spacer-row"><td colspan="4"></td></tr>
-
-              <!-- anchor row we refuse to split across pages -->
-              <tr id="ppeClothingRow">
-                <td>Protective clothing (gloves, coveralls) worn when required?</td>
-                <td><select name="ppe_clothing" class="ynna-select"><option value="">--</option><option>Yes</option><option>No</option><option>N/A</option></select></td>
-                <td><textarea name="ppe_clothing_ca"></textarea></td>
-                <td><div class="fix-by"><input type="date" name="ppe_clothing_fix_date"><input type="text" name="ppe_clothing_fix_name"></div></td>
-              </tr>
-              <tr>
-                <td>CSA-approved footwear with 8&quot; upper worn when required?</td>
-                <td><select name="ppe_footwear" class="ynna-select"><option value="">--</option><option>Yes</option><option>No</option><option>N/A</option></select></td>
-                <td><textarea name="ppe_footwear_ca"></textarea></td>
-                <td><div class="fix-by"><input type="date" name="ppe_footwear_fix_date"><input type="text" name="ppe_footwear_fix_name"></div></td>
-              </tr>
-              <tr>
-                <td>Hearing protection available and worn if required?</td>
-                <td><select name="ppe_hearing" class="ynna-select"><option value="">--</option><option>Yes</option><option>No</option><option>N/A</option></select></td>
-                <td><textarea name="ppe_hearing_ca"></textarea></td>
-                <td><div class="fix-by"><input type="date" name="ppe_hearing_fix_date"><input type="text" name="ppe_hearing_fix_name"></div></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="section">
-          <div class="section-title">Safety Equipment</div>
-          <p class="section-subtext">Emergency and first aid equipment checks.</p>
           <table>
             <thead>
               <tr>
-                <th style="width:40%;">Inspection Item</th>
-                <th style="width:15%;">Yes / No / N/A</th>
-                <th style="width:30%;">Corrective Actions Required</th>
-                <th style="width:15%;">Fix By (Date / Name)</th>
+                <th class="item-name">Item</th>
+                <th class="status-select">Status</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>Fire extinguishers are in place, signed, and within service date?</td>
-                <td><select name="fire_ext_all" class="ynna-select"><option value="">--</option><option>Yes</option><option>No</option><option>N/A</option></select></td>
-                <td><textarea name="fire_ext_all_ca"></textarea></td>
-                <td><div class="fix-by"><input type="date" name="fire_ext_all_fix_date"><input type="text" name="fire_ext_all_fix_name"></div></td>
+                <td>
+                  Registration – Expiry Date:
+                  <input type="date" class="small-input inline-date" name="registration_expiry" style="width:150px;margin-left:6px;display:inline-block;vertical-align:middle;" />
+                </td>
+                <td class="status-select">
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_registration" value="pass" />✔</label>
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_registration" value="m" />M</label>
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_registration" value="r" />R</label>
+                </td>
               </tr>
+
               <tr>
-                <td>Alberta Level 2 first aid kit available and complete?</td>
-                <td><select name="first_aid_kit" class="ynna-select"><option value="">--</option><option>Yes</option><option>No</option><option>N/A</option></select></td>
-                <td><textarea name="first_aid_kit_ca"></textarea></td>
-                <td><div class="fix-by"><input type="date" name="first_aid_kit_fix_date"><input type="text" name="first_aid_kit_fix_name"></div></td>
+                <td>
+                  Insurance – Expiry Date:
+                  <input type="date" class="small-input inline-date" name="insurance_expiry" style="width:150px;margin-left:6px;display:inline-block;vertical-align:middle;" />
+                </td>
+                <td class="status-select">
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_insurance" value="pass" />✔</label>
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_insurance" value="m" />M</label>
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_insurance" value="r" />R</label>
+                </td>
               </tr>
+
               <tr>
-                <td>Valid safety certificate available?</td>
-                <td><select name="safety_certificate" class="ynna-select"><option value="">--</option><option>Yes</option><option>No</option><option>N/A</option></select></td>
-                <td><textarea name="safety_certificate_ca"></textarea></td>
-                <td><div class="fix-by"><input type="date" name="safety_certificate_fix_date"><input type="text" name="safety_certificate_fix_name"></div></td>
+                <td>Safety Certificate Available and Current</td>
+                <td class="status-select">
+                  <label class="status-cell"><input type="checkbox" class="yn-box" data-group="safety_cert" value="yes" />Yes</label>
+                  <label class="status-cell"><input type="checkbox" class="yn-box" data-group="safety_cert" value="no" />No</label>
+                </td>
+              </tr>
+
+              <tr>
+                <td>Windshield</td>
+                <td class="status-select">
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_windshield" value="pass" />✔</label>
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_windshield" value="m" />M</label>
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_windshield" value="r" />R</label>
+                </td>
+              </tr>
+
+              <tr>
+                <td>Windshield Wipers</td>
+                <td class="status-select">
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_wipers" value="pass" />✔</label>
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_wipers" value="m" />M</label>
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_wipers" value="r" />R</label>
+                </td>
+              </tr>
+
+              <tr>
+                <td>Seatbelts</td>
+                <td class="status-select">
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_seatbelts" value="pass" />✔</label>
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_seatbelts" value="m" />M</label>
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_seatbelts" value="r" />R</label>
+                </td>
+              </tr>
+
+              <tr>
+                <td>Speedometer</td>
+                <td class="status-select">
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_speedometer" value="pass" />✔</label>
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_speedometer" value="m" />M</label>
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_speedometer" value="r" />R</label>
+                </td>
+              </tr>
+
+              <tr>
+                <td>Heater, A/C, Defroster</td>
+                <td class="status-select">
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_hvac" value="pass" />✔</label>
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_hvac" value="m" />M</label>
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_hvac" value="r" />R</label>
+                </td>
+              </tr>
+
+              <tr>
+                <td>Dash Lights</td>
+                <td class="status-select">
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_dash_lights" value="pass" />✔</label>
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_dash_lights" value="m" />M</label>
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_dash_lights" value="r" />R</label>
+                </td>
+              </tr>
+
+              <tr>
+                <td>Horn</td>
+                <td class="status-select">
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_horn" value="pass" />✔</label>
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_horn" value="m" />M</label>
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_horn" value="r" />R</label>
+                </td>
+              </tr>
+
+              <tr>
+                <td>Beam Indicator</td>
+                <td class="status-select">
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_beam_indicator" value="pass" />✔</label>
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_beam_indicator" value="m" />M</label>
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_beam_indicator" value="r" />R</label>
+                </td>
+              </tr>
+
+              <tr>
+                <td>Emergency Brake</td>
+                <td class="status-select">
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_emergency_brake" value="pass" />✔</label>
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_emergency_brake" value="m" />M</label>
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="comp_emergency_brake" value="r" />R</label>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  Fire Extinguisher – Expiry Date:
+                  <input type="date" class="small-input inline-date" name="fire_ext_expiry" style="width:150px;margin-left:6px;display:inline-block;vertical-align:middle;" />
+                </td>
+                <td class="status-select">
+                  <label class="status-cell"><input type="checkbox" class="yn-box" data-group="fire_extinguisher" value="yes" />Yes</label>
+                  <label class="status-cell"><input type="checkbox" class="yn-box" data-group="fire_extinguisher" value="no" />No</label>
+                </td>
+              </tr>
+
+              <tr>
+                <td>First Aid Kit – Complete</td>
+                <td class="status-select">
+                  <label class="status-cell"><input type="checkbox" class="yn-box" data-group="first_aid" value="yes" />Yes</label>
+                  <label class="status-cell"><input type="checkbox" class="yn-box" data-group="first_aid" value="no" />No</label>
+                </td>
+              </tr>
+
+              <tr>
+                <td>Personal protective equipment available and in good condition</td>
+                <td class="status-select">
+                  <label class="status-cell"><input type="checkbox" class="yn-box" data-group="ppe_available" value="yes" />Yes</label>
+                  <label class="status-cell"><input type="checkbox" class="yn-box" data-group="ppe_available" value="no" />No</label>
+                </td>
               </tr>
             </tbody>
           </table>
         </div>
 
-        <div class="section">
-          <div class="section-title">Site Photos</div>
-          <p class="section-subtext">Attach one or more photos to support your inspection findings.</p>
-          <label for="photos">Upload site photos (you can select multiple):</label>
-          <input type="file" id="photos" name="photos[]" accept="image/*" multiple>
-          <p class="hint">Accepted: JPG, PNG, HEIC. Large files may take longer to upload.</p>
-          <div id="photosPreview" class="photos-preview"></div>
+        <div class="section-card" id="secBodyExterior">
+          <div class="section-header">
+            <div class="section-title">Body Exterior</div>
+          </div>
+
+          <table>
+            <thead>
+              <tr>
+                <th class="item-name">Item</th>
+                <th class="status-select">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Head Lights</td>
+                <td class="status-select">
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="body_head_lights" value="pass" />✔</label>
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="body_head_lights" value="m" />M</label>
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="body_head_lights" value="r" />R</label>
+                </td>
+              </tr>
+              <tr>
+                <td>Tail Lights</td>
+                <td class="status-select">
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="body_tail_lights" value="pass" />✔</label>
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="body_tail_lights" value="m" />M</label>
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="body_tail_lights" value="r" />R</label>
+                </td>
+              </tr>
+              <tr>
+                <td>Brake Lights</td>
+                <td class="status-select">
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="body_brake_lights" value="pass" />✔</label>
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="body_brake_lights" value="m" />M</label>
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="body_brake_lights" value="r" />R</label>
+                </td>
+              </tr>
+              <tr>
+                <td>Signal Lights</td>
+                <td class="status-select">
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="body_signal_lights" value="pass" />✔</label>
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="body_signal_lights" value="m" />M</label>
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="body_signal_lights" value="r" />R</label>
+                </td>
+              </tr>
+              <tr>
+                <td>Hazard Lights</td>
+                <td class="status-select">
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="body_hazard_lights" value="pass" />✔</label>
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="body_hazard_lights" value="m" />M</label>
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="body_hazard_lights" value="r" />R</label>
+                </td>
+              </tr>
+              <tr>
+                <td>Tire Pressure</td>
+                <td class="status-select">
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="body_tire_pressure" value="pass" />✔</label>
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="body_tire_pressure" value="m" />M</label>
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="body_tire_pressure" value="r" />R</label>
+                </td>
+              </tr>
+              <tr>
+                <td>Tire Wear</td>
+                <td class="status-select">
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="body_tire_wear" value="pass" />✔</label>
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="body_tire_wear" value="m" />M</label>
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="body_tire_wear" value="r" />R</label>
+                </td>
+              </tr>
+              <tr>
+                <td>Vehicle Body Condition – Clean?</td>
+                <td class="status-select">
+                  <label class="status-cell"><input type="checkbox" class="yn-box" data-group="body_clean" value="yes" />Yes</label>
+                  <label class="status-cell"><input type="checkbox" class="yn-box" data-group="body_clean" value="no" />No</label>
+                </td>
+              </tr>
+              <tr>
+                <td>Vehicle Interior Condition – Clean?</td>
+                <td class="status-select">
+                  <label class="status-cell"><input type="checkbox" class="yn-box" data-group="interior_clean" value="yes" />Yes</label>
+                  <label class="status-cell"><input type="checkbox" class="yn-box" data-group="interior_clean" value="no" />No</label>
+                </td>
+              </tr>
+              <tr>
+                <td>Spare Tire, Jack, Tools</td>
+                <td class="status-select">
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="body_spare" value="pass" />✔</label>
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="body_spare" value="m" />M</label>
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="body_spare" value="r" />R</label>
+                </td>
+              </tr>
+              <tr>
+                <td>Signage in Place and Visible</td>
+                <td class="status-select">
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="body_signage" value="pass" />✔</label>
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="body_signage" value="m" />M</label>
+                  <label class="status-cell"><input type="checkbox" class="status-box" data-group="body_signage" value="r" />R</label>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
 
-        <div class="section">
-          <div class="section-title">Notes / Comments</div>
-          <textarea name="notes" placeholder="Additional observations, hazards, corrective actions, or follow-up requirements."></textarea>
-        </div>
+        <div class="section-card" id="secOverall">
+          <div class="section-header">
+            <div class="section-title">Overall Assessment</div>
+          </div>
 
-        <div class="section">
-          <div class="section-title">Inspector Sign-Off</div>
-          <div class="grid-3">
-            <div><label for="reviewed_by">Reviewed By</label><input type="text" id="reviewed_by" name="reviewed_by"></div>
-            <div><label for="inspector_name">Inspector Name</label><input type="text" id="inspector_name" name="inspector_name"></div>
-            <div><label for="inspector_role">Role / Position</label><input type="text" id="inspector_role" name="inspector_role"></div>
+          <div class="check-row">
+            <label><input type="checkbox" class="overall-check" id="vehicle_passed" name="vehicle_passed" />Vehicle Passed</label>
+            <label><input type="checkbox" class="overall-check" id="vehicle_not_passed" name="vehicle_not_passed" />Vehicle Not Passed</label>
+          </div>
+
+          <div style="margin-top:4px;">
+            <label for="deficienciesText">Work required or any deficiencies</label>
+            <textarea id="deficienciesText" name="deficiencies" placeholder="Describe any issues, defects or required maintenance."></textarea>
+          </div>
+
+          <div class="photo-section" style="margin-top:6px;">
+            <label>Vehicle Photos (optional)</label>
+            <div class="photo-actions">
+              <button type="button" class="btn-secondary" id="addPhotoBtn">+ Add Photos</button>
+              <input type="file" id="photoInput" accept="image/*" multiple style="display:none;" />
+              <span style="font-size:.74rem;color:var(--text-muted);">Photos export 4 per page</span>
+            </div>
+            <div class="photo-grid" id="photoGrid"></div>
           </div>
         </div>
 
-        <div class="section">
-          <div class="section-title">Party Chief Sign-Off</div>
-          <div class="grid-3">
-            <div><label for="pc_name">Party Chief Name</label><input type="text" id="pc_name" name="pc_name" required></div>
-            <div><label for="pc_signature">Signature (type name)</label><input type="text" id="pc_signature" name="pc_signature" required></div>
-            <div><label for="pc_date">Date Signed</label><input type="date" id="pc_date" name="pc_date" required></div>
+        <div class="section-card" id="secSignOff">
+          <div class="section-header">
+            <div class="section-title">Sign-off</div>
+          </div>
+
+          <div class="signature-grid">
+            <div class="signature-box">
+              <div class="signature-label">Operator’s Signature</div>
+              <canvas id="operatorSignature" class="signature-canvas"></canvas>
+              <div class="signature-actions">
+                <button type="button" class="btn-secondary" id="clearOperatorSig">Clear</button>
+              </div>
+              <div class="signature-box-row">
+                <div>
+                  <div class="signature-label">Operator Name (printed)</div>
+                  <input type="text" class="small-input" name="operator_name" autocomplete="off" />
+                </div>
+                <div>
+                  <div class="signature-label">Date</div>
+                  <input type="date" class="small-input" name="operator_date" />
+                </div>
+              </div>
+            </div>
+
+            <div class="signature-box">
+              <div class="signature-label">Reviewed By – Signature</div>
+              <canvas id="reviewerSignature" class="signature-canvas"></canvas>
+              <div class="signature-actions">
+                <button type="button" class="btn-secondary" id="clearReviewerSig">Clear</button>
+              </div>
+              <div class="signature-box-row">
+                <div>
+                  <div class="signature-label">Reviewer Name (printed)</div>
+                  <input type="text" class="small-input" name="reviewed_by" autocomplete="off" />
+                </div>
+                <div>
+                  <div class="signature-label">Date</div>
+                  <input type="date" class="small-input" name="review_date" />
+                </div>
+              </div>
+              <div class="signature-box-row">
+                <div>
+                  <div class="signature-label">Fix Date (if applicable)</div>
+                  <input type="date" class="small-input" name="review_fix_date" />
+                </div>
+              </div>
+              <div>
+                <div class="signature-label">Comments</div>
+                <textarea class="small-input" name="review_comments" style="height:auto;min-height:40px;"></textarea>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div class="btn-row">
-          <button type="reset" class="btn-secondary">Reset</button>
-          <button type="button" id="downloadPdfBtn" class="btn-primary">Download PDF</button>
+        <div class="form-footer">
+          <span class="ver" id="formVersion"></span>
         </div>
 
-        <div class="version-footer" aria-label="document version">
-          <div class="left">Vista Geomatics, Worksite Inspection Form</div>
-          <div class="right">v1.4</div>
+        <div class="btn-row" id="buttonRow">
+          <button type="reset" class="btn-secondary" id="resetBtn">Reset</button>
+          <button type="button" class="btn-primary" id="downloadBtn">Download PDF</button>
+          <button type="button" class="btn-primary" id="shareBtn">Share PDF</button>
         </div>
       </form>
     </div>
   </div>
 
-  <!-- Libraries -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
   <script>
-    const VERSION = "v1.4";
+    const FORM_VERSION = "v1.5";
+    const AUTOSAVE_KEY = "vista_vehicle_inspection_autosave_v1_5";
+    const DB_NAME = "VistaVehicleInspectionDB";
+    const DB_VERSION = 1;
+    const STORE_NAME = "photos";
 
-    // Letter + 2 page target (slightly smaller than before)
-    const FORM_SCALE = 0.87;
+    const vehicleForm = document.getElementById("vehicleForm");
+    const formContainer = document.getElementById("formContainer");
+    const buttonRow = document.getElementById("buttonRow");
+    const downloadBtn = document.getElementById("downloadBtn");
+    const shareBtn = document.getElementById("shareBtn");
+    const resetBtn = document.getElementById("resetBtn");
+    const clearSavedBtn = document.getElementById("clearSavedBtn");
+    const addPhotoBtn = document.getElementById("addPhotoBtn");
+    const photoInput = document.getElementById("photoInput");
+    const photoGrid = document.getElementById("photoGrid");
 
-    // How close to a page break we “protect” the PPE clothing row
-    // (larger = more likely to push it to next page)
-    const PROTECT_THRESHOLD_PX = 140;
+    const verEl = document.getElementById("formVersion");
+    if (verEl) verEl.textContent = FORM_VERSION;
 
-    // Clamp spacer so it never becomes ridiculous
-    const SPACER_MAX_PX = 140;
+    function toISODate(d){
+      const yyyy = d.getFullYear();
+      const mm = String(d.getMonth()+1).padStart(2,"0");
+      const dd = String(d.getDate()).padStart(2,"0");
+      return `${yyyy}-${mm}-${dd}`;
+    }
 
-    const photosInput = document.getElementById('photos');
-    const photosPreview = document.getElementById('photosPreview');
+    const dateField = document.getElementById("date");
+    if (dateField && !dateField.value) dateField.value = toISODate(new Date());
 
-    function fileToDataURL(file) {
-      return new Promise((resolve) => {
-        const reader = new FileReader();
-        reader.onload = e => resolve(e.target.result);
-        reader.readAsDataURL(file);
+    function sanitizeFileName(name){
+      return name.replace(/[\/\\:*?"<>|]/g,"-").replace(/\s+/g," ").trim();
+    }
+    function getLicenseForFileName(){
+      const raw = (document.getElementById("license")?.value || "").trim();
+      return raw ? raw : "LICENSE";
+    }
+    function getOperatorForFileName(){
+      const raw = (document.getElementById("operator")?.value || "").trim();
+      return raw ? raw : "OPERATOR";
+    }
+    function getDefaultFileName(){
+      const plate = getLicenseForFileName();
+      const op = getOperatorForFileName();
+      const dateStr = toISODate(new Date());
+      return sanitizeFileName(`${plate}-${op}-${dateStr}.pdf`);
+    }
+
+    /* IndexedDB photos */
+    function openDb(){
+      return new Promise((resolve,reject)=>{
+        const req = indexedDB.open(DB_NAME, DB_VERSION);
+        req.onupgradeneeded = ()=>{
+          const db = req.result;
+          if(!db.objectStoreNames.contains(STORE_NAME)){
+            db.createObjectStore(STORE_NAME,{keyPath:"id"});
+          }
+        };
+        req.onsuccess = ()=>resolve(req.result);
+        req.onerror = ()=>reject(req.error);
+      });
+    }
+    async function dbPutPhoto(record){
+      const db = await openDb();
+      return new Promise((resolve,reject)=>{
+        const tx = db.transaction(STORE_NAME,"readwrite");
+        tx.objectStore(STORE_NAME).put(record);
+        tx.oncomplete = ()=>resolve(true);
+        tx.onerror = ()=>reject(tx.error);
+      });
+    }
+    async function dbGetAllPhotos(){
+      const db = await openDb();
+      return new Promise((resolve,reject)=>{
+        const tx = db.transaction(STORE_NAME,"readonly");
+        const req = tx.objectStore(STORE_NAME).getAll();
+        req.onsuccess = ()=>resolve(req.result||[]);
+        req.onerror = ()=>reject(req.error);
+      });
+    }
+    async function dbClearPhotos(){
+      const db = await openDb();
+      return new Promise((resolve,reject)=>{
+        const tx = db.transaction(STORE_NAME,"readwrite");
+        const req = tx.objectStore(STORE_NAME).clear();
+        req.onsuccess = ()=>resolve(true);
+        req.onerror = ()=>reject(req.error);
+      });
+    }
+    async function dbDeletePhoto(id){
+      const db = await openDb();
+      return new Promise((resolve,reject)=>{
+        const tx = db.transaction(STORE_NAME,"readwrite");
+        const req = tx.objectStore(STORE_NAME).delete(id);
+        req.onsuccess = ()=>resolve(true);
+        req.onerror = ()=>reject(req.error);
       });
     }
 
-    async function compressImage(file, maxDim = 2200, quality = 0.78) {
-      const baseUrl = await fileToDataURL(file);
-      const img = new Image();
-      img.src = baseUrl;
-      await new Promise(res => { img.onload = res; });
-
-      let width = img.width;
-      let height = img.height;
-
-      const scale = Math.min(maxDim / width, maxDim / height, 1);
-      width = Math.round(width * scale);
-      height = Math.round(height * scale);
-
-      const c = document.createElement('canvas');
-      c.width = width;
-      c.height = height;
-
-      const ctx = c.getContext('2d');
-      ctx.drawImage(img, 0, 0, width, height);
-
-      return { dataUrl: c.toDataURL('image/jpeg', quality), width, height };
+    /* Checkbox exclusivity */
+    const chkPassed = document.getElementById("vehicle_passed");
+    const chkNotPassed = document.getElementById("vehicle_not_passed");
+    if (chkPassed && chkNotPassed){
+      chkPassed.addEventListener("change",()=>{ if(chkPassed.checked) chkNotPassed.checked=false; saveDraftSoon(); });
+      chkNotPassed.addEventListener("change",()=>{ if(chkNotPassed.checked) chkPassed.checked=false; saveDraftSoon(); });
     }
 
-    if (photosInput) {
-      photosInput.addEventListener('change', function () {
-        photosPreview.innerHTML = '';
-        Array.from(this.files).forEach(file => {
-          if (!file.type.startsWith('image/')) return;
-          const reader = new FileReader();
-          reader.onload = e => {
-            const img = document.createElement('img');
-            img.src = e.target.result;
-            const link = document.createElement('a');
-            link.href = e.target.result;
-            link.target = "_blank";
-            link.appendChild(img);
-            photosPreview.appendChild(link);
-          };
-          reader.readAsDataURL(file);
+    const statusBoxes = document.querySelectorAll(".status-box");
+    statusBoxes.forEach((box)=>{
+      box.addEventListener("change",()=>{
+        const group = box.getAttribute("data-group");
+        if(!group || !box.checked){ saveDraftSoon(); return; }
+        statusBoxes.forEach((other)=>{
+          if(other!==box && other.getAttribute("data-group")===group) other.checked=false;
         });
+        saveDraftSoon();
+      });
+    });
+
+    const ynBoxes = document.querySelectorAll(".yn-box");
+    ynBoxes.forEach((box)=>{
+      box.addEventListener("change",()=>{
+        const group = box.getAttribute("data-group");
+        if(!group || !box.checked){ saveDraftSoon(); return; }
+        ynBoxes.forEach((other)=>{
+          if(other!==box && other.getAttribute("data-group")===group) other.checked=false;
+        });
+        saveDraftSoon();
+      });
+    });
+
+    /* Photos UI */
+    function createPhotoCard({id,dataUrl,caption}){
+      const card = document.createElement("div");
+      card.className = "photo-card";
+      card.dataset.photoId = id;
+
+      const img = document.createElement("img");
+      img.alt = "Vehicle photo";
+      img.src = dataUrl;
+
+      const cap = document.createElement("textarea");
+      cap.placeholder = "Photo description (optional)";
+      cap.value = caption || "";
+
+      const removeBtn = document.createElement("button");
+      removeBtn.type = "button";
+      removeBtn.className = "photo-remove";
+      removeBtn.textContent = "Remove";
+
+      cap.addEventListener("input", async ()=>{
+        const all = await dbGetAllPhotos();
+        const rec = all.find(p=>p.id===id);
+        if(!rec) return;
+        rec.caption = cap.value || "";
+        await dbPutPhoto(rec);
+        saveDraftSoon();
+      });
+
+      removeBtn.addEventListener("click", async ()=>{
+        await dbDeletePhoto(id);
+        card.remove();
+        saveDraftSoon();
+      });
+
+      card.appendChild(img);
+      card.appendChild(cap);
+      card.appendChild(removeBtn);
+      return card;
+    }
+
+    async function loadPhotosFromDb(){
+      if(!photoGrid) return;
+      photoGrid.innerHTML = "";
+      const photos = await dbGetAllPhotos();
+      photos.sort((a,b)=>(a.createdAt||0)-(b.createdAt||0));
+      photos.forEach(p=>photoGrid.appendChild(createPhotoCard(p)));
+    }
+
+    if(addPhotoBtn && photoInput && photoGrid){
+      addPhotoBtn.addEventListener("click",()=>photoInput.click());
+      photoInput.addEventListener("change", async ()=>{
+        const files = Array.from(photoInput.files||[]);
+        for(const file of files){
+          if(!file.type.startsWith("image/")) continue;
+          const dataUrl = await new Promise((resolve)=>{
+            const reader = new FileReader();
+            reader.onload = (e)=>resolve(e.target.result);
+            reader.readAsDataURL(file);
+          });
+          const id = (crypto && crypto.randomUUID) ? crypto.randomUUID()
+            : String(Date.now()) + "_" + Math.random().toString(16).slice(2);
+          const record = {id,dataUrl,caption:"",createdAt:Date.now()};
+          await dbPutPhoto(record);
+          photoGrid.appendChild(createPhotoCard(record));
+        }
+        photoInput.value = "";
+        saveDraftSoon();
       });
     }
 
-    // Computes how much spacer is needed to push a target row to the next PDF page
-    function computeDynamicSpacerPx({ containerEl, targetRowEl, pageUsableH }) {
-      const cRect = containerEl.getBoundingClientRect();
-      const tRect = targetRowEl.getBoundingClientRect();
+    /* Signature pads */
+    function initSignaturePad(canvasId, clearButtonId, onChange){
+      const canvas = document.getElementById(canvasId);
+      const clearBtn = document.getElementById(clearButtonId);
+      if(!canvas) return { canvas:null, getDataUrl:()=>"", setFromDataUrl:async()=>{} };
 
-      // Target row’s top relative to container, in CSS pixels
-      const targetTop = tRect.top - cRect.top;
+      const ctx = canvas.getContext("2d");
+      let drawing=false, lastX=0, lastY=0;
 
-      // Where we are within the current PDF page height (in CSS pixels)
-      const withinPage = targetTop % pageUsableH;
-      const remaining = pageUsableH - withinPage;
-
-      // If the row starts too close to a page break, push it down to next page
-      if (remaining < PROTECT_THRESHOLD_PX) {
-        // Push by "remaining + a tiny nudge" but clamp it
-        const needed = Math.min(remaining + 8, SPACER_MAX_PX);
-        return Math.max(0, needed);
+      function setupStroke(){
+        ctx.lineWidth=2;
+        ctx.lineCap="round";
+        ctx.strokeStyle="#111827";
       }
 
-      return 0;
+      function resizeCanvas(){
+        const rect = canvas.getBoundingClientRect();
+        const old = canvas.toDataURL("image/png");
+        canvas.width = Math.max(1, Math.floor(rect.width));
+        canvas.height = Math.max(1, Math.floor(rect.height));
+        setupStroke();
+        const img = new Image();
+        img.onload = ()=>ctx.drawImage(img,0,0,canvas.width,canvas.height);
+        img.src = old;
+      }
+
+      setupStroke();
+      resizeCanvas();
+      window.addEventListener("resize", resizeCanvas);
+
+      function startDraw(x,y){ drawing=true; lastX=x; lastY=y; }
+      function drawLine(x,y){
+        if(!drawing) return;
+        ctx.beginPath();
+        ctx.moveTo(lastX,lastY);
+        ctx.lineTo(x,y);
+        ctx.stroke();
+        lastX=x; lastY=y;
+      }
+      function endDraw(){ if(drawing){ drawing=false; onChange?.(); } }
+
+      canvas.addEventListener("mousedown",(e)=>{
+        const r = canvas.getBoundingClientRect();
+        startDraw(e.clientX-r.left, e.clientY-r.top);
+      });
+      canvas.addEventListener("mousemove",(e)=>{
+        const r = canvas.getBoundingClientRect();
+        drawLine(e.clientX-r.left, e.clientY-r.top);
+      });
+      canvas.addEventListener("mouseup", endDraw);
+      canvas.addEventListener("mouseleave", endDraw);
+
+      canvas.addEventListener("touchstart",(e)=>{
+        e.preventDefault();
+        const r = canvas.getBoundingClientRect();
+        const t = e.touches[0];
+        startDraw(t.clientX-r.left, t.clientY-r.top);
+      },{passive:false});
+      canvas.addEventListener("touchmove",(e)=>{
+        e.preventDefault();
+        const r = canvas.getBoundingClientRect();
+        const t = e.touches[0];
+        drawLine(t.clientX-r.left, t.clientY-r.top);
+      },{passive:false});
+      canvas.addEventListener("touchend",(e)=>{ e.preventDefault(); endDraw(); },{passive:false});
+
+      if(clearBtn){
+        clearBtn.addEventListener("click",()=>{
+          ctx.clearRect(0,0,canvas.width,canvas.height);
+          onChange?.();
+        });
+      }
+
+      return {
+        canvas,
+        getDataUrl:()=>canvas.toDataURL("image/png"),
+        setFromDataUrl: async (dataUrl)=>{
+          if(!dataUrl) return;
+          await new Promise((resolve)=>{
+            const img = new Image();
+            img.onload = ()=>{
+              ctx.clearRect(0,0,canvas.width,canvas.height);
+              ctx.drawImage(img,0,0,canvas.width,canvas.height);
+              resolve(true);
+            };
+            img.src = dataUrl;
+          });
+        }
+      };
     }
 
-    const downloadBtn = document.getElementById('downloadPdfBtn');
+    let saveTimer=null;
+    function saveDraftSoon(){
+      if(saveTimer) clearTimeout(saveTimer);
+      saveTimer = setTimeout(()=>saveDraft().catch(console.error), 250);
+    }
 
-    if (downloadBtn) {
-      downloadBtn.addEventListener('click', async () => {
-        const { jsPDF } = window.jspdf;
+    const operatorSigPad = initSignaturePad("operatorSignature","clearOperatorSig",saveDraftSoon);
+    const reviewerSigPad = initSignaturePad("reviewerSignature","clearReviewerSig",saveDraftSoon);
 
-        document.body.classList.add('exporting');
+    /* Autosave */
+    function collectFormState(){
+      const state = { version:FORM_VERSION, savedAt:Date.now(), fields:{}, checks:{}, signatures:{operator:"", reviewer:""} };
+      const inputs = vehicleForm.querySelectorAll("input[type='text'], input[type='date'], textarea");
+      inputs.forEach((el)=>{
+        const name = el.name || el.id;
+        if(!name) return;
+        state.fields[name] = el.value ?? "";
+      });
+      const cbs = vehicleForm.querySelectorAll("input[type='checkbox']");
+      cbs.forEach((cb, idx)=>{
+        const key = cb.name || cb.id || cb.getAttribute("data-group") || ("cb_"+idx);
+        const uniqueKey = cb.getAttribute("data-group")
+          ? `g:${cb.getAttribute("data-group")}:${cb.value}`
+          : `k:${key}:${cb.value||""}`;
+        state.checks[uniqueKey] = !!cb.checked;
+      });
+      return state;
+    }
 
-        // Build PDF first so we know exact page usable height in points
-        const pdf = new jsPDF({
-          orientation: 'p',
-          unit: 'pt',
-          format: 'letter',
-          compress: true
-        });
+    function applyFormState(state){
+      if(!state) return;
 
-        const pageWidth = pdf.internal.pageSize.getWidth();
-        const pageHeight = pdf.internal.pageSize.getHeight();
-
-        // Margins
-        const sidePad = 26;
-        const topPad = 18;
-        const bottomPad = 22;
-
-        const usableW = pageWidth - sidePad * 2;
-        const usableH_pt = pageHeight - topPad - bottomPad;
-
-        // Convert PDF usable height (pt) into CSS pixels so math matches DOM coordinates.
-        // We do this by relating pt->px using an on-screen 1in reference (96px per inch).
-        // 1pt = 1/72 in, 1in = 96px => 1pt = 96/72 px = 1.3333px
-        const PT_TO_PX = 96 / 72;
-        const usableH_px = usableH_pt * PT_TO_PX;
-
-        // Set dynamic spacer just before capture
-        const containerEl = document.querySelector('.container');
-        const targetRowEl = document.getElementById('ppeClothingRow');
-
-        // Reset spacer to 0 first so measurement is correct
-        document.documentElement.style.setProperty('--export-spacer', '0px');
-
-        // Wait a frame for layout to settle
-        await new Promise(r => requestAnimationFrame(() => r()));
-
-        const spacerPx = computeDynamicSpacerPx({
-          containerEl,
-          targetRowEl,
-          pageUsableH: usableH_px / (2 / FORM_SCALE)  // adjust to match capture scaling + final draw scaling
-        });
-
-        // Apply computed spacer (usually small, only when needed)
-        document.documentElement.style.setProperty('--export-spacer', spacerPx + 'px');
-
-        // Wait another frame so spacer is applied before rendering
-        await new Promise(r => requestAnimationFrame(() => r()));
-
-        window.scrollTo(0, 0);
-
-        const canvas = await html2canvas(containerEl, {
-          scale: 2,
-          backgroundColor: "#ffffff",
-          useCORS: true,
-          logging: false,
-          windowWidth: document.documentElement.clientWidth
-        });
-
-        const imgData = canvas.toDataURL('image/png');
-
-        // Compute image draw size
-        const imgWidth = usableW * FORM_SCALE;
-        const imgHeight = (canvas.height * imgWidth) / canvas.width;
-        const x = sidePad + (usableW - imgWidth) / 2;
-
-        // Add pages from one tall image
-        let yOffset = 0;
-        let pageIndex = 0;
-
-        while (yOffset < imgHeight - 1) {
-          if (pageIndex > 0) pdf.addPage();
-          const y = topPad - yOffset;
-          pdf.addImage(imgData, 'PNG', x, y, imgWidth, imgHeight, undefined, 'FAST');
-          yOffset += usableH_pt;
-          pageIndex++;
+      const inputs = vehicleForm.querySelectorAll("input[type='text'], input[type='date'], textarea");
+      inputs.forEach((el)=>{
+        const name = el.name || el.id;
+        if(!name) return;
+        if(Object.prototype.hasOwnProperty.call(state.fields||{}, name)){
+          el.value = state.fields[name] ?? "";
         }
+      });
 
-        // Photos: one per page
-        if (photosInput && photosInput.files.length > 0) {
-          for (const file of photosInput.files) {
-            if (!file.type.startsWith('image/')) continue;
-
-            const { dataUrl, width, height } = await compressImage(file, 2400, 0.78);
-
-            pdf.addPage();
-            pdf.setFontSize(12);
-            pdf.text(`Attached Site Photo (${VERSION})`, sidePad, 22);
-
-            const photoTop = 36;
-            const photoUsableW = pageWidth - sidePad * 2;
-            const photoUsableH = pageHeight - photoTop - bottomPad;
-
-            const ratio = Math.min(photoUsableW / width, photoUsableH / height);
-            const drawW = width * ratio;
-            const drawH = height * ratio;
-
-            const px = sidePad + (photoUsableW - drawW) / 2;
-            const py = photoTop + (photoUsableH - drawH) / 2;
-
-            pdf.addImage(dataUrl, 'JPEG', px, py, drawW, drawH);
-          }
+      const cbs = vehicleForm.querySelectorAll("input[type='checkbox']");
+      cbs.forEach((cb, idx)=>{
+        const key = cb.name || cb.id || cb.getAttribute("data-group") || ("cb_"+idx);
+        const uniqueKey = cb.getAttribute("data-group")
+          ? `g:${cb.getAttribute("data-group")}:${cb.value}`
+          : `k:${key}:${cb.value||""}`;
+        if(Object.prototype.hasOwnProperty.call(state.checks||{}, uniqueKey)){
+          cb.checked = !!state.checks[uniqueKey];
         }
-
-        pdf.save(`Vista-Worksite-Inspection-${VERSION}.pdf`);
-
-        // Cleanup
-        document.body.classList.remove('exporting');
-        document.documentElement.style.setProperty('--export-spacer', '0px');
       });
     }
+
+    async function saveDraft(){
+      if(!vehicleForm) return;
+      const state = collectFormState();
+      state.signatures.operator = operatorSigPad.getDataUrl ? operatorSigPad.getDataUrl() : "";
+      state.signatures.reviewer = reviewerSigPad.getDataUrl ? reviewerSigPad.getDataUrl() : "";
+      localStorage.setItem(AUTOSAVE_KEY, JSON.stringify(state));
+    }
+
+    async function loadDraft(){
+      const raw = localStorage.getItem(AUTOSAVE_KEY);
+      if(!raw) return;
+      let state=null;
+      try{ state = JSON.parse(raw); }catch{ return; }
+      if(!state) return;
+
+      applyFormState(state);
+      await loadPhotosFromDb();
+
+      if(state.signatures?.operator) await operatorSigPad.setFromDataUrl(state.signatures.operator);
+      if(state.signatures?.reviewer) await reviewerSigPad.setFromDataUrl(state.signatures.reviewer);
+    }
+
+    if(vehicleForm){
+      vehicleForm.addEventListener("input",()=>saveDraftSoon());
+      vehicleForm.addEventListener("change",()=>saveDraftSoon());
+    }
+
+    if(clearSavedBtn){
+      clearSavedBtn.addEventListener("click", async ()=>{
+        if(!confirm("Clear the saved draft on this device?")) return;
+        localStorage.removeItem(AUTOSAVE_KEY);
+        await dbClearPhotos();
+        if(photoGrid) photoGrid.innerHTML = "";
+
+        [operatorSigPad.canvas, reviewerSigPad.canvas].forEach((c)=>{
+          if(c){
+            const ctx = c.getContext("2d");
+            ctx && ctx.clearRect(0,0,c.width,c.height);
+          }
+        });
+
+        vehicleForm.reset();
+        if(dateField) dateField.value = toISODate(new Date());
+      });
+    }
+
+    if(resetBtn){
+      resetBtn.addEventListener("click", async ()=>{
+        if(photoGrid) photoGrid.innerHTML = "";
+        await dbClearPhotos();
+
+        [operatorSigPad.canvas, reviewerSigPad.canvas].forEach((c)=>{
+          if(c){
+            const ctx = c.getContext("2d");
+            ctx && ctx.clearRect(0,0,c.width,c.height);
+          }
+        });
+
+        localStorage.removeItem(AUTOSAVE_KEY);
+        setTimeout(()=>{ if(dateField) dateField.value = toISODate(new Date()); }, 0);
+      });
+    }
+
+    /* Export helpers */
+    function replaceFieldForExport(doc, el){
+      const win = doc.defaultView;
+      const cs = win.getComputedStyle(el);
+
+      const div = doc.createElement("div");
+      div.className = "export-field";
+      div.textContent = (el.value || "").toString();
+
+      div.style.boxSizing = "border-box";
+      div.style.width = cs.width;
+      div.style.border = cs.border;
+      div.style.borderRadius = cs.borderRadius;
+      div.style.background = cs.backgroundColor;
+      div.style.color = cs.color;
+      div.style.fontFamily = cs.fontFamily;
+      div.style.fontSize = cs.fontSize;
+      div.style.fontWeight = cs.fontWeight;
+      div.style.letterSpacing = cs.letterSpacing;
+      div.style.lineHeight = "1.25";
+      div.style.padding = cs.padding;
+      div.style.boxShadow = cs.boxShadow;
+
+      /* keep inline fields inline (this fixes the expiry dates dropping under the label) */
+      div.style.marginTop = cs.marginTop;
+      div.style.marginRight = cs.marginRight;
+      div.style.marginBottom = cs.marginBottom;
+      div.style.marginLeft = cs.marginLeft;
+
+      div.style.overflow = "visible";
+      div.style.wordBreak = "break-word";
+      div.style.overflowWrap = "anywhere";
+
+      const wantsInline = (cs.display.includes("inline") || el.classList.contains("inline-date"));
+
+      if(el.tagName === "TEXTAREA"){
+        div.style.whiteSpace = "pre-wrap";
+        div.style.minHeight = cs.height;
+        div.style.height = "auto";
+        div.style.display = "block";
+      }else{
+        div.style.whiteSpace = "nowrap";
+        div.style.height = cs.height;
+        div.style.display = wantsInline ? "inline-flex" : "flex";
+        div.style.alignItems = "center";
+        div.style.verticalAlign = "middle";
+      }
+
+      el.parentNode.replaceChild(div, el);
+    }
+
+    async function buildPdf(){
+      if(!window.jspdf || !window.jspdf.jsPDF){
+        alert("PDF library failed to load.");
+        throw new Error("jsPDF not available");
+      }
+
+      const { jsPDF } = window.jspdf;
+      const pdf = new jsPDF("p","mm","letter");
+
+      if(buttonRow) buttonRow.style.display = "none";
+
+      try{
+        const canvas = await html2canvas(formContainer, {
+          scale: 2,
+          useCORS: true,
+          backgroundColor: "#ffffff",
+          scrollY: -window.scrollY,
+
+          /* prevents “narrow/squish” */
+          windowWidth: 1400,
+
+          onclone: (doc)=>{
+            /* lock export layout */
+            doc.documentElement.style.width = "1400px";
+            doc.body.style.width = "1400px";
+            doc.body.style.margin = "0";
+            doc.body.style.padding = "0";
+
+            const fc = doc.getElementById("formContainer");
+            if(fc){
+              fc.style.width = "1000px";
+              fc.style.maxWidth = "1000px";
+              fc.style.margin = "0 auto";
+            }
+
+            /* export-only layout overrides */
+            const style = doc.createElement("style");
+            style.textContent = `
+              .grid-2{ grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+              .signature-grid{ grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+              .page-wrap{ max-width: 1000px !important; margin: 0 auto !important; }
+
+              textarea, .export-field{
+                white-space: pre-wrap !important;
+                word-break: break-word !important;
+                overflow-wrap: anywhere !important;
+              }
+
+              /* spacer so the page split lands in whitespace */
+              #__exportSpacerBetweenSections{ height: 34px !important; }
+            `;
+            doc.head.appendChild(style);
+
+            /* add export-only spacer between Driver’s Compartment and Body Exterior */
+            const driver = doc.getElementById("secDriverCompartment");
+            const body = doc.getElementById("secBodyExterior");
+            if(driver && body && body.parentNode){
+              const spacer = doc.createElement("div");
+              spacer.id = "__exportSpacerBetweenSections";
+              spacer.style.height = "34px";
+              spacer.style.width = "100%";
+              spacer.style.display = "block";
+              spacer.style.background = "transparent";
+              body.parentNode.insertBefore(spacer, body);
+            }
+
+            /* replace fields so nothing clips */
+            const fields = doc.querySelectorAll("input[type='text'], input[type='date'], textarea");
+            fields.forEach((el)=>replaceFieldForExport(doc, el));
+          }
+        });
+
+        const imgData = canvas.toDataURL("image/jpeg", 0.95);
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfHeight = pdf.internal.pageSize.getHeight();
+
+        const marginTop = 5;
+        const marginBottom = 5;
+        const usableHeight = pdfHeight - marginTop - marginBottom;
+
+        let imgWidth = pdfWidth;
+        let imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+        const xOffset = (pdfWidth - imgWidth) / 2;
+
+        let heightLeft = imgHeight;
+        let position = 0;
+
+        pdf.addImage(imgData, "JPEG", xOffset, marginTop + position, imgWidth, imgHeight);
+        heightLeft -= usableHeight;
+
+        while(heightLeft > 0){
+          position -= usableHeight;
+          pdf.addPage();
+          pdf.addImage(imgData, "JPEG", xOffset, marginTop + position, imgWidth, imgHeight);
+          heightLeft -= usableHeight;
+        }
+
+        /* photos, 4 per page */
+        const photoCards = Array.from(document.querySelectorAll(".photo-card"));
+        if(photoCards.length > 0){
+          const margin = 10, cols = 2, rows = 2, gapX = 6, gapY = 10;
+          const pageW = pdf.internal.pageSize.getWidth();
+          const pageH = pdf.internal.pageSize.getHeight();
+          const contentW = pageW - margin*2 - gapX*(cols-1);
+          const contentH = pageH - margin*2 - gapY*(rows-1);
+          const cellW = contentW / cols;
+          const cellH = contentH / rows;
+
+          let indexOnPage = 0;
+          photoCards.forEach((card)=>{
+            const imgEl = card.querySelector("img");
+            const captionEl = card.querySelector("textarea");
+            if(!imgEl || !imgEl.src) return;
+
+            if(indexOnPage === 0) pdf.addPage();
+
+            const col = indexOnPage % cols;
+            const row = Math.floor(indexOnPage / cols);
+            const cellX = margin + col*(cellW + gapX);
+            const cellY = margin + row*(cellH + gapY);
+
+            const imgW = cellW;
+            const imgH = cellH - 12;
+
+            const format = imgEl.src.startsWith("data:image/png") ? "PNG" : "JPEG";
+            pdf.addImage(imgEl.src, format, cellX, cellY, imgW, imgH);
+
+            const caption = (captionEl && captionEl.value) ? captionEl.value : "";
+            if(caption){
+              const captionY = cellY + imgH + 4;
+              pdf.setFontSize(8);
+              const lines = pdf.splitTextToSize(caption, imgW);
+              pdf.text(lines, cellX, captionY);
+              pdf.setFontSize(11);
+            }
+
+            indexOnPage++;
+            if(indexOnPage >= cols*rows) indexOnPage = 0;
+          });
+        }
+
+        return pdf;
+      } finally {
+        if(buttonRow) buttonRow.style.display = "flex";
+      }
+    }
+
+    if(downloadBtn){
+      downloadBtn.addEventListener("click", async ()=>{
+        try{
+          const pdf = await buildPdf();
+          pdf.save(getDefaultFileName());
+        }catch(e){ console.error(e); }
+      });
+    }
+
+    if(shareBtn){
+      shareBtn.addEventListener("click", async ()=>{
+        try{
+          const fileName = getDefaultFileName();
+          const pdf = await buildPdf();
+          const blob = pdf.output("blob");
+
+          try{
+            if(navigator.share && navigator.canShare && navigator.canShare({ files: [] })){
+              const file = new File([blob], fileName, { type: "application/pdf" });
+              await navigator.share({ files:[file], title:"Weekly Vehicle Inspection" });
+            }else if(navigator.share){
+              const url = URL.createObjectURL(blob);
+              try{ await navigator.share({ url, title:"Weekly Vehicle Inspection" }); }
+              finally{ URL.revokeObjectURL(url); }
+            }else{
+              const url = URL.createObjectURL(blob);
+              const a = document.createElement("a");
+              a.href = url;
+              a.download = fileName;
+              document.body.appendChild(a);
+              a.click();
+              document.body.removeChild(a);
+              URL.revokeObjectURL(url);
+            }
+          }catch(err){
+            console.error("Share failed, falling back to download", err);
+            pdf.save(fileName);
+          }
+        }catch(e){ console.error(e); }
+      });
+    }
+
+    (async ()=>{
+      try{
+        await loadPhotosFromDb();
+        await loadDraft();
+      }catch(e){
+        console.error("Autosave load failed:", e);
+      }
+    })();
   </script>
 </body>
 </html>
