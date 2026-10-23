@@ -3,372 +3,108 @@
 <head>
   <meta charset="UTF-8" />
   <title>VistaGeomatics – Weekly Vehicle Inspection</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#14181b" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
 
   <style>
-    :root{
-      --vista-blue:#165f7d;
-      --vista-blue-light:#2a7fa3;
-      --vista-blue-dark:#0b3045;
-      --bg-body:#eef3f9;
-      --bg-card:#ffffff;
-      --border-soft:#d6e2f0;
-      --text-main:#101827;
-      --text-muted:#6b7280;
-    }
-
-    *{box-sizing:border-box}
-
-    body{
-      margin:0;
-      padding:16px;
-      font-family:"Inter",sans-serif;
-      background:radial-gradient(circle at top,#f4f8fc 0,#e4edf6 40%,#dde6f3 100%);
-      color:var(--text-main);
-    }
-
-    .page-wrap{max-width:1000px;margin:0 auto}
-    .container{
-      background:var(--bg-card);
-      border-radius:16px;
-      box-shadow:0 14px 30px rgba(5,41,66,.18),0 0 0 1px rgba(5,41,66,.04);
-      overflow:hidden;
-      position:relative;
-    }
-    .container::before{
-      content:"";
-      position:absolute;inset:0;
-      pointer-events:none;
-      background:radial-gradient(circle at top right,rgba(22,95,125,.16),transparent 55%);
-      opacity:.9;
-    }
-
-    .header-bar{
-      position:relative;z-index:1;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      padding:12px 20px;
-      background:linear-gradient(120deg,var(--vista-blue-light) 0%,var(--vista-blue) 40%,var(--vista-blue-dark) 100%);
-      color:#fff;
-    }
-
-    .brand-title{
-      margin:0;
-      font-family:"Montserrat",sans-serif;
-      font-size:1.4rem;
-      letter-spacing:.16em;
-      text-transform:uppercase;
-      font-weight:400;
-      line-height:1.1;
-      white-space:nowrap;
-    }
-    .brand-title .brand-vista{font-weight:700}
-
-    .header-left p{margin:2px 0 0;font-size:.8rem;opacity:.9}
-    .header-logo{height:60px;filter:drop-shadow(0 5px 14px rgba(0,0,0,.35))}
-
-    .page-title-bar{
-      position:relative;z-index:1;
-      text-align:center;
-      padding:12px 20px 6px;
-      background:linear-gradient(180deg,rgba(255,255,255,.78),#f7faff);
-    }
-    .page-title-main{
-      font-family:"Montserrat",sans-serif;
-      font-size:1.3rem;
-      letter-spacing:.14em;
-      text-transform:uppercase;
-      color:var(--vista-blue-dark);
-    }
-    .page-title-sub{margin-top:3px;font-size:.8rem;color:var(--text-muted)}
-    .page-title-accent{
-      width:120px;height:3px;margin:8px auto 0;
-      border-radius:999px;
-      background:linear-gradient(120deg,var(--vista-blue-light),var(--vista-blue),var(--vista-blue-dark));
-      box-shadow:0 0 8px rgba(46,167,224,.65);
-    }
-
-    form{position:relative;z-index:1;padding:10px 18px 14px;font-size:.86rem}
-
-    label{
-      font-size:.8rem;
-      font-weight:600;
-      display:block;
-      margin-bottom:3px;
-      color:var(--text-main);
-    }
-
-    input[type="text"],
-    input[type="date"],
-    textarea{
-      width:100%;
-      padding:7px 8px;
-      border-radius:8px;
-      border:1px solid var(--border-soft);
-      background:#f9fbff;
-      font-size:.8rem;
-      line-height:1.25;
-      color:var(--text-main);
-      transition:.15s;
-    }
-    input[type="text"],input[type="date"]{height:32px}
-    input:focus,textarea:focus{
-      outline:none;
-      border-color:var(--vista-blue-light);
-      background:#fff;
-      box-shadow:0 0 0 2px rgba(38,132,168,.18);
-    }
-    textarea{min-height:60px;resize:vertical;overflow:auto}
-
-    .grid-2{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-      gap:8px;
-    }
-
-    .section-card{
-      margin-top:10px;
-      padding:8px 10px 10px;
-      border-radius:12px;
-      border:1px solid var(--border-soft);
-      background:linear-gradient(135deg,#fbfdff 0%,#f4f8fd 60%,#eff5fb 100%);
-      box-shadow:0 8px 20px rgba(5,41,66,.05);
-      position:relative;
-    }
-    .section-card::before{
-      content:"";
-      position:absolute;top:0;left:0;right:0;
-      height:3px;border-radius:12px 12px 0 0;
-      background:linear-gradient(90deg,var(--vista-blue-light),var(--vista-blue-dark));
-    }
-
-    .section-header{
-      display:flex;
-      justify-content:space-between;
-      align-items:baseline;
-      gap:6px;
-      margin-bottom:4px;
-    }
-    .section-title{
-      font-weight:600;
-      font-size:.9rem;
-      color:var(--vista-blue-dark);
-      font-family:"Montserrat",sans-serif;
-      text-transform:uppercase;
-      letter-spacing:.05em;
-    }
-
-    .top-info-header{
-      text-align:center;
-      font-weight:600;
-      font-size:.85rem;
-      margin-bottom:6px;
-      color:var(--vista-blue-dark);
-    }
-
-    .rating-legend{
-      display:flex;
-      flex-wrap:wrap;
-      gap:6px 12px;
-      margin-top:4px;
-      font-size:.74rem;
-      color:var(--text-muted);
-    }
-    .rating-legend span.code{font-weight:700;margin-right:2px;color:var(--vista-blue)}
-
-    table{width:100%;border-collapse:collapse;margin-top:2px;font-size:.78rem}
-    th,td{padding:3px 4px;border:1px solid var(--border-soft)}
-    th{background:#e8f0fb;font-weight:600;color:var(--vista-blue-dark);text-align:left}
-    td{background:#f9fbff}
-
-    .item-name{width:60%}
-    .status-select{width:40%}
-
-    .status-cell{
-      display:inline-flex;
-      align-items:center;
-      gap:1px;
-      margin-right:6px;
-      font-size:.7rem;
-      white-space:nowrap;
-    }
-    .status-cell input[type="checkbox"]{
-      width:12px;height:12px;
-      accent-color:var(--vista-blue);
-      margin:0;
-    }
-
-    .check-row{
-      display:flex;
-      flex-wrap:wrap;
-      gap:14px;
-      align-items:center;
-      margin:4px 0;
-      font-size:.82rem;
-    }
-    .check-row label{
-      display:inline-flex;
-      align-items:center;
-      gap:6px;
-      font-weight:500;
-      margin-bottom:0;
-    }
-    input[type="checkbox"].overall-check{width:16px;height:16px;accent-color:var(--vista-blue)}
-
-    .photo-actions{
-      display:flex;
-      align-items:center;
-      gap:8px;
-      margin-top:4px;
-      flex-wrap:wrap;
-    }
-    .photo-grid{margin-top:6px;display:flex;flex-wrap:wrap;gap:6px}
-    .photo-card{
-      width:130px;
-      border-radius:8px;
-      border:1px solid var(--border-soft);
-      background:#f9fbff;
-      padding:4px;
-      display:flex;
-      flex-direction:column;
-      gap:3px;
-      box-shadow:0 3px 8px rgba(15,23,42,.08);
-    }
-    .photo-card img{
-      width:100%;
-      height:80px;
-      object-fit:cover;
-      border-radius:5px;
-      border:1px solid #d1d9e6;
-      background:#e5ecf7;
-    }
-    .photo-card textarea{font-size:.7rem;min-height:34px;line-height:1.25}
-    .photo-remove{
-      border:1px solid #d4d7dd;
-      background:#f3f4f6;
-      color:var(--text-main);
-      border-radius:999px;
-      padding:4px 8px;
-      font-size:.68rem;
-      font-weight:700;
-      letter-spacing:.06em;
-      text-transform:uppercase;
-      cursor:pointer;
-      align-self:flex-end;
-    }
-
-    .signature-grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-      gap:8px;
-      margin-top:4px;
-    }
-    .signature-box{
-      border-radius:10px;
-      border:1px solid var(--border-soft);
-      background:#f9fbff;
-      padding:6px;
-      font-size:.8rem;
-    }
-    .signature-box-row{display:flex;gap:6px;margin-top:4px}
-    .signature-box-row>div{flex:1}
-    .signature-label{font-size:.74rem;font-weight:600;color:var(--text-muted);margin-bottom:2px}
-
-    .small-input{
-      width:100%;
-      padding:5px 6px;
-      border-radius:7px;
-      border:1px solid var(--border-soft);
-      background:#fff;
-      font-size:.76rem;
-      line-height:1.25;
-      color:var(--text-main);
-      height:30px;
-    }
-
-    .signature-canvas{
-      width:100%;
-      height:90px;
-      border-radius:8px;
-      border:1px solid var(--border-soft);
-      background:#fff;
-      box-shadow:inset 0 1px 2px rgba(15,23,42,.08);
-      display:block;
-      cursor:crosshair;
-    }
-    .signature-actions{display:flex;justify-content:flex-end;margin-top:4px}
-    .signature-actions button{padding:3px 10px;font-size:.7rem;letter-spacing:.05em}
-
-    .btn-row{
-      display:flex;
-      flex-wrap:wrap;
-      justify-content:flex-end;
-      gap:8px;
-      margin-top:10px;
-    }
-    button{
-      border:none;
-      border-radius:999px;
-      padding:7px 16px;
-      font-size:.8rem;
-      font-weight:600;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-      cursor:pointer;
-      display:inline-flex;
-      align-items:center;
-      gap:6px;
-    }
-    .btn-primary{
-      background:linear-gradient(120deg,var(--vista-blue-light),var(--vista-blue),var(--vista-blue-dark));
-      color:#fff;
-      box-shadow:0 8px 20px rgba(5,41,66,.35);
-    }
-    .btn-secondary{
-      background:#f3f4f6;
-      color:var(--text-main);
-      border:1px solid #d4d7dd;
-    }
-    button:hover{transform:translateY(-1px);box-shadow:0 10px 22px rgba(15,23,42,.18)}
-
-    .autosave-row{
-      margin-top:6px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:8px;
-      flex-wrap:wrap;
-      font-size:.74rem;
-      color:var(--text-muted);
-    }
-    .autosave-row b{color:var(--vista-blue-dark)}
-
-    .form-footer{
-      margin-top:10px;
-      display:flex;
-      justify-content:flex-end;
-      font-size:.72rem;
-      color:var(--text-muted);
-    }
-    .form-footer .ver{
-      padding:4px 10px;
-      border-radius:999px;
-      border:1px solid var(--border-soft);
-      background:#f9fbff;
-      letter-spacing:.06em;
-      text-transform:uppercase;
-      font-weight:700;
-    }
-
-    @media (max-width:1024px){.grid-2{grid-template-columns:1fr}}
-    @media (max-width:700px){
-      .header-bar{flex-direction:column;align-items:flex-start;gap:8px}
-      .page-title-main{font-size:1.1rem;letter-spacing:.12em}
-      .form-footer{justify-content:center}
-    }
-  </style>
+:root{--ink:#1b2025;--dark:#14181b;--muted:#63707a;--border:#dfe3e6;--paper:#fff;--back:#f1f2f3;--gold:#b68b43;--green:#15764a;--amber:#a66619;--red:#ab3337}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;padding:26px 18px 42px;background:var(--back);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;color:var(--ink);font-size:14px;line-height:1.45}
+.page-wrap{max-width:1080px;margin:0 auto}
+.container{background:#fff;border:1px solid #dedfe1;border-radius:18px;box-shadow:0 16px 48px rgba(20,24,28,.085);overflow:hidden}
+.header-bar{display:flex;align-items:center;justify-content:space-between;gap:22px;padding:24px 30px;background:#fff;border-top:6px solid var(--dark);border-bottom:1px solid var(--border)}
+.header-left{display:flex;flex-direction:column;gap:5px;order:2;align-items:flex-end;text-align:right}
+.brand-title{font-size:11px;line-height:1.2;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);font-weight:700;margin:0}
+.header-left p{font-size:12px;color:var(--muted);margin:0}
+.header-logo{width:220px;height:auto;max-width:47%;display:block;object-fit:contain;order:1}
+.page-title-bar{padding:25px 30px 20px;background:#fff;display:flex;flex-direction:column;gap:5px}
+.page-title-main{font-size:clamp(21px,2.9vw,29px);font-weight:780;letter-spacing:-.035em;color:var(--dark);line-height:1.1}
+.page-title-sub{color:var(--muted);font-size:13px}
+.page-title-accent{display:none}
+form{padding:0 30px 28px}
+label{display:block;font-size:12px;font-weight:650;margin:0 0 7px;color:#353c43}
+input[type=text],input[type=date],input[type=tel],textarea{width:100%;font:inherit;font-size:14px;line-height:1.4;background:#fff;border:1px solid #cbd2d8;border-radius:8px;padding:10px 12px;min-height:43px;color:var(--ink)}
+input[type=date]{min-width:0;max-width:100%}
+textarea{resize:vertical;min-height:92px}
+input:focus,textarea:focus,button:focus-visible{outline:3px solid rgba(182,139,67,.27);outline-offset:1px;border-color:var(--gold)}
+.grid-2{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:17px 16px}
+.section-card{border:1px solid var(--border);border-radius:12px;margin:16px 0 0;padding:20px 20px 22px;background:#fff;break-inside:avoid}
+.section-card:first-of-type{margin-top:0}
+.section-header{display:flex;align-items:center;gap:10px;justify-content:space-between;margin-bottom:14px}
+.section-title{font-size:14px;color:var(--dark);font-weight:800;letter-spacing:.07em;text-transform:uppercase}
+.top-info-header{font-size:12px;color:var(--muted);font-weight:600;letter-spacing:.03em;text-transform:uppercase;margin-bottom:18px}
+.rating-legend{margin-top:18px;display:flex;flex-wrap:wrap;align-items:center;gap:9px;font-size:12px;color:var(--muted)}
+.rating-legend>div{background:#f5f6f6;border:1px solid #eaeced;border-radius:6px;padding:6px 10px}
+.rating-legend .code{display:inline-block;margin-right:5px;color:#20252a;font-weight:800}
+.inspect-progress{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:16px 0 0;border-top:1px solid var(--border);padding-top:14px;font-size:12px;color:#57626c}
+.inspect-progress strong{font-weight:800;color:#242b30}
+.progress-track{height:6px;border-radius:99px;overflow:hidden;background:#e8ebec;flex:1;max-width:280px}.progress-fill{height:100%;width:0;background:var(--gold);transition:width .2s}
+table{border-collapse:collapse;width:100%;table-layout:fixed;font-size:13px}
+th{color:#4a555c;font-size:11px;text-transform:uppercase;letter-spacing:.075em;text-align:left;background:#f6f7f8;font-weight:800}
+th,td{padding:9px 11px;border-bottom:1px solid #e8eaec;vertical-align:middle}
+tr:last-child td{border-bottom:0}
+.item-name{width:57%}.status-select{width:43%}
+td.status-select{white-space:normal}
+.status-cell{display:inline-flex;align-items:center;justify-content:center;gap:5px;min-width:63px;min-height:37px;padding:6px 8px;margin:2px 3px 2px 0;border:1px solid #dce0e2;background:#fff;border-radius:7px;font-size:12px;font-weight:700;color:#4f5a64;cursor:pointer;user-select:none;-webkit-tap-highlight-color:transparent}
+.status-cell input[type=checkbox]{width:15px;height:15px;flex:none;margin:0;accent-color:#262d32}
+.status-cell:has(input:checked){border-color:#22292d;background:#252b30;color:#fff}
+.status-cell:has(input[value=m]:checked){background:#fff1d9;border-color:#d5a252;color:#754814}
+.status-cell:has(input[value=r]:checked),.status-cell:has(input[value=no]:checked){background:#fce7e7;border-color:#d68b8b;color:#9d292e}
+.status-cell:has(input[value=pass]:checked),.status-cell:has(input[value=yes]:checked){background:#e3f3e9;border-color:#8cc6a1;color:#17633e}
+.status-cell input:checked{accent-color:currentColor}
+.small-input{width:100%;font-size:13px;min-height:39px;padding:7px 9px;border-radius:7px;border:1px solid #cbd2d8;background:#fff}
+.inline-date{min-width:148px!important;width:155px!important;margin-top:6px!important;margin-left:8px!important}
+.check-row{display:flex;flex-wrap:wrap;gap:12px;margin:5px 0 20px}.check-row label{display:inline-flex;align-items:center;gap:10px;font-size:14px;font-weight:700;margin:0;padding:13px 16px;border:1px solid var(--border);border-radius:9px;cursor:pointer}.overall-check{width:19px;height:19px;margin:0;accent-color:#22292d}
+.photo-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:9px 0}.photo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:12px;margin-top:14px}
+.photo-card{background:#fafafa;border:1px solid var(--border);border-radius:10px;padding:9px;display:flex;flex-direction:column;gap:8px}.photo-card img{height:132px;width:100%;object-fit:cover;border-radius:6px;background:#f1f3f3}.photo-card textarea{min-height:62px;font-size:12px}.photo-remove{align-self:flex-end}
+.signature-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.signature-box{min-width:0;background:#fafbfb;border:1px solid var(--border);border-radius:11px;padding:16px}.signature-label{font-size:12px;font-weight:750;color:#4b565d;margin-bottom:8px}.signature-canvas{display:block;width:100%;height:112px;touch-action:none;user-select:none;background:#fff;border:1px dashed #b9c0c5;border-radius:8px;cursor:crosshair}.signature-actions{display:flex;justify-content:flex-end;margin:8px 0}.signature-actions button{font-size:11px}.signature-box-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:12px 0 0}.signature-box-row>div{min-width:0}.signature-box>div>textarea{min-height:66px}
+.autosave-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;font-size:12px;color:var(--muted);margin-top:12px}.autosave-row b{color:#354049}
+.btn-row{display:flex;justify-content:flex-end;gap:10px;flex-wrap:wrap;margin-top:22px}
+button{appearance:none;-webkit-appearance:none;border:1px solid transparent;background:#252b30;color:#fff;border-radius:8px;padding:12px 17px;min-height:43px;cursor:pointer;font-size:12px;font-weight:750;letter-spacing:.04em;font-family:inherit;text-transform:uppercase;transition:background .15s}
+button:hover{filter:brightness(.92)}button:disabled{opacity:.5;cursor:wait}
+.btn-primary{background:var(--dark);color:#fff}.btn-secondary{background:#fff;color:#323b42;border-color:#cfd5da}.btn-secondary:hover{background:#f4f5f6}
+.form-footer{display:flex;justify-content:flex-end;margin-top:16px;font-size:10px;color:var(--muted)}.form-footer .ver{padding:3px 7px;color:#77818b;text-transform:uppercase;letter-spacing:.06em}
+.report-helper{margin-top:9px;color:#667079;font-size:12px;line-height:1.5}.notice{font-size:12px;color:#8b5d22;margin-top:8px}
+#printReport{display:none}
+@media(max-width:930px){body{padding:15px}.grid-2{grid-template-columns:repeat(2,minmax(0,1fr))} .signature-grid{grid-template-columns:1fr}form{padding:0 22px 24px}.header-bar{padding:20px 22px}.page-title-bar{padding:23px 22px 14px}}
+@media(max-width:650px){body{padding:0;background:#fff}.container{border:0;border-radius:0;box-shadow:none}.header-bar{gap:12px;padding:16px}.header-logo{width:180px;max-width:56%}.header-left p{display:none}.brand-title{font-size:10px}.page-title-bar{padding:22px 16px 12px}.page-title-main{font-size:23px}form{padding:0 12px 28px}.section-card{padding:15px 12px 17px;border-radius:10px}.grid-2{gap:12px}.status-cell{min-width:47px;padding:7px 5px;font-size:11px}th,td{padding:9px 6px;font-size:12px}.item-name{width:45%}.status-select{width:55%}.inline-date{display:block!important;margin-left:0!important;width:100%!important;min-width:0!important}.btn-row button{flex:1 1 135px}.inspect-progress{flex-wrap:wrap}.progress-track{max-width:none;width:100%;flex-basis:100%}}
+@media(max-width:385px){.grid-2{grid-template-columns:1fr}.status-cell{min-width:40px;font-size:10px;padding:6px 3px}.status-cell input{width:13px!important;height:13px!important}.header-logo{width:150px}}
+@media print{
+ @page{size:letter portrait;margin:6mm 6.5mm}
+ html,body{background:#fff!important;padding:0!important;margin:0!important}
+ .page-wrap{display:none!important}
+ #printReport{display:block!important;font-family:Arial,Helvetica,sans-serif!important;font-size:7pt;color:#222!important;width:100%}
+ .print-sheet{box-sizing:border-box;width:100%;height:267mm;display:grid;grid-template-rows:18mm 22mm 126mm 29mm 23mm 6mm;overflow:hidden;break-after:page;page-break-after:always}
+ .print-head{display:flex;align-items:center;gap:5mm;border-bottom:.45pt solid #bfc5c8;margin:0;padding:0;height:18mm}
+ .print-head img{width:40mm;height:14mm;object-fit:contain}.print-head h1{font-size:12.5pt;margin:0 0 .6mm;line-height:1.08;white-space:nowrap}.print-head p{margin:0;color:#666;font-size:6.8pt}
+ .print-head .print-progress{margin-left:auto;text-align:right;font-weight:700;font-size:7pt}
+ .print-meta{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1.5mm 1.6mm;align-content:center}
+ .print-meta-item{min-width:0;height:9.5mm;background:#f4f5f6;box-sizing:border-box;padding:1mm 1.4mm;border-radius:.5mm;overflow:hidden}
+ .print-meta-item small{display:block;font-size:5.5pt;color:#6b7276;font-weight:bold}.print-meta-item b{display:block;font-size:7pt;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:500}
+ .print-check-wrap{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2.5mm;align-items:start;height:126mm;overflow:hidden;padding-top:1mm;box-sizing:border-box}
+ .print-col{display:flex;flex-direction:column;gap:2mm;min-width:0}
+ .print-section{margin:0!important;padding:0!important;break-inside:avoid!important;page-break-inside:avoid!important}
+ .print-section h2{box-sizing:border-box;background:#202529;color:#fff;font-size:6.8pt;padding:1.55mm 1.6mm;margin:0;min-height:5.2mm;text-transform:uppercase;white-space:nowrap}
+ .print-check-wrap table{font-size:6.2pt;table-layout:fixed;border-collapse:collapse;width:100%;margin:0}
+ .print-check-wrap th{display:none}.print-check-wrap td{box-sizing:border-box;font-size:6.5pt;text-align:left;line-height:1.06;padding:.82mm .85mm;border:0;border-bottom:.28pt solid #ddd;vertical-align:middle}
+ .print-check-wrap tr:nth-child(odd) td{background:#f8f8f8}
+ .print-check-wrap td:first-child{width:74%;overflow-wrap:break-word}
+ .print-check-wrap td:last-child{width:26%;text-align:right;font-weight:700;white-space:nowrap}
+ .print-notes-panes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2.5mm;height:29mm;padding-top:1mm;box-sizing:border-box}
+ .print-note-pane{border:.4pt solid #c4c9cc;border-radius:1mm;height:27.5mm;box-sizing:border-box;overflow:hidden}
+ .print-note-pane h3{font-size:6.7pt;margin:0;padding:1.05mm 1.35mm;background:#f2f3f4;min-height:4.6mm;box-sizing:border-box}
+ .print-note-pane p{white-space:pre-wrap;overflow-wrap:anywhere;font-size:6.5pt;line-height:1.08;margin:1.2mm 1.35mm}
+ .print-sigs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2.5mm;height:23mm;padding-top:.7mm;box-sizing:border-box}
+ .print-sig{border:.4pt solid #c4c9cc;border-radius:1mm;padding:1mm 1.35mm;height:22mm;box-sizing:border-box;overflow:hidden}
+ .print-sig b{font-size:6.9pt}.print-sig img{display:block;width:100%;height:9.5mm;object-fit:contain}.print-sig .print-sig-empty{height:9.5mm}.print-sig small{display:block;border-top:.3pt solid #bbb;font-size:6.2pt;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+ .print-footer{border-top:.4pt solid #ddd;height:6mm;color:#6a7175;display:flex;align-items:center;justify-content:space-between;font-size:6pt}
+ .print-appendix{break-before:page;page-break-before:always;font-size:10pt}.print-photo-list{display:grid;grid-template-columns:1fr 1fr;gap:4mm}
+ .print-photo{break-inside:avoid;border:1px solid #ddd;padding:2mm}.print-photo img{width:100%;height:65mm;object-fit:contain}.print-photo p{font-size:9pt;overflow-wrap:anywhere;margin:1mm 0}
+}
+</style>
 </head>
 
 <body>
@@ -377,16 +113,16 @@
       <div class="header-bar">
         <div class="header-left">
           <h1 class="brand-title">
-            <span class="brand-vista">VISTA</span><span class="brand-geomatics">GEOMATICS</span>
+            VISTA GEOMATICS
           </h1>
-          <p>Weekly Vehicle Inspection Checklist</p>
+          <p>Fleet safety &amp; maintenance</p>
         </div>
-        <img src="vista-geomatics.png" alt="VistaGeomatics Logo" class="header-logo" />
+        <img src="data:image/jpeg;base64,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bnRPdXRwdXRPcHRpb25zAAAAFwAAAABDcHRuYm9vbAAAAAAAQ2xicmJvb2wAAAAAAFJnc01ib29sAAAAAABDcm5DYm9vbAAAAAAAQ250Q2Jvb2wAAAAAAExibHNib29sAAAAAABOZ3R2Ym9vbAAAAAAARW1sRGJvb2wAAAAAAEludHJib29sAAAAAABCY2tnT2JqYwAAAAEAAAAAAABSR0JDAAAAAwAAAABSZCAgZG91YkBv4AAAAAAAAAAAAEdybiBkb3ViQG/gAAAAAAAAAAAAQmwgIGRvdWJAb+AAAAAAAAAAAABCcmRUVW50RiNSbHQAAAAAAAAAAAAAAABCbGQgVW50RiNSbHQAAAAAAAAAAAAAAABSc2x0VW50RiNQeGxAeQAAAAAAAAAAAAp2ZWN0b3JEYXRhYm9vbAEAAAAAUGdQc2VudW0AAAAAUGdQcwAAAABQZ1BDAAAAAExlZnRVbnRGI1JsdAAAAAAAAAAAAAAAAFRvcCBVbnRGI1JsdAAAAAAAAAAAAAAAAFNjbCBVbnRGI1ByY0BZAAAAAAAAAAAAEGNyb3BXaGVuUHJpbnRpbmdib29sAAAAAA5jcm9wUmVjdEJvdHRvbWxvbmcAAAAAAAAADGNyb3BSZWN0TGVmdGxvbmcAAAAAAAAADWNyb3BSZWN0UmlnaHRsb25nAAAAAAAAAAtjcm9wUmVjdFRvcGxvbmcAAAAAADhCSU0D7QAAAAAAEAGQAAAAAQACAZAAAAABAAI4QklNBCYAAAAAAA4AAAAAAAAAAAAAP4AAADhCSU0EDQAAAAAABAAAAB44QklNBBkAAAAAAAQAAAAeOEJJTQPzAAAAAAAJAAAAAAAAAAABADhCSU0nEAAAAAAACgABAAAAAAAAAAI4QklNA/UAAAAAAEgAL2ZmAAEAbGZmAAYAAAAAAAEAL2ZmAAEAoZmaAAYAAAAAAAEAMgAAAAEAWgAAAAYAAAAAAAEANQAAAAEALQAAAAYAAAAAAAE4QklNA/gAAAAAAHAAAP////////////////////////////8D6AAAAAD/////////////////////////////A+gAAAAA/////////////////////////////wPoAAAAAP////////////////////////////8D6AAAOEJJTQQIAAAAAAAQAAAAAQAAAkAA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dmVudCMiIHhtbG5zOnBkZj0iaHR0cDovL25zLmFkb2JlLmNvbS9wZGYvMS4zLyIgeG1sbnM6cGhvdG9zaG9wPSJodHRwOi8vbnMuYWRvYmUuY29tL3Bob3Rvc2hvcC8xLjAvIiB4bXA6Q3JlYXRvclRvb2w9IkFkb2JlIElsbHVzdHJhdG9yIDI5LjAgKFdpbmRvd3MpIiB4bXA6Q3JlYXRlRGF0ZT0iMjAyNi0wNi0wNVQwODo0ODowMC0wNjowMCIgeG1wOk1ldGFkYXRhRGF0ZT0iMjAyNi0xMC0wN1QwODo1NjozNC0wNjowMCIgeG1wOk1vZGlmeURhdGU9IjIwMjYtMTAtMDdUMDg6NTY6MzQtMDY6MDAiIGlsbHVzdHJhdG9yOkNyZWF0b3JTdWJUb29sPSJBSVJvYmluIiBkYzpmb3JtYXQ9ImltYWdlL2pwZWciIHhtcE1NOlJlbmRpdGlvbkNsYXNzPSJwcm9vZjpwZGYiIHhtcE1NOkRvY3VtZW50SUQ9ImFkb2JlOmRvY2lkOnBob3Rvc2hvcDoyY2I5NDdlYi02ZTU1LTg2NGEtOTFjYy1kMDQ5NDU3ZmE0NmYiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OTRmZjVjOTktNzJhYy04MDRhLWExZTMtNTg2MjYyMjkzMTI4IiB4bXBNTTpPcmlnaW5hbERvY3VtZW50SUQ9InV1aWQ6YWJjMzZkYzMtMDY0YS00NDNlLTgwYWEtMDVmMTEzOTBkMDk4IiBwZGY6UHJvZHVjZXI9IkFkb2JlIFBERiBsaWJyYXJ5IDE3LjAwIiBwaG90b3Nob3A6Q29sb3JNb2RlPSIzIj4gPGRjOnRpdGxlPiA8cmRmOkFsdD4gPHJkZjpsaSB4bWw6bGFuZz0ieC1kZWZhdWx0Ij5Mb2dvIGNvcHk8L3JkZjpsaT4gPC9yZGY6QWx0PiA8L2RjOnRpdGxlPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0idXVpZDplZTJlYmFjMy01NmI3LTRmMDgtOGJkOC0wYTk0YzdiYTM1NzIiIHN0UmVmOmRvY3VtZW50SUQ9InV1aWQ6YWJjMzZkYzMtMDY0YS00NDNlLTgwYWEtMDVmMTEzOTBkMDk4IiBzdFJlZjpvcmlnaW5hbERvY3VtZW50SUQ9InV1aWQ6YWJjMzZkYzMtMDY0YS00NDNlLTgwYWEtMDVmMTEzOTBkMDk4IiBzdFJlZjpyZW5kaXRpb25DbGFzcz0icHJvb2Y6cGRmIi8+IDx4bXBNTTpIaXN0b3J5PiA8cmRmOlNlcT4gPHJkZjpsaSBzdEV2dDphY3Rpb249InNhdmVkIiBzdEV2dDppbnN0YW5jZUlEPSJ4bXAuaWlkOmQ4OGRkOTEwLTFmZWEtYzE0OS1iOTQ5LTcyOWE5YjBkM2VhNyIgc3RFdnQ6d2hlbj0iMjAyNi0wNi0wNVQwODo0ODowMC0wNjowMCIgc3RFdnQ6c29mdHdhcmVBZ2VudD0iQWRvYmUgSWxsdXN0cmF0b3IgMjkuMCAoV2luZG93cykiIHN0RXZ0OmNoYW5nZWQ9Ii8iLz4gPHJkZjpsaSBzdEV2dDphY3Rpb249InNhdmVkIiBzdEV2dDppbnN0YW5jZUlEPSJ4bXAuaWlkOjk0ZmY1Yzk5LTcyYWMtODA0YS1hMWUzLTU4NjI2MjI5MzEyOCIgc3RFdnQ6d2hlbj0iMjAyNi0xMC0wN1QwODo1NjozNC0wNjowMCIgc3RFdnQ6c29mdHdhcmVBZ2VudD0iQWRvYmUgUGhvdG9zaG9wIDI3LjAgKFdpbmRvd3MpIiBzdEV2dDpjaGFuZ2VkPSIvIi8+IDwvcmRmOlNlcT4gPC94bXBNTTpIaXN0b3J5PiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8P3hwYWNrZXQgZW5kPSJ3Ij8+/+4AIUFkb2JlAGRAAAAAAQMAEAMCAwYAAAAAAAAAAAAAAAD/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" alt="VistaGeomatics Logo" class="header-logo" />
       </div>
 
       <div class="page-title-bar">
         <div class="page-title-main">Weekly Vehicle Inspection</div>
-        <div class="page-title-sub">To be submitted every Monday before 8:00 a.m.</div>
+        <div class="page-title-sub">To be submitted every Monday before 8:00 a.m. &nbsp;·&nbsp; Complete all applicable checks.</div>
         <div class="page-title-accent"></div>
       </div>
 
@@ -409,7 +145,7 @@
             </div>
             <div>
               <label for="cell">Cell Phone #</label>
-              <input type="text" id="cell" name="cell" autocomplete="off" />
+              <input type="tel" id="cell" name="cell" autocomplete="off" />
             </div>
             <div>
               <label for="ymm">Year, Make, Model</label>
@@ -435,8 +171,9 @@
             <div><span class="code">R</span> Rejected</div>
           </div>
 
+          <div class="inspect-progress" aria-live="polite"><span id="inspectionProgress"><strong>0 of 0</strong> inspection items completed</span><div class="progress-track"><div class="progress-fill" id="progressFill"></div></div><span id="flaggedProgress"></span></div>
           <div class="autosave-row">
-            <div><b>Auto-save:</b> on (this device only)</div>
+            <div><b>Draft:</b> <span id="saveStatus">Saved to this device where browser storage is available</span></div>
             <button type="button" class="btn-secondary" id="clearSavedBtn" style="padding:4px 10px;font-size:.7rem;letter-spacing:.06em;">Clear saved draft</button>
           </div>
         </div>
@@ -793,7 +530,7 @@
             <div class="photo-actions">
               <button type="button" class="btn-secondary" id="addPhotoBtn">+ Add Photos</button>
               <input type="file" id="photoInput" accept="image/*" multiple style="display:none;" />
-              <span style="font-size:.74rem;color:var(--text-muted);">Photos export 4 per page</span>
+              <span style="font-size:12px;color:#677078;">Up to 4 photos per PDF page</span>
             </div>
             <div class="photo-grid" id="photoGrid"></div>
           </div>
@@ -857,21 +594,23 @@
           <span class="ver" id="formVersion"></span>
         </div>
 
+        <p class="report-helper">Export creates a <b>one-page portrait letter</b> inspection report that shows the full inspection (photos appear on separate appendix pages). On iPad, use <b>Share PDF</b> to save to Files or send it. <b>Print / Save PDF</b> also works if the PDF library is unavailable.</p>
         <div class="btn-row" id="buttonRow">
-          <button type="reset" class="btn-secondary" id="resetBtn">Reset</button>
+          <button type="button" class="btn-secondary" id="resetBtn">New Inspection</button>
+          <button type="button" class="btn-secondary" id="printBtn">Print / Save PDF</button>
           <button type="button" class="btn-primary" id="downloadBtn">Download PDF</button>
           <button type="button" class="btn-primary" id="shareBtn">Share PDF</button>
         </div>
       </form>
     </div>
   </div>
+  <div id="printReport" aria-hidden="true"></div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
   <script>
-    const FORM_VERSION = "v1.5";
-    const AUTOSAVE_KEY = "vista_vehicle_inspection_autosave_v1_5";
+    const FORM_VERSION = "v2.1";
+    const AUTOSAVE_KEY = "vista_vehicle_inspection_autosave_v1_5"; /* Existing v1.5 drafts remain available */
     const DB_NAME = "VistaVehicleInspectionDB";
     const DB_VERSION = 1;
     const STORE_NAME = "photos";
@@ -914,7 +653,7 @@
     function getDefaultFileName(){
       const plate = getLicenseForFileName();
       const op = getOperatorForFileName();
-      const dateStr = toISODate(new Date());
+      const dateStr = dateField?.value || toISODate(new Date());
       return sanitizeFileName(`${plate}-${op}-${dateStr}.pdf`);
     }
 
@@ -1025,12 +764,14 @@
         const rec = all.find(p=>p.id===id);
         if(!rec) return;
         rec.caption = cap.value || "";
-        await dbPutPhoto(rec);
+        if(photoMemory.has(id)) photoMemory.set(id,rec);
+        else try { await dbPutPhoto(rec); } catch(e) { console.warn(e); }
         saveDraftSoon();
       });
 
       removeBtn.addEventListener("click", async ()=>{
-        await dbDeletePhoto(id);
+        photoMemory.delete(id);
+        try { await dbDeletePhoto(id); } catch(e) { console.warn(e); }
         card.remove();
         saveDraftSoon();
       });
@@ -1044,7 +785,7 @@
     async function loadPhotosFromDb(){
       if(!photoGrid) return;
       photoGrid.innerHTML = "";
-      const photos = await dbGetAllPhotos();
+      const photos = await getAllPhotosSafe();
       photos.sort((a,b)=>(a.createdAt||0)-(b.createdAt||0));
       photos.forEach(p=>photoGrid.appendChild(createPhotoCard(p)));
     }
@@ -1055,15 +796,14 @@
         const files = Array.from(photoInput.files||[]);
         for(const file of files){
           if(!file.type.startsWith("image/")) continue;
-          const dataUrl = await new Promise((resolve)=>{
-            const reader = new FileReader();
-            reader.onload = (e)=>resolve(e.target.result);
-            reader.readAsDataURL(file);
-          });
-          const id = (crypto && crypto.randomUUID) ? crypto.randomUUID()
+          let dataUrl;
+          try { dataUrl = await compressPhoto(file); }
+          catch(err) { console.error("Photo could not be loaded:",err); alert("Could not load this photo. Try a JPG or PNG image."); continue; }
+          const id = (window.crypto && window.crypto.randomUUID) ? window.crypto.randomUUID()
             : String(Date.now()) + "_" + Math.random().toString(16).slice(2);
           const record = {id,dataUrl,caption:"",createdAt:Date.now()};
-          await dbPutPhoto(record);
+          try { await dbPutPhoto(record); }
+          catch(err) { console.warn("Photo local storage unavailable",err); photoMemory.set(id,record); setSaveStatus("Photo available until this page closes; device storage blocked"); }
           photoGrid.appendChild(createPhotoCard(record));
         }
         photoInput.value = "";
@@ -1071,95 +811,42 @@
       });
     }
 
-    /* Signature pads */
+    /* Pointer Events support Apple Pencil / finger / mouse without losing signatures on rotation. */
     function initSignaturePad(canvasId, clearButtonId, onChange){
-      const canvas = document.getElementById(canvasId);
-      const clearBtn = document.getElementById(clearButtonId);
-      if(!canvas) return { canvas:null, getDataUrl:()=>"", setFromDataUrl:async()=>{} };
-
-      const ctx = canvas.getContext("2d");
-      let drawing=false, lastX=0, lastY=0;
-
-      function setupStroke(){
-        ctx.lineWidth=2;
-        ctx.lineCap="round";
-        ctx.strokeStyle="#111827";
+      const canvas=document.getElementById(canvasId), btn=document.getElementById(clearButtonId);
+      if(!canvas) return {canvas:null,getDataUrl:()=>"",setFromDataUrl:async()=>{}};
+      const ctx=canvas.getContext('2d');let drawing=false,oldW=0,oldH=0;
+      const setup=()=>{ctx.lineWidth=2.2;ctx.lineCap='round';ctx.lineJoin='round';ctx.strokeStyle='#172027';};
+      function resize(){
+        const rect=canvas.getBoundingClientRect();
+        const w=Math.max(1,Math.round(rect.width)),h=Math.max(1,Math.round(rect.height));
+        if(oldW===w&&oldH===h)return;
+        const previous=document.createElement('canvas');previous.width=canvas.width;previous.height=canvas.height;
+        previous.getContext('2d').drawImage(canvas,0,0);
+        const ratio=Math.min(window.devicePixelRatio||1,2);
+        canvas.width=Math.round(w*ratio);canvas.height=Math.round(h*ratio);
+        ctx.setTransform(ratio,0,0,ratio,0,0);setup();
+        if(oldW&&oldH) ctx.drawImage(previous,0,0,w,h);
+        oldW=w;oldH=h;
       }
-
-      function resizeCanvas(){
-        const rect = canvas.getBoundingClientRect();
-        const old = canvas.toDataURL("image/png");
-        canvas.width = Math.max(1, Math.floor(rect.width));
-        canvas.height = Math.max(1, Math.floor(rect.height));
-        setupStroke();
-        const img = new Image();
-        img.onload = ()=>ctx.drawImage(img,0,0,canvas.width,canvas.height);
-        img.src = old;
-      }
-
-      setupStroke();
-      resizeCanvas();
-      window.addEventListener("resize", resizeCanvas);
-
-      function startDraw(x,y){ drawing=true; lastX=x; lastY=y; }
-      function drawLine(x,y){
-        if(!drawing) return;
-        ctx.beginPath();
-        ctx.moveTo(lastX,lastY);
-        ctx.lineTo(x,y);
-        ctx.stroke();
-        lastX=x; lastY=y;
-      }
-      function endDraw(){ if(drawing){ drawing=false; onChange?.(); } }
-
-      canvas.addEventListener("mousedown",(e)=>{
-        const r = canvas.getBoundingClientRect();
-        startDraw(e.clientX-r.left, e.clientY-r.top);
+      resize();window.addEventListener('resize',resize,{passive:true});
+      const loc=e=>{const b=canvas.getBoundingClientRect();return [e.clientX-b.left,e.clientY-b.top];};
+      canvas.addEventListener('pointerdown',e=>{
+        if(e.button!==0&&e.pointerType==='mouse')return;
+        resize();drawing=true;canvas.setPointerCapture?.(e.pointerId);
+        const [x,y]=loc(e);ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x+.1,y+.1);ctx.stroke();e.preventDefault();
       });
-      canvas.addEventListener("mousemove",(e)=>{
-        const r = canvas.getBoundingClientRect();
-        drawLine(e.clientX-r.left, e.clientY-r.top);
-      });
-      canvas.addEventListener("mouseup", endDraw);
-      canvas.addEventListener("mouseleave", endDraw);
-
-      canvas.addEventListener("touchstart",(e)=>{
-        e.preventDefault();
-        const r = canvas.getBoundingClientRect();
-        const t = e.touches[0];
-        startDraw(t.clientX-r.left, t.clientY-r.top);
-      },{passive:false});
-      canvas.addEventListener("touchmove",(e)=>{
-        e.preventDefault();
-        const r = canvas.getBoundingClientRect();
-        const t = e.touches[0];
-        drawLine(t.clientX-r.left, t.clientY-r.top);
-      },{passive:false});
-      canvas.addEventListener("touchend",(e)=>{ e.preventDefault(); endDraw(); },{passive:false});
-
-      if(clearBtn){
-        clearBtn.addEventListener("click",()=>{
+      canvas.addEventListener('pointermove',e=>{if(!drawing)return;const [x,y]=loc(e);ctx.lineTo(x,y);ctx.stroke();e.preventDefault();});
+      const finish=e=>{if(!drawing)return;drawing=false;onChange?.();e.preventDefault();};
+      canvas.addEventListener('pointerup',finish);canvas.addEventListener('pointercancel',finish);
+      btn?.addEventListener('click',()=>{ctx.clearRect(0,0,canvas.width,canvas.height);onChange?.();});
+      return {canvas,getDataUrl:()=>canvas.toDataURL('image/png'),
+        setFromDataUrl:async data=>{
+          if(!data)return;
+          const img=new Image();await new Promise(resolve=>{img.onload=resolve;img.onerror=resolve;img.src=data;});
           ctx.clearRect(0,0,canvas.width,canvas.height);
-          onChange?.();
-        });
-      }
-
-      return {
-        canvas,
-        getDataUrl:()=>canvas.toDataURL("image/png"),
-        setFromDataUrl: async (dataUrl)=>{
-          if(!dataUrl) return;
-          await new Promise((resolve)=>{
-            const img = new Image();
-            img.onload = ()=>{
-              ctx.clearRect(0,0,canvas.width,canvas.height);
-              ctx.drawImage(img,0,0,canvas.width,canvas.height);
-              resolve(true);
-            };
-            img.src = dataUrl;
-          });
-        }
-      };
+          if(img.naturalWidth)ctx.drawImage(img,0,0,oldW,oldH);
+        }};
     }
 
     let saveTimer=null;
@@ -1174,7 +861,7 @@
     /* Autosave */
     function collectFormState(){
       const state = { version:FORM_VERSION, savedAt:Date.now(), fields:{}, checks:{}, signatures:{operator:"", reviewer:""} };
-      const inputs = vehicleForm.querySelectorAll("input[type='text'], input[type='date'], textarea");
+      const inputs = vehicleForm.querySelectorAll("input[type='text'], input[type='tel'], input[type='date'], textarea");
       inputs.forEach((el)=>{
         const name = el.name || el.id;
         if(!name) return;
@@ -1194,7 +881,7 @@
     function applyFormState(state){
       if(!state) return;
 
-      const inputs = vehicleForm.querySelectorAll("input[type='text'], input[type='date'], textarea");
+      const inputs = vehicleForm.querySelectorAll("input[type='text'], input[type='tel'], input[type='date'], textarea");
       inputs.forEach((el)=>{
         const name = el.name || el.id;
         if(!name) return;
@@ -1220,11 +907,13 @@
       const state = collectFormState();
       state.signatures.operator = operatorSigPad.getDataUrl ? operatorSigPad.getDataUrl() : "";
       state.signatures.reviewer = reviewerSigPad.getDataUrl ? reviewerSigPad.getDataUrl() : "";
-      localStorage.setItem(AUTOSAVE_KEY, JSON.stringify(state));
+      try { localStorage.setItem(AUTOSAVE_KEY, JSON.stringify(state)); setSaveStatus("Saved on this device"); }
+      catch(e) { console.warn("Draft storage unavailable",e); setSaveStatus("Storage unavailable: export your inspection before leaving", true); }
     }
 
     async function loadDraft(){
-      const raw = localStorage.getItem(AUTOSAVE_KEY);
+      let raw;
+      try { raw = localStorage.getItem(AUTOSAVE_KEY); } catch(e) { setSaveStatus("Storage unavailable: export before leaving", true); return; }
       if(!raw) return;
       let state=null;
       try{ state = JSON.parse(raw); }catch{ return; }
@@ -1245,8 +934,9 @@
     if(clearSavedBtn){
       clearSavedBtn.addEventListener("click", async ()=>{
         if(!confirm("Clear the saved draft on this device?")) return;
-        localStorage.removeItem(AUTOSAVE_KEY);
-        await dbClearPhotos();
+        try { localStorage.removeItem(AUTOSAVE_KEY); } catch(e) { console.warn(e); }
+        photoMemory.clear();
+        try { await dbClearPhotos(); } catch(e) { console.warn(e); }
         if(photoGrid) photoGrid.innerHTML = "";
 
         [operatorSigPad.canvas, reviewerSigPad.canvas].forEach((c)=>{
@@ -1258,266 +948,346 @@
 
         vehicleForm.reset();
         if(dateField) dateField.value = toISODate(new Date());
+        updateProgress();
       });
     }
 
     if(resetBtn){
       resetBtn.addEventListener("click", async ()=>{
-        if(photoGrid) photoGrid.innerHTML = "";
-        await dbClearPhotos();
-
-        [operatorSigPad.canvas, reviewerSigPad.canvas].forEach((c)=>{
-          if(c){
-            const ctx = c.getContext("2d");
-            ctx && ctx.clearRect(0,0,c.width,c.height);
-          }
-        });
-
-        localStorage.removeItem(AUTOSAVE_KEY);
-        setTimeout(()=>{ if(dateField) dateField.value = toISODate(new Date()); }, 0);
+        if(!confirm("Start a new inspection? This clears the current draft, photos and signatures on this device."))return;
+        photoMemory.clear();
+        try { await dbClearPhotos(); } catch(e) { console.warn(e); }
+        if(photoGrid)photoGrid.innerHTML="";
+        [operatorSigPad.canvas,reviewerSigPad.canvas].forEach(c=>c?.getContext('2d')?.clearRect(0,0,c.width,c.height));
+        try { localStorage.removeItem(AUTOSAVE_KEY); } catch(e) { console.warn(e); }
+        vehicleForm.reset();
+        if(dateField)dateField.value=toISODate(new Date());
+        updateProgress();saveDraftSoon();
       });
     }
 
-    /* Export helpers */
-    function replaceFieldForExport(doc, el){
-      const win = doc.defaultView;
-      const cs = win.getComputedStyle(el);
-
-      const div = doc.createElement("div");
-      div.className = "export-field";
-      div.textContent = (el.value || "").toString();
-
-      div.style.boxSizing = "border-box";
-      div.style.width = cs.width;
-      div.style.border = cs.border;
-      div.style.borderRadius = cs.borderRadius;
-      div.style.background = cs.backgroundColor;
-      div.style.color = cs.color;
-      div.style.fontFamily = cs.fontFamily;
-      div.style.fontSize = cs.fontSize;
-      div.style.fontWeight = cs.fontWeight;
-      div.style.letterSpacing = cs.letterSpacing;
-      div.style.lineHeight = "1.25";
-      div.style.padding = cs.padding;
-      div.style.boxShadow = cs.boxShadow;
-
-      /* keep inline fields inline (this fixes the expiry dates dropping under the label) */
-      div.style.marginTop = cs.marginTop;
-      div.style.marginRight = cs.marginRight;
-      div.style.marginBottom = cs.marginBottom;
-      div.style.marginLeft = cs.marginLeft;
-
-      div.style.overflow = "visible";
-      div.style.wordBreak = "break-word";
-      div.style.overflowWrap = "anywhere";
-
-      const wantsInline = (cs.display.includes("inline") || el.classList.contains("inline-date"));
-
-      if(el.tagName === "TEXTAREA"){
-        div.style.whiteSpace = "pre-wrap";
-        div.style.minHeight = cs.height;
-        div.style.height = "auto";
-        div.style.display = "block";
-      }else{
-        div.style.whiteSpace = "nowrap";
-        div.style.height = cs.height;
-        div.style.display = wantsInline ? "inline-flex" : "flex";
-        div.style.alignItems = "center";
-        div.style.verticalAlign = "middle";
-      }
-
-      el.parentNode.replaceChild(div, el);
+    /* Resilient local photo storage and iPad-safe image compression */
+    const photoMemory = new Map();
+    function setSaveStatus(message,warning=false){
+      const el=document.getElementById('saveStatus');if(!el)return;
+      el.textContent=message;el.style.color=warning?'#a14b29':'#58646c';
+    }
+    async function getAllPhotosSafe(){
+      let stored=[];
+      try{stored=await dbGetAllPhotos();}catch(e){console.warn('Photo storage unavailable',e);}
+      return [...stored,...photoMemory.values()].filter((p,i,arr)=>arr.findIndex(q=>q.id===p.id)===i);
+    }
+    async function compressPhoto(file){
+      const original=await new Promise((resolve,reject)=>{
+        const reader=new FileReader();reader.onload=()=>resolve(reader.result);
+        reader.onerror=()=>reject(reader.error);reader.readAsDataURL(file);
+      });
+      const img=new Image();
+      await new Promise((resolve,reject)=>{
+        img.onload=resolve;img.onerror=()=>reject(new Error('Image cannot be decoded'));
+        img.src=original;
+      });
+      const maxDimension=1600;
+      const factor=Math.min(1,maxDimension/Math.max(img.naturalWidth,img.naturalHeight));
+      const c=document.createElement('canvas');
+      c.width=Math.max(1,Math.round(img.naturalWidth*factor));
+      c.height=Math.max(1,Math.round(img.naturalHeight*factor));
+      const ctx=c.getContext('2d');ctx.fillStyle='#fff';ctx.fillRect(0,0,c.width,c.height);
+      ctx.drawImage(img,0,0,c.width,c.height);
+      return c.toDataURL('image/jpeg',.83);
     }
 
-    async function buildPdf(){
-      if(!window.jspdf || !window.jspdf.jsPDF){
-        alert("PDF library failed to load.");
-        throw new Error("jsPDF not available");
-      }
+    function getSections(){
+      const spec=[['secUnderHood','Under the Hood'],['secDriverCompartment',"Driver's Compartment"],['secBodyExterior','Body Exterior']];
+      return spec.map(([id,title])=>{
+        const el=document.getElementById(id);
+        return {id,title,rows:Array.from(el.querySelectorAll('tbody tr')).map(tr=>{
+          const labelTd=tr.querySelector('td');
+          let item=(labelTd?.textContent||'').replace(/\s+/g,' ').trim();
+          const expiry=labelTd?.querySelector('input[type=date]');
+          if(expiry?.value)item+=' '+prettyDate(expiry.value);
+          const checked=tr.querySelector('input[type=checkbox]:checked');
+          return {item,status:checked?.value||''};
+        })};
+      });
+    }
+    const statusNames={pass:'PASS',m:'MAINT.',r:'REJECT',yes:'YES',no:'NO'};
+    function prettyDate(iso){
+      if(!iso)return '—';
+      const m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(iso);
+      return m?`${m[2]}/${m[3]}/${m[1]}`:iso;
+    }
+    const field=id=>(document.getElementById(id)?.value||'').trim();
+    const namedField=name=>(vehicleForm.elements.namedItem(name)?.value||'').trim();
+    function inspectionStats(){
+      const sections=getSections();const rows=sections.flatMap(s=>s.rows);
+      return {total:rows.length,done:rows.filter(r=>r.status).length,
+        flagged:rows.filter(r=>r.status==='m'||r.status==='r'||r.status==='no').length};
+    }
+    function updateProgress(){
+      const st=inspectionStats();
+      const txt=document.getElementById('inspectionProgress');
+      if(txt)txt.innerHTML=`<strong>${st.done} of ${st.total}</strong> inspection items completed`;
+      const bar=document.getElementById('progressFill');if(bar)bar.style.width=st.total?`${st.done/st.total*100}%`:'0%';
+      const flagged=document.getElementById('flaggedProgress');
+      if(flagged){flagged.textContent=st.flagged?`${st.flagged} flagged for attention`:'No issues flagged';flagged.style.color=st.flagged?'#ad6324':'#6a747c';}
+    }
+    vehicleForm.addEventListener('change',updateProgress);
+    vehicleForm.addEventListener('input',updateProgress);
+    window.addEventListener('pageshow',updateProgress);
+    updateProgress();
 
-      const { jsPDF } = window.jspdf;
-      const pdf = new jsPDF("p","mm","letter");
-
-      if(buttonRow) buttonRow.style.display = "none";
-
+    function canvasHasInk(canvas){
+      if(!canvas)return false;
       try{
-        const canvas = await html2canvas(formContainer, {
-          scale: 2,
-          useCORS: true,
-          backgroundColor: "#ffffff",
-          scrollY: -window.scrollY,
-
-          /* prevents “narrow/squish” */
-          windowWidth: 1400,
-
-          onclone: (doc)=>{
-            /* lock export layout */
-            doc.documentElement.style.width = "1400px";
-            doc.body.style.width = "1400px";
-            doc.body.style.margin = "0";
-            doc.body.style.padding = "0";
-
-            const fc = doc.getElementById("formContainer");
-            if(fc){
-              fc.style.width = "1000px";
-              fc.style.maxWidth = "1000px";
-              fc.style.margin = "0 auto";
-            }
-
-            /* export-only layout overrides */
-            const style = doc.createElement("style");
-            style.textContent = `
-              .grid-2{ grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
-              .signature-grid{ grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
-              .page-wrap{ max-width: 1000px !important; margin: 0 auto !important; }
-
-              textarea, .export-field{
-                white-space: pre-wrap !important;
-                word-break: break-word !important;
-                overflow-wrap: anywhere !important;
-              }
-
-              /* spacer so the page split lands in whitespace */
-              #__exportSpacerBetweenSections{ height: 34px !important; }
-            `;
-            doc.head.appendChild(style);
-
-            /* add export-only spacer between Driver’s Compartment and Body Exterior */
-            const driver = doc.getElementById("secDriverCompartment");
-            const body = doc.getElementById("secBodyExterior");
-            if(driver && body && body.parentNode){
-              const spacer = doc.createElement("div");
-              spacer.id = "__exportSpacerBetweenSections";
-              spacer.style.height = "34px";
-              spacer.style.width = "100%";
-              spacer.style.display = "block";
-              spacer.style.background = "transparent";
-              body.parentNode.insertBefore(spacer, body);
-            }
-
-            /* replace fields so nothing clips */
-            const fields = doc.querySelectorAll("input[type='text'], input[type='date'], textarea");
-            fields.forEach((el)=>replaceFieldForExport(doc, el));
-          }
-        });
-
-        const imgData = canvas.toDataURL("image/jpeg", 0.95);
-        const pdfWidth = pdf.internal.pageSize.getWidth();
-        const pdfHeight = pdf.internal.pageSize.getHeight();
-
-        const marginTop = 5;
-        const marginBottom = 5;
-        const usableHeight = pdfHeight - marginTop - marginBottom;
-
-        let imgWidth = pdfWidth;
-        let imgHeight = (canvas.height * imgWidth) / canvas.width;
-
-        const xOffset = (pdfWidth - imgWidth) / 2;
-
-        let heightLeft = imgHeight;
-        let position = 0;
-
-        pdf.addImage(imgData, "JPEG", xOffset, marginTop + position, imgWidth, imgHeight);
-        heightLeft -= usableHeight;
-
-        while(heightLeft > 0){
-          position -= usableHeight;
-          pdf.addPage();
-          pdf.addImage(imgData, "JPEG", xOffset, marginTop + position, imgWidth, imgHeight);
-          heightLeft -= usableHeight;
+        const {data}=canvas.getContext('2d').getImageData(0,0,canvas.width,canvas.height);
+        for(let i=3;i<data.length;i+=4)if(data[i]>20)return true;
+      }catch(e){console.warn(e)}
+      return false;
+    }
+    const PDF_LOGO=document.querySelector('.header-logo').src;
+    const PDF_PALETTE={dark:[24,29,34],muted:[98,107,114],line:[222,226,230],gray:[246,247,248],green:[23,112,70],amber:[164,103,26],red:[163,45,51],white:[255,255,255]};
+    function cColor(pdf,kind,target='text'){
+      const v=PDF_PALETTE[kind]||kind;
+      if(target==='fill')pdf.setFillColor(...v);
+      else if(target==='draw')pdf.setDrawColor(...v);
+      else pdf.setTextColor(...v);
+    }
+    // One portrait US Letter page for the complete inspection. Photos form a separate appendix.
+    function buildPdf(){
+      if(!window.jspdf?.jsPDF)throw new Error('PDF library unavailable: use Print / Save PDF instead.');
+      const {jsPDF}=window.jspdf;
+      const pdf=new jsPDF({orientation:'portrait',unit:'mm',format:'letter',compress:true});
+      pdf.setProperties({title:'VistaGeomatics Weekly Vehicle Inspection - One Page',subject:'Fleet inspection record',author:'VistaGeomatics'});
+      const PW=pdf.internal.pageSize.getWidth();
+      const M=7.5,W=PW-M*2;
+      const ink=[25,29,32],gray=[107,114,119],line=[211,216,219],pale=[247,248,249],white=[255,255,255];
+      const safe=v=>String(v??'').trim()||'—';
+      const rgb=(color,mode='text')=>mode==='fill'?pdf.setFillColor(...color):mode==='draw'?pdf.setDrawColor(...color):pdf.setTextColor(...color);
+      function textFit(str,x,y,w,opts={}){
+        const {max=7.4,min=5.3,align='left',bold=false}=opts;
+        pdf.setFont('helvetica',bold?'bold':'normal');
+        const content=String(str||'—');
+        let size=max;pdf.setFontSize(size);
+        while(size>min&&pdf.getTextWidth(content)>w){size=Math.max(min,size-.2);pdf.setFontSize(size);}
+        let out=content;
+        if(pdf.getTextWidth(out)>w){
+          while(out.length>1&&pdf.getTextWidth(out+'…')>w)out=out.slice(0,-1);
+          out+='…';
         }
-
-        /* photos, 4 per page */
-        const photoCards = Array.from(document.querySelectorAll(".photo-card"));
-        if(photoCards.length > 0){
-          const margin = 10, cols = 2, rows = 2, gapX = 6, gapY = 10;
-          const pageW = pdf.internal.pageSize.getWidth();
-          const pageH = pdf.internal.pageSize.getHeight();
-          const contentW = pageW - margin*2 - gapX*(cols-1);
-          const contentH = pageH - margin*2 - gapY*(rows-1);
-          const cellW = contentW / cols;
-          const cellH = contentH / rows;
-
-          let indexOnPage = 0;
-          photoCards.forEach((card)=>{
-            const imgEl = card.querySelector("img");
-            const captionEl = card.querySelector("textarea");
-            if(!imgEl || !imgEl.src) return;
-
-            if(indexOnPage === 0) pdf.addPage();
-
-            const col = indexOnPage % cols;
-            const row = Math.floor(indexOnPage / cols);
-            const cellX = margin + col*(cellW + gapX);
-            const cellY = margin + row*(cellH + gapY);
-
-            const imgW = cellW;
-            const imgH = cellH - 12;
-
-            const format = imgEl.src.startsWith("data:image/png") ? "PNG" : "JPEG";
-            pdf.addImage(imgEl.src, format, cellX, cellY, imgW, imgH);
-
-            const caption = (captionEl && captionEl.value) ? captionEl.value : "";
-            if(caption){
-              const captionY = cellY + imgH + 4;
-              pdf.setFontSize(8);
-              const lines = pdf.splitTextToSize(caption, imgW);
-              pdf.text(lines, cellX, captionY);
-              pdf.setFontSize(11);
-            }
-
-            indexOnPage++;
-            if(indexOnPage >= cols*rows) indexOnPage = 0;
-          });
-        }
-
-        return pdf;
-      } finally {
-        if(buttonRow) buttonRow.style.display = "flex";
+        pdf.text(out,x,y,{align});
       }
-    }
-
-    if(downloadBtn){
-      downloadBtn.addEventListener("click", async ()=>{
-        try{
-          const pdf = await buildPdf();
-          pdf.save(getDefaultFileName());
-        }catch(e){ console.error(e); }
-      });
-    }
-
-    if(shareBtn){
-      shareBtn.addEventListener("click", async ()=>{
-        try{
-          const fileName = getDefaultFileName();
-          const pdf = await buildPdf();
-          const blob = pdf.output("blob");
-
-          try{
-            if(navigator.share && navigator.canShare && navigator.canShare({ files: [] })){
-              const file = new File([blob], fileName, { type: "application/pdf" });
-              await navigator.share({ files:[file], title:"Weekly Vehicle Inspection" });
-            }else if(navigator.share){
-              const url = URL.createObjectURL(blob);
-              try{ await navigator.share({ url, title:"Weekly Vehicle Inspection" }); }
-              finally{ URL.revokeObjectURL(url); }
-            }else{
-              const url = URL.createObjectURL(blob);
-              const a = document.createElement("a");
-              a.href = url;
-              a.download = fileName;
-              document.body.appendChild(a);
-              a.click();
-              document.body.removeChild(a);
-              URL.revokeObjectURL(url);
-            }
-          }catch(err){
-            console.error("Share failed, falling back to download", err);
-            pdf.save(fileName);
+      function blockFit(raw,x,top,w,h,{max=6.9,min=5.0,align='left'}={}){
+        const value=safe(raw).replace(/	/g,'  ');
+        pdf.setFont('helvetica','normal');
+        for(let fs=max;fs>=min-.001;fs-=.15){
+          pdf.setFontSize(fs);
+          const rows=pdf.splitTextToSize(value,w);
+          const lh=fs*.352778*1.18;
+          if(rows.length*lh<=h-.7){
+            rgb(ink);pdf.text(rows,x,top+fs*.352778,{lineHeightFactor:1.18,align});
+            return;
           }
-        }catch(e){ console.error(e); }
+        }
+        throw new Error('The comments are too long for a one-page portrait inspection. Shorten the deficiencies or reviewer comments before exporting.');
+      }
+      function stripTitle(title,x,y,w){
+        rgb(ink,'fill');pdf.roundedRect(x,y,w,5.2,.9,.9,'F');
+        rgb(white);pdf.setFont('helvetica','bold');pdf.setFontSize(6.9);
+        pdf.text(title.toUpperCase(),x+1.7,y+3.55);return y+5.2;
+      }
+      function drawHeader(photo=false){
+        rgb(ink,'fill');pdf.rect(0,0,PW,2,'F');
+        pdf.addImage(PDF_LOGO,'JPEG',M,5.4,39,14.74);
+        rgb(ink);pdf.setFont('helvetica','bold');pdf.setFontSize(13);
+        pdf.text(photo?'Vehicle Photo Appendix':'Weekly Vehicle Inspection',M+46,10.8);
+        rgb(gray);pdf.setFont('helvetica','normal');pdf.setFontSize(6.8);
+        pdf.text('VISTAGEOMATICS  /  FLEET SAFETY',M+46,15.8);
+        const st=inspectionStats();
+        pdf.setFont('helvetica','bold');pdf.setFontSize(7.2);rgb(ink);
+        pdf.text(`${st.done}/${st.total} inspected    ·    ${st.flagged} flagged`,PW-M,10.7,{align:'right'});
+        pdf.setFont('helvetica','normal');pdf.setFontSize(6.2);rgb(gray);
+        pdf.text('PASS   |   M - Maintenance   |   R - Rejected',PW-M,15.7,{align:'right'});
+        rgb(line,'draw');pdf.setLineWidth(.28);pdf.line(M,19.2,PW-M,19.2);
+      }
+      function meta(){
+        const details=[['INSPECTION DATE',prettyDate(field('date'))],['LICENSE PLATE',field('license')],
+          ['OPERATOR',field('operator')],['CELL PHONE',field('cell')],
+          ['YEAR / MAKE / MODEL',field('ymm')],['ODOMETER / MILEAGE',field('mileage')],
+          ['VEHICLE COLOUR',field('colour')],['NEXT SERVICE DUE',field('nextservice')]];
+        const gap=1.8,cw=(W-gap*3)/4,h=9.3;
+        details.forEach(([lbl,value],i)=>{
+          const x=M+i%4*(cw+gap),y=21.5+Math.floor(i/4)*10.1;
+          rgb(pale,'fill');pdf.roundedRect(x,y,cw,h,.9,.9,'F');
+          pdf.setFont('helvetica','bold');pdf.setFontSize(5.7);rgb(gray);pdf.text(lbl,x+1.3,y+2.8);
+          rgb(ink);textFit(safe(value),x+1.3,y+7.05,cw-2.6,{max:6.8,min:5.2});
+        });
+      }
+      const badgeColor=s=>s==='pass'||s==='yes'?[25,108,69]:s==='m'?[153,93,20]:s==='r'||s==='no'?[158,40,44]:gray;
+      function drawChecklist(section,x,w,startY){
+        let y=startY;
+        y=stripTitle(section.title,x,y,w);
+        const statusW=17.2;
+        section.rows.forEach((r,i)=>{
+          pdf.setFont('helvetica','normal');pdf.setFontSize(6.1);
+          const lbl=pdf.splitTextToSize(safe(r.item),w-statusW-4);
+          const rh=Math.max(4.15,.8+lbl.length*2.2);
+          if(i%2===0){rgb(pale,'fill');pdf.rect(x,y,w,rh,'F');}
+          rgb(line,'draw');pdf.setLineWidth(.12);pdf.line(x,y+rh,x+w,y+rh);
+          pdf.setFont('helvetica','normal');pdf.setFontSize(6.1);rgb(ink);
+          pdf.text(lbl,x+1.4,y+2.6,{lineHeightFactor:1.02});
+          const status=statusNames[r.status]||'—';
+          rgb(badgeColor(r.status));textFit(status,x+w-1.3,y+Math.min(3.05,(rh+1.9)/2),statusW-1,{max:6.6,min:5.4,bold:true,align:'right'});
+          y+=rh;
+        });
+        return y;
+      }
+      function borderedArea(x,y,w,h){rgb(line,'draw');pdf.setLineWidth(.24);pdf.roundedRect(x,y,w,h,.95,.95,'S');}
+      function notePane(title,value,x,y,w,h,status){
+        borderedArea(x,y,w,h);
+        rgb(pale,'fill');pdf.roundedRect(x+.16,y+.16,w-.32,5.4,.8,.8,'F');
+        pdf.setFont('helvetica','bold');pdf.setFontSize(6.7);rgb(ink);pdf.text(title.toUpperCase(),x+1.6,y+3.55);
+        if(status){rgb(status.color);textFit(status.label,x+w-1.6,y+3.48,w-43,{max:6.7,min:5.3,bold:true,align:'right'});}
+        blockFit(value||'None recorded',x+1.8,y+7.2,w-3.6,h-8.6,{max:6.4,min:4.9});
+      }
+      function hasInk(canvas){return canvasHasInk(canvas);}
+      function signPane(title,canvas,name,date,x,y,w,h,extras){
+        borderedArea(x,y,w,h);
+        pdf.setFont('helvetica','bold');pdf.setFontSize(6.6);rgb(ink);pdf.text(title,x+1.8,y+3.5);
+        if(hasInk(canvas)){
+          const data=canvas.toDataURL('image/png'),mw=w-5.6,mh=9.2;
+          const s=Math.min(mw/canvas.width,mh/canvas.height),iw=canvas.width*s,ih=canvas.height*s;
+          pdf.addImage(data,'PNG',x+1.8+(mw-iw)/2,y+4.2+(mh-ih)/2,iw,ih);
+        }else{
+          pdf.setFont('helvetica','italic');pdf.setFontSize(5.9);rgb(gray);
+          pdf.text('Signature not provided',x+1.8,y+9.8);
+        }
+        rgb(line,'draw');pdf.line(x+1.6,y+h-5.3,x+w-1.6,y+h-5.3);
+        rgb(ink);textFit(`${safe(name)}    |    ${prettyDate(date)}${extras?'    |    '+extras:''}`,x+1.8,y+h-2,w-3.6,{max:6.2,min:5.0});
+      }
+      const status=document.getElementById('vehicle_passed')?.checked?{label:'VEHICLE PASSED',color:[25,108,69]}:
+        document.getElementById('vehicle_not_passed')?.checked?{label:'VEHICLE NOT PASSED',color:[158,40,44]}:{label:'NOT ASSESSED',color:gray};
+      drawHeader(false);meta();
+      const sections=getSections(),gap=3,col=(W-gap)/2;
+      const leftSections=[sections[0],sections[2]].filter(Boolean);
+      const rightSections=[sections[1]].filter(Boolean);
+      let leftY=43,rightY=43;
+      leftSections.forEach(sec=>{leftY=drawChecklist(sec,M,col,leftY)+2;});
+      rightSections.forEach(sec=>{rightY=drawChecklist(sec,M+col+gap,col,rightY)+2;});
+      const checksBottom=Math.max(leftY,rightY);
+      const noteTop=checksBottom+.6,bottomGap=3,side=(W-bottomGap)/2;
+      notePane('Overall assessment / deficiencies',field('deficienciesText'),M,noteTop,side,27.8,status);
+      notePane('Reviewer comments',namedField('review_comments'),M+side+bottomGap,noteTop,side,27.8);
+      const sigTop=noteTop+29.8;
+      signPane('OPERATOR SIGNATURE',operatorSigPad.canvas,namedField('operator_name'),namedField('operator_date'),M,sigTop,side,21.5);
+      signPane('REVIEWED BY',reviewerSigPad.canvas,namedField('reviewed_by'),namedField('review_date'),M+side+bottomGap,sigTop,side,21.5,
+        namedField('review_fix_date')?'Fix: '+prettyDate(namedField('review_fix_date')):'');
+      const footerY=sigTop+24.3;
+      rgb(line,'draw');pdf.setLineWidth(.18);pdf.line(M,footerY,PW-M,footerY);
+      pdf.setFont('helvetica','normal');pdf.setFontSize(6);rgb(gray);
+      pdf.text('VISTAGEOMATICS  /  WEEKLY VEHICLE INSPECTION  /  '+safe(field('license')),M,footerY+3.2);
+      pdf.text('Inspection page 1 of 1',PW-M,footerY+3.2,{align:'right'});
+
+      const photos=Array.from(document.querySelectorAll('.photo-card'));
+      photos.forEach((card,i)=>{
+        if(i%4===0){pdf.addPage('letter','portrait');drawHeader(true);}
+        const idx=i%4,column=idx%2,row=Math.floor(idx/2),space=5.2;
+        const cw=(W-space)/2,ch=106;
+        const x=M+column*(cw+space),y=26+row*(ch+7.2);
+        borderedArea(x,y,cw,ch);
+        const img=card.querySelector('img');
+        if(img?.src){
+          try{
+            const p=pdf.getImageProperties(img.src),maxW=cw-5,maxH=86;
+            const factor=Math.min(maxW/p.width,maxH/p.height),iw=p.width*factor,ih=p.height*factor;
+            pdf.addImage(img.src,p.fileType||'JPEG',x+(cw-iw)/2,y+2+(86-ih)/2,iw,ih);
+          }catch(e){console.warn('Could not add photo',i,e);}
+        }
+        pdf.setFont('helvetica','bold');pdf.setFontSize(8);rgb(ink);pdf.text(`PHOTO ${i+1}`,x+2.4,y+92.5);
+        const caption=card.querySelector('textarea')?.value.trim()||'No description';
+        blockFit(caption,x+2.5,y+95,cw-5,8.5,{max:7.0,min:5.4});
       });
+      const pc=pdf.internal.getNumberOfPages();
+      for(let i=2;i<=pc;i++){
+        pdf.setPage(i);rgb(gray);pdf.setFont('helvetica','normal');pdf.setFontSize(7);
+        pdf.text(`Photo appendix  /  Page ${i-1} of ${pc-1}`,PW-M,272,{align:'right'});
+      }
+      return pdf;
     }
+
+    function esc(s){return String(s??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));}
+    // Browser print is a dependency-free fallback on iPad Safari and PC.
+    function renderPrintReport(){
+      const root=document.getElementById('printReport');
+      const stats=inspectionStats();
+      const details=[['Inspection date',prettyDate(field('date'))],['License plate',field('license')],
+        ['Operator',field('operator')],['Cell phone',field('cell')],['Year / Make / Model',field('ymm')],
+        ['Odometer / Mileage',field('mileage')],['Vehicle colour',field('colour')],['Next service due',field('nextservice')]];
+      const sectionHtml=s=>`<section class="print-section"><h2>${esc(s.title)}</h2><table><tbody>${s.rows.map(r=>`<tr><td>${esc(r.item)}</td><td>${esc(statusNames[r.status]||'—')}</td></tr>`).join('')}</tbody></table></section>`;
+      const sig=(title,canvas,name,date,extra)=>`<div class="print-sig"><b>${esc(title)}</b>${canvasHasInk(canvas)?
+        `<img src="${canvas.toDataURL('image/png')}" alt="Signature">`:'<div class="print-sig-empty"></div>'}
+        <small>${esc(name||'Not signed')}  |  ${esc(prettyDate(date))}${extra?'  |  '+esc(extra):''}</small></div>`;
+      const photoCards=Array.from(document.querySelectorAll('.photo-card'));
+      const photoPages=[];
+      for(let i=0;i<photoCards.length;i+=4){
+        photoPages.push(`<div class="print-appendix"><div class="print-head"><img src="${PDF_LOGO}" alt="VistaGeomatics logo"><div><h1>Vehicle Photo Appendix</h1><p>Weekly Vehicle Inspection  |  ${esc(field('license'))}</p></div></div>
+          <div class="print-photo-list">${photoCards.slice(i,i+4).map((card,n)=>`<div class="print-photo"><img src="${card.querySelector('img')?.src||''}" alt="Vehicle photo"><p><b>Photo ${i+n+1}.</b> ${esc(card.querySelector('textarea')?.value||'No description')}</p></div>`).join('')}</div></div>`);
+      }
+      const sections=getSections();
+      const leftSections=[sections[0],sections[2]].filter(Boolean);
+      const rightSections=[sections[1]].filter(Boolean);
+      root.innerHTML=`<div class="print-sheet">
+        <div class="print-head"><img src="${PDF_LOGO}" alt="VistaGeomatics logo"><div><h1>Weekly Vehicle Inspection</h1><p>Fleet safety and maintenance record</p></div><div class="print-progress">${stats.done} / ${stats.total} INSPECTED<br>${stats.flagged} FLAGGED</div></div>
+        <div class="print-meta">${details.map(([label,value])=>`<div class="print-meta-item"><small>${esc(label.toUpperCase())}</small><b>${esc(value||'—')}</b></div>`).join('')}</div>
+        <div class="print-check-wrap"><div class="print-col">${leftSections.map(sectionHtml).join('')}</div><div class="print-col">${rightSections.map(sectionHtml).join('')}</div></div>
+        <div class="print-notes-panes"><div class="print-note-pane"><h3>Overall assessment: ${esc(assessmentStatusPrint())}</h3><p>${esc(field('deficienciesText')||'No deficiencies recorded')}</p></div>
+          <div class="print-note-pane"><h3>Reviewer comments</h3><p>${esc(namedField('review_comments')||'None recorded')}</p></div></div>
+        <div class="print-sigs">${sig('OPERATOR SIGNATURE',operatorSigPad.canvas,namedField('operator_name'),namedField('operator_date'))}
+          ${sig('REVIEWED BY',reviewerSigPad.canvas,namedField('reviewed_by'),namedField('review_date'),namedField('review_fix_date')?'Fix: '+prettyDate(namedField('review_fix_date')):'')}</div>
+        <div class="print-footer"><span>VISTAGEOMATICS   /   WEEKLY VEHICLE INSPECTION   /   ${esc(field('license')||'NO PLATE')}</span><span>Inspection page 1 of 1</span></div>
+      </div>${photoPages.join('')}`;
+      // In print fallback, allow a slightly smaller font for longer comments without adding a page.
+      const fitNotes=()=>root.querySelectorAll('.print-note-pane').forEach(box=>{
+        const p=box.querySelector('p'),head=box.querySelector('h3');
+        if(!p||!head)return;
+        const available=box.clientHeight-head.clientHeight-7;
+        for(let f=7.3;f>=5.0;f-=.25){
+          p.style.fontSize=f+'pt';
+          if(p.scrollHeight<=available)break;
+        }
+      });
+      fitNotes();
+    }
+    function assessmentStatusPrint(){
+      return document.getElementById('vehicle_passed')?.checked?'Vehicle passed':
+        document.getElementById('vehicle_not_passed')?.checked?'Vehicle not passed':'Not assessed';
+    }
+    function printReport(){renderPrintReport();window.print();}
+    document.getElementById('printBtn')?.addEventListener('click',printReport);
+    window.addEventListener('beforeprint',renderPrintReport);
+
+    async function withButton(btn,action){
+      if(btn.disabled)return;btn.disabled=true;
+      const orig=btn.textContent;btn.textContent='Preparing report…';
+      try{await action();}
+      catch(e){console.error('Report export failed',e);alert(`Could not export the report: ${e.message||e}`);}
+      finally{btn.textContent=orig;btn.disabled=false;}
+    }
+    downloadBtn?.addEventListener('click',()=>withButton(downloadBtn,async()=>{
+      if(!window.jspdf?.jsPDF){printReport();return;}
+      buildPdf().save(getDefaultFileName());
+    }));
+    shareBtn?.addEventListener('click',()=>withButton(shareBtn,async()=>{
+      if(!window.jspdf?.jsPDF){printReport();return;}
+      const pdf=buildPdf(),fileName=getDefaultFileName();
+      const blob=pdf.output('blob');
+      const file=new File([blob],fileName,{type:'application/pdf'});
+      if(navigator.share && navigator.canShare?.({files:[file]})){
+        try{await navigator.share({files:[file],title:'VistaGeomatics Weekly Vehicle Inspection'});return;}
+        catch(err){if(err?.name==='AbortError')return;console.warn('Native share failed',err);}
+      }
+      pdf.save(fileName);
+    }));
 
     (async ()=>{
       try{
