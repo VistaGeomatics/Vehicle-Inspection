@@ -29,7 +29,12 @@ input[type=text],input[type=date],input[type=tel],textarea{width:100%;font:inher
 input[type=date]{min-width:0;max-width:100%}
 textarea{resize:vertical;min-height:92px}
 input:focus,textarea:focus,button:focus-visible{outline:3px solid rgba(182,139,67,.27);outline-offset:1px;border-color:var(--gold)}
-.grid-2{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:17px 16px}
+/* Adapt columns to the space inside the card, not the viewport.
+   iPad Safari date controls have a wider intrinsic width than text inputs. */
+.grid-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,330px),1fr));gap:17px 16px}
+.grid-2 > div{min-width:0;max-width:100%}
+.grid-2 input[type=text],.grid-2 input[type=date],.grid-2 input[type=tel]{display:block;min-width:0;max-width:100%;width:100%;box-sizing:border-box}
+.grid-2 input[type=date]::-webkit-date-and-time-value{min-width:0;text-align:left}
 .section-card{border:1px solid var(--border);border-radius:12px;margin:16px 0 0;padding:20px 20px 22px;background:#fff;break-inside:avoid}
 .section-card:first-of-type{margin-top:0}
 .section-header{display:flex;align-items:center;gap:10px;justify-content:space-between;margin-bottom:14px}
@@ -69,7 +74,7 @@ button:hover{filter:brightness(.92)}button:disabled{opacity:.5;cursor:wait}
 .form-footer{display:flex;justify-content:flex-end;margin-top:16px;font-size:10px;color:var(--muted)}.form-footer .ver{padding:3px 7px;color:#77818b;text-transform:uppercase;letter-spacing:.06em}
 .report-helper{margin-top:9px;color:#667079;font-size:12px;line-height:1.5}.notice{font-size:12px;color:#8b5d22;margin-top:8px}
 #printReport{display:none}
-@media(max-width:930px){body{padding:15px}.grid-2{grid-template-columns:repeat(2,minmax(0,1fr))} .signature-grid{grid-template-columns:1fr}form{padding:0 22px 24px}.header-bar{padding:20px 22px}.page-title-bar{padding:23px 22px 14px}}
+@media(max-width:930px){body{padding:15px}.signature-grid{grid-template-columns:1fr}form{padding:0 22px 24px}.header-bar{padding:20px 22px}.page-title-bar{padding:23px 22px 14px}}
 @media(max-width:650px){body{padding:0;background:#fff}.container{border:0;border-radius:0;box-shadow:none}.header-bar{gap:12px;padding:16px}.header-logo{width:180px;max-width:56%}.header-left p{display:none}.brand-title{font-size:10px}.page-title-bar{padding:22px 16px 12px}.page-title-main{font-size:23px}form{padding:0 12px 28px}.section-card{padding:15px 12px 17px;border-radius:10px}.grid-2{gap:12px}.status-cell{min-width:47px;padding:7px 5px;font-size:11px}th,td{padding:9px 6px;font-size:12px}.item-name{width:45%}.status-select{width:55%}.inline-date{display:block!important;margin-left:0!important;width:100%!important;min-width:0!important}.btn-row button{flex:1 1 135px}.inspect-progress{flex-wrap:wrap}.progress-track{max-width:none;width:100%;flex-basis:100%}}
 @media(max-width:385px){.grid-2{grid-template-columns:1fr}.status-cell{min-width:40px;font-size:10px;padding:6px 3px}.status-cell input{width:13px!important;height:13px!important}.header-logo{width:150px}}
 @media print{
